@@ -1,1 +1,1 @@
-#React.js Front-end for HealthScout project
+# HealthScout React.js Front-end
