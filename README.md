@@ -1,0 +1,1 @@
+#React.js Front-end for HealthScout project
