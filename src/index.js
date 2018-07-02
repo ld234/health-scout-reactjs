@@ -11,6 +11,7 @@ import reduxLogger from 'redux-logger';
 
 import Navbar from './components/Recyclable/Header/Navbar';
 import LoginForm from './components/User/LoginForm';
+import SignupForm from './containers/SignupForm/SignupForm'
 import App from './components/app';
 
 import persistedReducer from './reducers';
@@ -28,7 +29,8 @@ ReactDOM.render(
 						<Navbar/>
 						<Switch>
 							<Route exact path="/" component={App}/>
-							<Route path="/login" component={LoginForm} />         
+							<Route path="/login" component={LoginForm} />
+							<Route path="/register" component={SignupForm} />
 						</Switch>
 					</div>
 				</BrowserRouter>
