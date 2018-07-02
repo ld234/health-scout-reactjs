@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import Navbar from './Recyclable/Header/Navbar';
+import React from 'react';
 
-class App extends Component {
-  render(){
-    return(
-      <div>
-        <h1>Health Scout app!</h1>
-
-      </div>
-    );
-  }
+export default function (props) {
+	return (
+		<div id="app" >
+		
+		</div>
+	)
 }
-
-export default App;
