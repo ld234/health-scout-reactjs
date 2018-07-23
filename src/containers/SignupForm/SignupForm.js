@@ -109,10 +109,20 @@ class SignupForm extends Component{
       },
     })
     .then((res) => {
-      console.log("username res", res);
-      const newPageNo = pageNo + 1;
-      this.setState({pageNo: newPageNo});
-      this.setState({verificationErr: null});
+      const resArray = res && res.data;
+      if(resArray.length == 0)
+      {
+        console.log("username res", res);
+        const newPageNo = pageNo + 1;
+        this.setState({pageNo: newPageNo});
+        this.setState({verificationErr: null});
+      }
+      else{
+          const errorMsg = resArray[0];
+          this.setState({ verificationErr: errorMsg });
+          console.log("error res", res);
+
+      }
     })
     .catch(({ response }) => {
       console.log("username error", response);
