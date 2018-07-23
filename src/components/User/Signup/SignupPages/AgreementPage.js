@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import buttons from '../../../Recyclable/Button.css';
 import styles from './SignupPage.css';
-import Aux from '../../../../hoc/Aux';
+import Aux from '../../../../hoc/ReactAux';
 
 class AgreementPage extends Component{
   constructor(props){

@@ -1,6 +1,6 @@
 import React from 'react';
 import buttons from '../../../Recyclable/Button.css';
-import Aux from '../../../../hoc/Aux';
+import Aux from '../../../../hoc/ReactAux';
 import styles from './SignupPage.css';
 import { Row, Col } from 'react-bootstrap';
 const AccountPage = (props) => {
