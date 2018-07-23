@@ -14,12 +14,12 @@ module.exports = {
           presets: ['react', 'es2015', 'stage-1']
         }
       },
-      { test: /style\.css$/, loader: "style-loader!css-loader?importLoaders=1" },
+      { test: /^style.css$/, loader: "style-loader!css-loader?importLoaders=1" },
       { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
-      // {
-      //   test: /?!(style)\.css$/,
-      //   loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-      // }
+      {
+        test: /^(?!(mdb|bootstrap.min|_datepicker).*$).*\.css$/,
+        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+      }
     ]
   },
   resolve: {

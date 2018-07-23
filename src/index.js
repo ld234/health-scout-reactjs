@@ -13,7 +13,6 @@ import persistedReducer from './reducers';
 import App from './components/app';
 
 //import 'font-awesome/css/font-awesome.min.css';
-//import 'bootstrap/dist/css/bootstrap.min.css'; 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/mdbreact/dist/css/mdb.css';
 // import '../node_modules/popper.js/dist/popper.min';
