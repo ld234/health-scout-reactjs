@@ -26,7 +26,7 @@ class Navigation extends Component{
 
     render(){ 
         const {pathname} = this.props.location;
-        if (pathname === '/' || pathname === '/login' || pathname === '/resetPassword' || pathname === '/forgotPassword') {
+        if (pathname === '/' || pathname === '/register' || pathname === '/login' || pathname === '/resetPassword' || pathname === '/forgotPassword') {
             return <Navbar />;
         }  
         else /*if (this.state.width > 768) */ return <SideNavbar id="side-nav" />;

@@ -31,7 +31,7 @@ class Timeline extends React.Component{
 		return (
 			<Modal className="editing-modal" isOpen={this.state.modal} toggle={this.props.toggle} centered>
 				<ModalHeader toggle={this.toggle}>{this.props.modalTitle}</ModalHeader>
-				{React.cloneElement(this.props.children,{toggle: this.toggle})}
+				{React.cloneElement(this.props.children,{toggle: this.toggle,hoveredItem:this.state.hoveredItem})}
 			</Modal>
 		)
 	}

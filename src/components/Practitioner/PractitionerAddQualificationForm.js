@@ -83,7 +83,6 @@ class PractitionerAddQualificationForm extends Component{
                     <label htmlFor="description-input" className="grey-text">Brief description</label>
                     <textarea name="description" type="text" id="description-input" className="form-control" 
                         onChange={this.onInputChange} value={this.state.description} />
-                        
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={this.props.toggle}>Close</Button>{' '}

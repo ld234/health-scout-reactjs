@@ -8,10 +8,10 @@ class PractitionerAddQualificationForm extends Component{
     constructor(props){
         super(props);
         this.state ={
-            degree:'',
-            institution: '',
-            description:'',
-            graduateYear: '',
+            degree: this.props.qualificationState.qualifications[this.props.hoveredItem].degree,
+            institution: this.props.qualificationState.qualifications[this.props.hoveredItem].institution,
+            description: this.props.qualificationState.qualifications[this.props.hoveredItem].description,
+            graduateYear:  this.props.qualificationState.qualifications[this.props.hoveredItem].graduateYear,
             modal: false,
             error: null
         }
