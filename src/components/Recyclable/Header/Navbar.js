@@ -29,20 +29,19 @@ class Navbar extends Component {
 			  <div className="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
 				<ul className="navbar-nav ml-auto">
 				  <li className="nav-item">
-					<Link to="/login" className="nav-link nav-text" href="#">Login</Link>
+					<Link to="/login" className="nav-link nav-text">Login</Link>
 				  </li>
 				</ul>
 			  </div>
 			)
 		}
 	}
-	
+	//https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg
 	render(){
-		console.log('success?', this.props);
 		return (
-			<nav id="navigation" className="navbar navbar-expand-lg">
+			<nav id="navigation" className="animated fadeInDown navbar navbar-expand-lg">
 				<Link to="/" className="navbar-brand" >
-				<img src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" />
+				<img id="nav-logo" src="../../../../style/img/healthscout_logo.png" background-color="white" width="22" height="30" className="d-inline-block align-top" alt="" />
 				HealthScout
 				</Link>
 				{this.renderLoggedIn()}

@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Button from '../Recyclable/Button';
 import AlertBar from '../Recyclable/AlertBar';
 import InputGroup from '../Recyclable/InputGroup';
-import {Redirect} from 'react-router-dom';
+import LoadingPage from '../Recyclable/LoadingPage';
+import {Redirect, Link} from 'react-router-dom';
 import { login } from '../../actions/auth.actions';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class LoginForm extends Component {
 	constructor (props) {
@@ -14,8 +16,8 @@ class LoginForm extends Component {
 			username: '',
 			password: '',
 			rememberMe: false,
-			submitting: false,
-			error: null
+			error: null,
+			submitting: false
 		};
 	}
 
@@ -32,11 +34,11 @@ class LoginForm extends Component {
 	
 	onSubmit = (event) =>  {
 		event.preventDefault();
-		console.log('submitted');
 		let { username, password } = this.state;
 		console.log(username, password);
 		if(this.validateLoginForm(username,password)) {
-			this.props.login(username, password);
+			setTimeout( () => this.props.login(username, password, () => this.setState({submitting:false})),1000);
+			this.setState({submitting: true});
 		}
 		else{
 			this.setState({error: 'All fields are required' });
@@ -45,8 +47,6 @@ class LoginForm extends Component {
 		    username: '',
 		    password: ''
 		});
-		
-		
 	}
 	
 	onFieldsChange = (e) => {
@@ -55,25 +55,28 @@ class LoginForm extends Component {
 	
 	renderError = () =>{
 		let errorLoggingIn = this.props.authenticationState.loginError;
-		if (errorLoggingIn)
+		if (errorLoggingIn){
 			return <AlertBar componentType="danger">{errorLoggingIn}</AlertBar>;
-		else if (this.state.error)
+		}
+		else if (this.state.error){
 			return <AlertBar componentType="danger">{this.state.error}</AlertBar>;
+		}
 		return null;
 	}
 
 	render() {
 		if (this.props.authenticationState.isLoginSuccess)
-			return <Redirect to="/" />;
+			return <Redirect to="/myclients" />;
+		else if (this.state.submitting)
+			return <LoadingPage />
 		return (
-			<div className="container">
+			<div className="animated fadeInDown container">
 				<div className="login-container">
-					
-					<div className="avatar"></div>
+					<div className="app-icon"></div>
 					{this.renderError()}
 					<h3>Login</h3>
 					<div className="form-box">
-						<form onSubmit={this.onSubmit} >
+						<form className="animated fadeInUp" onSubmit={this.onSubmit} >
 							<InputGroup 
 								name="username" 
 								type="text" 
@@ -89,9 +92,9 @@ class LoginForm extends Component {
 								value={this.state.password}
 							/>
 							<div className="small-text" >
-								<a href="#">Forgot password?</a>
+								<Link to="/forgotPassword">Forgot password?</Link>
 							</div>
-							<Button buttonLabel="Login" />
+							<Button id="login-button" type="submit">Login</Button>
 						</form>
 					</div>
 				</div>
@@ -108,7 +111,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (username, password) => dispatch(login(username, password))
+    login: (username, password, callback) => dispatch(login(username, password,callback))
   };
 }
 

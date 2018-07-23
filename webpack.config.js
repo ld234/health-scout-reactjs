@@ -13,7 +13,9 @@ module.exports = {
         query: {
           presets: ['react', 'es2015', 'stage-1']
         }
-      }
+      },
+      { test: /\.css$/, loader: "style-loader!css-loader?importLoaders=1" },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
     ]
   },
   resolve: {

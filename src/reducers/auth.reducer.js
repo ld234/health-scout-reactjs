@@ -1,5 +1,5 @@
 import {LOGIN_REQUEST,LOGIN_SUCCESS, LOGIN_ERROR,LOGOUT} from '../actions/auth.actions';
-let user = JSON.parse(localStorage.getItem('user'));
+const user = localStorage.getItem('localToken');
 const INITIAL_STATE = user ? { isLoginPending: false, isLoginSuccess: true, user, loginError: null } : {
   isLoginSuccess: false,
   isLoginPending: false,

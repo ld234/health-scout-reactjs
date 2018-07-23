@@ -29,7 +29,7 @@ function setLoginError(loginError) {
   }
 }
 
-export function login(username, password) {
+export function login(username, password, cb) {
 	return dispatch => {
 		dispatch(setLoginPending(true));
 		dispatch(setLoginSuccess(false));
@@ -40,6 +40,7 @@ export function login(username, password) {
 			password
 		})
 		.then(res => {
+			
 			console.log('data',res.data.user);
 			window.localStorage.localToken = res.data.token;
 			dispatch(setLoginPending(false));
@@ -47,6 +48,7 @@ export function login(username, password) {
 		})
 		.catch(err => {
 			dispatch(setLoginPending(false));
+			cb();
 			dispatch(setLoginSuccess(false,null));
 			dispatch(setLoginError(err.response.data.message));
 		});
@@ -55,8 +57,19 @@ export function login(username, password) {
 
 export function logout(){
 	return dispatch =>{
+		localStorage.removeItem('localToken');
 		dispatch(setLoginPending(false));
 		dispatch(setLoginSuccess(false,null));
 		dispatch(setLoginError(null));
+	}
+}
+
+export function checkAuth() {
+	return dispatch => {
+		axios.post(`${ROOT_URL}/checkAuth`)
+		.then(() => {
+			dispatch(setLoginSuccess(true));
+		})
+		.catch(err => logout());
 	}
 }
