@@ -4,11 +4,11 @@ import {logout} from '../../../actions/auth.actions';
 import {Link } from 'react-router-dom';
 
 class Navbar extends Component {
-	
+
 	constructor(props) {
 		super(props);
 	}
-	
+
 	renderLoggedIn = () => {
 		if(this.props.authenticationState.isLoginSuccess ){
 			return (
@@ -28,15 +28,18 @@ class Navbar extends Component {
 			return (
 			  <div className="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
 				<ul className="navbar-nav ml-auto">
+					<li className="nav-item">
+						<Link to="/register" className="nav-link nav-text" href="#">Register</Link>
+					</li>
 				  <li className="nav-item">
-					<Link to="/login" className="nav-link nav-text" href="#">Login</Link>
+						<Link to="/login" className="nav-link nav-text" href="#">Login</Link>
 				  </li>
 				</ul>
 			  </div>
 			)
 		}
 	}
-	
+
 	render(){
 		console.log('success?', this.props);
 		return (

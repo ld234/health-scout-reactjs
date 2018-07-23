@@ -1,0 +1,281 @@
+
+.Account{
+  text-align: center;
+
+}
+
+.Practitioner{
+  text-align: center;
+}
+.Account label {
+  font-weight: bold;
+  display:block;
+  position:relative;
+}
+
+* {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+.inp {
+  position: relative;
+  width: 100%;
+}
+.inp .label {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  font-size: 16px;
+  color: #020b18;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transition: all 0.2s ease;
+}
+.inp .border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: #44DC18;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: all 0.15s ease;
+}
+.inp input {
+  -webkit-appearance: none;
+  width: 100%;
+  border: 0;
+  font-family: inherit;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid #c8ccd4;
+  background: none;
+  border-radius: 0;
+  color: #081634;
+  transition: all 0.15s ease;
+}
+.inp input:hover {
+  background: rgba(34,50,84,0.03);
+}
+.inp input:not(:placeholder-shown) + span {
+  color: #020b18;
+  transform: translateY(-26px) scale(0.75);
+}
+.inp input:focus {
+  background: none;
+  outline: none;
+}
+.inp input:focus + span {
+  color: #020b18;
+  transform: translateY(-26px) scale(0.75);
+}
+.inp input:focus + span + .border {
+  transform: scaleX(1);
+}
+
+.drpd{
+  display:block;
+  width: 100%;
+  font-size: 16px;
+  color: #9098a9;
+  font-weight: 500;
+  position: relative;
+  top: 10px;
+}
+
+.uploadLabel{
+  display:block;
+  width: 100%;
+  font-size: 16px;
+  color: #9098a9;
+  font-weight: 500;
+  position: relative;
+  top: 10px;
+  text-align: left;
+  transform: translateY(-26px) scale(0.75);
+
+}
+.upload{
+  position: relative;
+  top:-40px;
+  left: 35px;
+
+  height: 48px;
+}
+
+.inpErr .labelErr {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  font-size: 15px;
+  color: red;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transition: all 0.2s ease;
+}
+.inpErr {
+  position: relative;
+  width: 100%;
+}
+
+.inpErr .border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background:red;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: all 0.15s ease;
+}
+.inpErr input {
+  -webkit-appearance: none;
+  width: 100%;
+  border: 0;
+  font-family: inherit;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 2px solid red;
+  background: none;
+  border-radius: 0;
+  color: red;
+  transition: all 0.15s ease;
+}
+.inpErr input:hover {
+  background: rgba(34,50,84,0.03);
+}
+.inpErr input:not(:placeholder-shown) + span {
+  color: red;
+  transform: translateY(-26px) scale(0.75);
+}
+.inpErr input:focus {
+  background: none;
+  outline: none;
+}
+.inpErr input:focus + span {
+  color: #07f;
+  transform: translateY(-26px) scale(0.75);
+}
+.inpErr input:focus + span + .border {
+  transform: scaleX(1);
+}
+
+textarea{
+   border-color: #9098a9;
+   resize: none;
+   overflow: auto;
+}
+.textBoxErr{
+  position: relative;
+
+  font-size: 15px;
+  color: red;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transition: all 0.2s ease;
+  border-color: red;
+  display: block;
+
+
+}
+.textBox{
+  position: relative;
+  font-size: 16px;
+  color: #9098a9;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.option{
+  display: inline-block;
+}
+.optionLabel{
+  font-family: inherit;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.Checkout {
+  box-sizing: border-box;
+}
+
+label {
+  display: block;
+  color: #6b7c93;
+  font-weight: 300;
+  letter-spacing: 0.0em;
+}
+
+
+.form {
+  border-bottom: 3px solid #e6ebf1;
+}
+
+input,
+.StripeElement {
+  display: block;
+  font-size: 2em;
+  box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px, rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+  border: 0;
+  outline: 0;
+  border-radius: 4px;
+  background: #020b18;
+}
+
+input::placeholder {
+  color: #aab7c4;
+}
+
+input:focus,
+.StripeElement--focus {
+  box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px, rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+}
+
+.StripeElement.IdealBankElement,
+.StripeElement.PaymentRequestButton {
+  padding: 0;
+}
+
+select{
+  width: 80%;
+  height:100%;
+  background: white;
+  border: 1px solid grey;
+  -webkit-appearance:none;
+  padding: 0 50px 0 20px;
+  cursor: pointer;
+}
+
+.center{
+  position:relative;
+  left: 1em;
+  padding-bottom: 1em;
+}
+
+.center select {
+  width: 94%;
+}
+.upload{
+  display: block;
+  position: relative;
+  top: 10%;
+}
+.upload input{
+  font-size: 18px;
+  width: 100%;
+}
