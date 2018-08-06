@@ -15,10 +15,13 @@ class Navbar extends Component {
 			  <div className="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
 				<ul className="navbar-nav ml-auto">
 				  <li className="nav-item">
-					<span className="nav-link nav-text" >Hi {this.props.authenticationState.user.fName} </span>
+					<span className="nav-text nav-link" >Hi {this.props.authenticationState.user.fName} </span>
 				  </li>
 				  <li className="nav-item">
-					<a onClick={this.props.logout} className="nav-link nav-text" href="#">Logout</a>
+						<Link to="/profile" className="nav-link waves-effect">Dashboard</Link>
+				  </li>
+				  <li className="nav-item">
+					<Link to="/login" onClick={this.props.logout} className="nav-link" href="#">Logout</Link>
 				  </li>
 				</ul>
 			  </div>
@@ -29,11 +32,11 @@ class Navbar extends Component {
 			  <div className="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
 				<ul className="navbar-nav ml-auto">
 					<li className="nav-item">
-						<Link to="/register" className="nav-link nav-text">Register</Link>
+						<Link to="/login" className="nav-link waves-effect">Login</Link>
+				    </li>
+					<li className="nav-item">
+						<Link to="/register" className="nav-link waves-effect">Register</Link>
 					</li>
-				  <li className="nav-item">
-						<Link to="/login" className="nav-link nav-text">Login</Link>
-				  </li>
 				</ul>
 			  </div>
 			)

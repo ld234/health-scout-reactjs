@@ -7,9 +7,8 @@ import ForgotPasswordForm from './User/ForgotPasswordForm';
 import PractitionerPage from './Practitioner/PractitionerPage';
 import Navbar from './Recyclable/Header/Navbar';
 import Navigation from './Recyclable/Navigation';
-// import SignupForm from '../containers/SignupForm/SignupForm'
-// import SignupForm from '../components/User/TestSignupForm'
 import LoginForm from './User/LoginForm';
+import HomePage from './HomePage';
 import SideNavbar from './Practitioner/SideNavbar';
 import PrivateRoute from './Utilities/PrivateRoute';
 
@@ -24,12 +23,12 @@ class App extends Component {
 				<div id="app">
 					<Navigation />
 					<Switch>
-						<Route exact path="/" component={LoginForm} />
+						<Route exact path="/" component={HomePage} />
 						<Route path="/login" component={LoginForm} />
 						<Route path="/resetPassword" component={PasswordResetForm}/>
 						<Route path="/forgotPassword" component={ForgotPasswordForm}/> 
-						<PrivateRoute exact path="/myclients" component={PractitionerPage} /> 
-					</Switch>
+						<PrivateRoute exact path="/profile" component={PractitionerPage} /> 
+					</Switch>																																					
 				</div>
 			</BrowserRouter>
 		);

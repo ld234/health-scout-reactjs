@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Input} from 'mdbreact';
 import AlertBar from '../Recyclable/AlertBar';
-import { addQualifcation } from '../../actions/qualification.actions';
+import { editQualification, deleteQualification } from '../../actions/qualification.actions';
 import { connect } from 'react-redux';
 
-class PractitionerAddQualificationForm extends Component{
+class PractitionerEditQualificationForm extends Component{
     constructor(props){
         super(props);
-        this.state ={
+        this.state = {
+			oldDegree: this.props.qualificationState.qualifications[this.props.hoveredItem].degree,
+            oldInstitution: this.props.qualificationState.qualifications[this.props.hoveredItem].institution,
+            oldDescription: this.props.qualificationState.qualifications[this.props.hoveredItem].description,
+            oldGraduateYear:  this.props.qualificationState.qualifications[this.props.hoveredItem].graduateYear,
+			oldDescription: this.props.qualificationState.qualifications[this.props.hoveredItem].description,
             degree: this.props.qualificationState.qualifications[this.props.hoveredItem].degree,
             institution: this.props.qualificationState.qualifications[this.props.hoveredItem].institution,
             description: this.props.qualificationState.qualifications[this.props.hoveredItem].description,
             graduateYear:  this.props.qualificationState.qualifications[this.props.hoveredItem].graduateYear,
             modal: false,
             error: null
-        }
+        };
     }
 
     onInputChange = (e) => {
@@ -34,6 +39,9 @@ class PractitionerAddQualificationForm extends Component{
         else if (!graduateYear.match('[0-9]{4}')) {
             this.setState({error: 'Invalid year expression.'})
         }
+		else if (degree === this.state.oldDegree && institution === this.state.oldInstitution && description === this.state.oldDescription && graduateYear === this.state.oldGraduateYear) {
+            this.setState({error: 'Details have not been changed.'})
+        }
         else {
             this.onSubmit();
         }
@@ -42,18 +50,42 @@ class PractitionerAddQualificationForm extends Component{
 
     onSubmit = () => {
         let { degree, institution, description, graduateYear } = this.state;
-        let x = {degree,institution,description,graduateYear};
-        console.log(x);
-        
-        this.props.addQualification(x, this.props.toggle);
+		let { oldDegree, oldInstitution, oldGraduateYear } = this.state;
+        let newQ = { newDegree: degree, newInstitution: institution, description, newGraduateYear: graduateYear , position : this.props.hoveredItem};
+		let oldQ =  { oldDegree, oldInstitution, oldGraduateYear } ;
+        console.log(oldQ,newQ);
+        this.props.editQualification(oldQ, newQ, this.props.toggle);
     }
+	
+	componentWillUpdate(nextProps,nextState) {
+		/*const nextQ = nextProps.qualificationState.qualifications[nextProps.hoveredItem];
+		console.log('idx',nextProps.hoveredItem);
+		console.log('nextProps qualifications', nextQ);
+		console.log('nextState', nextState);
+		console.log('thisState', this.state);
+		if (nextQ && nextQ.degree !== this.state.oldDegree && 
+		nextQ.institution !== this.state.oldInstitution && 
+		nextQ.graduateYear !== this.state.oldGraduateYear) {
+			this.setState({
+				oldDegree: nextQ[nextProps.hoveredItem].degree,
+				oldInstitution: nextQ[nextProps.hoveredItem].institution,
+				oldDescription: nextQ[nextProps.hoveredItem].description,
+				oldGraduateYear:  nextQ[nextProps.hoveredItem].graduateYear,
+				oldDescription:nextQ[nextProps.hoveredItem].description,
+				degree: nextQ[nextProps.hoveredItem].degree,
+				institution: nextQ[nextProps.hoveredItem].institution,
+				description: nextQ[nextProps.hoveredItem].description,
+				graduateYear:  nextQ[nextProps.hoveredItem].graduateYear,
+			})
+		}*/
+	}
 
     renderError = () =>{
-		let {addQualificationError} = this.props.qualificationState;
-		if (addQualificationError)
+		let { editQualificationError } = this.props.qualificationState;
+		if (editQualificationError)
 			return (
             <div className="alert alert-danger alert-dismissible fade show animated fadeInUp" role="alert">
-                {addQualificationError.data.message}
+                {editQualificationError}
             </div>)
 		else if (this.state.error)
             return (
@@ -62,8 +94,13 @@ class PractitionerAddQualificationForm extends Component{
                 </div>);
 		return null;
 	}
+	
+	handleDelete = () =>{
+		let {degree, institution, graduateYear } = this.state;
+		this.props.deleteQualification({degree, institution, graduateYear}, this.props.hoveredItem, this.props.toggle);
+	}
 
-    render(){
+    render() {
         return (
             <form onSubmit={this.validateForm}>
                 <ModalBody>
@@ -76,17 +113,16 @@ class PractitionerAddQualificationForm extends Component{
                     <input name="institution" type="text" id="institution-input" className="form-control" 
                         onChange={this.onInputChange} value={this.state.institution} />
                     
-                    <label htmlFor="year-input" className="grey-text">Date acquired</label>
+                    <label htmlFor="year-input" className="grey-text">Graduate year</label>
                     <input name="graduateYear" type="text" id="graduate-year-input" className="form-control" 
                         onChange={this.onInputChange} value={this.state.graduateYear} />
                     <label htmlFor="description-input" className="grey-text">Brief description</label>
-                    <textarea name="description" type="text" id="description-input" className="form-control" 
+                    <textarea maxLength="255" name="description" type="text" id="description-input" className="form-control" 
                         onChange={this.onInputChange} value={this.state.description} />
-                        
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="secondary" onClick={this.props.toggle}>Close</Button>{' '}
-                    <Button className="button" color="primary" type="submit">Add</Button>
+                <Button onClick={this.handleDelete} color="secondary">Delete</Button>{' '}
+                <Button className="button" color="primary" type="submit">Save</Button>
                 </ModalFooter>
             </form>
         );
@@ -101,8 +137,9 @@ const mapStateToProps = (state) => {
   
 const mapDispatchToProps = (dispatch) => {
     return {
-       
+       editQualification: (oldQ,newQ,cb) => dispatch(editQualification(oldQ,newQ,cb)),
+	   deleteQualification: (oldQ,position,cb) => dispatch(deleteQualification(oldQ,position,cb))
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (PractitionerAddQualificationForm);
+export default connect(mapStateToProps, mapDispatchToProps) (PractitionerEditQualificationForm);

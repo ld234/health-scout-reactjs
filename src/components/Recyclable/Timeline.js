@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getQualifications, addQualification } from '../../actions/qualification.actions';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Input} from 'mdbreact';
 
 class Timeline extends React.Component{
@@ -9,6 +8,7 @@ class Timeline extends React.Component{
 		this.state = {
 			hoveredItem:null,
 			modal: false,
+			positionsChanged: []
 		};
 	}
 
@@ -17,7 +17,6 @@ class Timeline extends React.Component{
 	}
 
 	handleMouseOut = (e) => {
-		console.log('mouse out item',this.state.hoveredItem);
 		this.setState({hoveredItem: null});
 	}
 
@@ -26,33 +25,68 @@ class Timeline extends React.Component{
           modal: !this.state.modal
         });
     }
-
-	renderEditModal(){
-		return (
-			<Modal className="editing-modal" isOpen={this.state.modal} toggle={this.props.toggle} centered>
-				<ModalHeader toggle={this.toggle}>{this.props.modalTitle}</ModalHeader>
-				{React.cloneElement(this.props.children,{toggle: this.toggle,hoveredItem:this.state.hoveredItem})}
-			</Modal>
-		)
+	
+	componentWillUpdate(nextProps, nextState) {
+		let arr = [];
+		let changed = false;
+		if (Array.isArray(this.props.qualificationState.qualifications)){
+			this.props.qualificationState.qualifications.forEach((q, idx) => {
+				if (nextProps.qualificationState.qualifications[idx] && 
+				(q.degree !== nextProps.qualificationState.qualifications[idx].degree 
+				|| q.institution !== nextProps.qualificationState.qualifications[idx].institution 
+				|| q.graduateYear !== nextProps.qualificationState.qualifications[idx].graduateYear 
+				|| q.description !== nextProps.qualificationState.qualifications[idx].description)){
+					arr.push(idx);
+					changed = true;
+				}
+				
+			})
+		}
+		if(changed) this.setState({positionsChanged: arr});
+		else if (this.state.positionsChanged.length > 0 ) this.setState({positionsChanged: []});
 	}
 	
 	renderListItems = () =>{
 		let direction = "r";
+		let bounce = "";
+		let pulse = "";
+		let fadeOut = "";
+		let now = 0;
 		return this.props.data.map((item, idx) => {
 			direction = idx % 2 === 0 ? "r" : "l";
+			if (this.props.qualificationState.isEditQualificationSuccess && idx === this.state.positionsChanged[now]){
+				now++;
+				bounce = "animated bounceIn";
+			}
+			else{
+				bounce = "";
+			}
+			if (this.state.hoveredItem !== null && idx === this.state.hoveredItem) {
+				pulse = "animated pulse";
+			}
+			else{
+				pulse = "";
+			}
+			if (idx % 2 === 0) {
+				fadeOut = "animated fadeOut";
+			}
+			else{
+				fadeOut = "";
+			}
+			
 			return (
 				<li key={idx}>
-					<div onMouseLeave={this.handleMouseOut} onMouseOver={() => this.handleHover(idx)} className={`direction-${direction}`}>
+					<div onMouseLeave={this.handleMouseOut} onMouseOver={() => this.handleHover(idx)} className={`direction-${direction} ${bounce} ${pulse}`}>
 						<div className="flag-wrapper">
 							<span className="flag">{item[this.props.flag]}</span>
 							<span className="time-wrapper"><span className="time">{item[this.props.timeWrapper]}</span></span>
 						</div>
 						{this.state.hoveredItem !== null && this.state.hoveredItem === idx?
-							<div className={`edit-icon-${direction}`}><span onClick={this.toggle}>
+							<div className={`edit-icon-${direction}`}><span onClick={() => this.props.toggle(this.state.hoveredItem)}>
 								<i className="far fa-edit"></i></span>
 							</div> : null
 						}
-						{this.renderEditModal()}
+						<div className="timeline-subtext"><i>{item[this.props.subtext]}</i></div>
 						<div className="desc">{item[this.props.desc]}</div>
 					</div>
 				</li>
@@ -75,10 +109,16 @@ class Timeline extends React.Component{
 		return (
 		<div className="small-text" >
 			<p className="text-center">
-				<i>Start adding your {this.props.for}s to increase credibility.</i>
+				<i>Start adding your {this.props.for}(s) to increase credibility and searchability.</i>
 			</p>
 		</div>)	;
     }
 }
 
-export default Timeline;
+const mapStateToProps = (state) => {
+	return {
+		qualificationState: state.qualifications
+	}
+}
+
+export default connect(mapStateToProps)(Timeline);

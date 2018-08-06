@@ -28,7 +28,7 @@ function setGetUserError(getUserError) {
     }
 }
   
-export function getUserDetails() {
+export function getUserDetails(cb) {
     return dispatch => {
         dispatch(setGetUserPending(true));
         dispatch(setGetUserSuccess(false));
@@ -42,6 +42,7 @@ export function getUserDetails() {
         .then(res => {
             dispatch(setGetUserPending(false));
             dispatch(setGetUserSuccess(true,res.data));
+			cb(res.data.pracType);
         })
         .catch(err => {
             dispatch(setGetUserPending(false));

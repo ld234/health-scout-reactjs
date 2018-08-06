@@ -1,0 +1,136 @@
+.bg {
+  background-image: url('./img/background.jpg'); /*(http://shrani.si/f/3A/JY/3mEc61r0/vr4v2bqroc.jpg */
+  filter: blur(0px);
+  -webkit-filter: blur(0px);
+  display: block;
+  height: 110%;
+  width: 110%;
+  left: -10px;
+  position: fixed;
+  top: -10px;
+  right: 0;
+  z-index: 1;
+  transition: all 1000ms;
+  background-size: 115%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 951px){
+	.bg{
+		background-size: cover;
+		background-position:fixed;
+	}
+	
+	.cover:hover .bg {
+	  filter: blur(2px);
+	  -webkit-filter: blur(2px);
+	  background-size:115%;
+	}
+}
+
+.cover:hover .bg {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  background-size: 130%;
+  background-position: center;
+}
+
+.title {
+  font-family: Raleway;
+  width: 300px;
+  height: 350px;
+  z-index: 3;
+  top: 50%;
+  margin-top: -175px;
+  left: 50%;
+  margin-left: -140px;
+  position: absolute;
+  color: #0E72EC;
+  text-align: center;
+  transition: all 1000ms;
+}
+
+.cover .title {
+  filter: blur(0px);
+  -webkit-filter: blur(0px);
+}
+
+.cover:hover .title {
+  filter: blur(0px);
+  -webkit-filter: blur(0px);
+}
+
+.title .text {
+  font-size: 35px;
+  font-weight: 200;
+  margin-top: 20px;
+}
+
+.title .desc {
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 30px;
+}
+
+.logo {
+  background: url('./img/healthscout_logo.png');
+  width: 125px;
+  height: 169px;
+  left: 47%;
+  position: relative;
+  margin-left: -60px;
+  margin-top: 10px;
+  background-size: cover;
+}
+
+/*************button***********/
+
+.animation {
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+
+}
+
+.animation--up-down {
+    animation-name: upDown;
+}
+
+.animation--infinite {
+    animation-iteration-count: infinite;
+}
+
+@keyframes upDown {
+  0% {
+    transform: translateY(-15px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+
+
+.button--scroll {
+    bottom: 2rem;
+	left: 40%;
+	top: 130%;
+    position: absolute;
+    transform: translateX(-50%);
+}
+
+
+svg {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+$link-color: #fff;
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
