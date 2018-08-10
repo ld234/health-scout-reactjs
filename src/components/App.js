@@ -7,8 +7,7 @@ import ForgotPasswordForm from './User/ForgotPasswordForm';
 import PractitionerPage from './Practitioner/PractitionerPage';
 import Navbar from './Recyclable/Header/Navbar';
 import Navigation from './Recyclable/Navigation';
-// import SignupForm from '../containers/SignupForm/SignupForm'
-// import SignupForm from '../components/User/TestSignupForm'
+import SignupForm from './User/Signup/SignupForm'
 import LoginForm from './User/LoginForm';
 import SideNavbar from './Practitioner/SideNavbar';
 import PrivateRoute from './Utilities/PrivateRoute';
@@ -25,6 +24,7 @@ class App extends Component {
 					<Navigation />
 					<Switch>
 						<Route exact path="/" component={LoginForm} />
+						<Route path="/register" component={SignupForm} />
 						<Route path="/login" component={LoginForm} />
 						<Route path="/resetPassword" component={PasswordResetForm}/>
 						<Route path="/forgotPassword" component={ForgotPasswordForm}/> 
