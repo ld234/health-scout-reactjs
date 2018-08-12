@@ -44,15 +44,6 @@ class ForgotPasswordForm extends Component {
         }
 		
 	}
-
-	componentDidMount(){
-		if (this.state.loading) {
-			$(window).load(function() {
-				$(".bg_load").fadeOut("slow");
-				$(".wrapper").fadeOut("slow");
-			})
-		}
-	}
 	
 	onSubmit = () =>  {
         //event.preventDefault();
@@ -69,9 +60,11 @@ class ForgotPasswordForm extends Component {
         console.log('request body', reqBody);
         axios.put('http://localhost:8888/auth/forgetPassword',reqBody)
         .then( response => {
+			console.log(response)
             this.setState({loading:false, success:true, successMessage:response.data.message});
         })
         .catch ( err => {
+			console.log(err.response)
             setTimeout( () => this.setState({loading:false, error: err.response.data.message} ), 200);
         });
 		
@@ -104,18 +97,20 @@ class ForgotPasswordForm extends Component {
 	}
 
 	render() {
+		let classNames = this.state.error ? "" :"animated fadeInDown"
+		let classNames2 = this.state.error? "" : "animated fadeInUp"
 		if (!this.state.loading && !this.state.success)
 			return (
-				<div className="animated fadeInDown container">
+				<div className={`${classNames} container`}>
 					<div className="login-container">
 						{this.renderError()}
 						<div className="app-icon"></div>
 						<h3>Forgot password?</h3>
                         <div className="small-text">
-                        <p >Please provide your username or email which you used to register with us.</p>
+                        <p >Please provide the username or email which you used to register with us.</p>
 						</div>
                         <div className="form-box">
-							<form className="animated fadeInUp" onSubmit={this.validateForgotPasswordForm} >
+							<form className={classNames2} onSubmit={this.validateForgotPasswordForm} >
 								<InputGroup 
 									id="reset-means"
 									name="resetMeans" 
@@ -124,7 +119,7 @@ class ForgotPasswordForm extends Component {
 									onChange={this.onFieldsChange}
 									value={this.state.resetMeans}
 								/>
-								<Button>Send reset email</Button>
+								<Button type="submit">Send reset email</Button>
 							</form>
 						</div>
 					</div>

@@ -1,5 +1,7 @@
 import { GET_QUALIFICATION_PENDING, GET_QUALIFICATION_SUCCESS, GET_QUALIFICATION_ERROR, 
-    ADD_QUALIFICATION_PENDING, ADD_QUALIFICATION_SUCCESS, ADD_QUALIFICATION_ERROR, } from '../actions/qualification.actions';
+    ADD_QUALIFICATION_PENDING, ADD_QUALIFICATION_SUCCESS, ADD_QUALIFICATION_ERROR, 
+    EDIT_QUALIFICATION_PENDING, EDIT_QUALIFICATION_SUCCESS, EDIT_QUALIFICATION_ERROR,
+	DELETE_QUALIFICATION_PENDING, DELETE_QUALIFICATION_SUCCESS, DELETE_QUALIFICATION_ERROR,} from '../actions/qualification.actions';
 
 const INITIAL_STATE = {
     isGetQualificationPending: false,
@@ -8,7 +10,17 @@ const INITIAL_STATE = {
     qualifications: [],
     isAddQualificationPending: false,
     isAddQualificationSuccess: false,
-    addQualificationPending: null
+    addQualificationError: null,
+    isEditQualificationPending: false,
+    isEditQualificationSuccess: false,
+    editQualificationError: null,
+	isEditQualificationPending: false,
+    isEditQualificationSuccess: false,
+    editQualificationError: null,
+	isDeleteQualificationPending: false,
+    isDeleteQualificationSuccess: false,
+    deleteQualificationError: null,
+	justEditIndex: -1,
 };
 
 export default function qualificationReducer(state = INITIAL_STATE, action) {
@@ -34,11 +46,42 @@ export default function qualificationReducer(state = INITIAL_STATE, action) {
             return { ...state,
                 isAddQualificationSuccess: action.isAddQualificationSuccess,
                 qualifications: action.qualification 
-                ? [...state.qualifications, action.qualification ] : state.qualifications
+                ? [...state.qualifications, action.qualification ].sort((a,b) => { return b.graduateYear - a.graduateYear}) : state.qualifications
             };
         case ADD_QUALIFICATION_ERROR:
             return { ...state,
                 addQualificationError: action.addQualificationError
+            };
+        case EDIT_QUALIFICATION_PENDING:
+            return { ...state,
+                isEditQualificationPending: action.isAddQualificationPending
+            };
+        case EDIT_QUALIFICATION_SUCCESS:
+            let newQualificationList = state.qualifications.slice();
+			if (action.newQualification)
+				newQualificationList[action.newQualification.position] = action.newQualification.qualification;
+            return { ...state,
+                isEditQualificationSuccess: action.isEditQualificationSuccess,
+                qualifications: action.newQualification 
+                ? newQualificationList.sort((a,b) => { return b.graduateYear - a.graduateYear; }) : state.qualifications,
+				justEditIndex: action.newQualification ? action.newQualification.position : state.justEditIndex
+            };
+        case EDIT_QUALIFICATION_ERROR:
+            return { ...state,
+                editQualificationError: action.editQualificationError
+            };
+		case DELETE_QUALIFICATION_PENDING:
+            return { ...state,
+                isEditQualificationPending: action.isDeleteQualificationPending
+            };
+        case DELETE_QUALIFICATION_SUCCESS:
+            return { ...state,
+                isDeleteQualificationSuccess: action.isDeleteQualificationSuccess,
+                qualifications: state.qualifications.filter((elem, idx) => { return idx !== action.position})
+            };
+        case DELETE_QUALIFICATION_ERROR:
+            return { ...state,
+                deleteQualificationError: action.deleteQualificationError
             };
         default:
             return state;

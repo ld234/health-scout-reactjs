@@ -65,18 +65,20 @@ class LoginForm extends Component {
 	}
 
 	render() {
+		let formClass = this.props.authenticationState.loginError ? "":"animated fadeInDown " ;
+		let formClass2 =  this.props.authenticationState.loginError ? "": "animated fadeInUp";
 		if (this.props.authenticationState.isLoginSuccess)
 			return <Redirect to="/myclients" />;
 		else if (this.state.submitting)
 			return <LoadingPage />
 		return (
-			<div className="animated fadeInDown container">
+			<div className={`${formClass} container`} >
 				<div className="login-container">
 					<div className="app-icon"></div>
 					{this.renderError()}
 					<h3>Login</h3>
 					<div className="form-box">
-						<form className="animated fadeInUp" onSubmit={this.onSubmit} >
+						<form className={formClass2} onSubmit={this.onSubmit} >
 							<InputGroup 
 								name="username" 
 								type="text" 
@@ -97,6 +99,9 @@ class LoginForm extends Component {
 							<Button id="login-button" type="submit">Login</Button>
 						</form>
 					</div>
+					<p></p>
+					<hr/>
+					<div className="small-text" >Not a member yet? <Link to="/register">Sign up!</Link></div>
 				</div>
 			</div>
 		);

@@ -29,7 +29,7 @@ class Navigation extends Component{
         if (pathname === '/' || pathname === '/register' || pathname === '/login' || pathname === '/resetPassword' || pathname === '/forgotPassword') {
             return <Navbar />;
         }  
-        else /*if (this.state.width > 768) */ return <SideNavbar id="side-nav" />;
+        else /*if (this.state.width > 768) */ return <SideNavbar path={pathname} id="side-nav" />;
     // else return (<HamburgerButton />);
     }
 }

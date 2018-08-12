@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Input} from 'mdbreact';
 // import SingleDatePickerWrapper from '../Recyclable/SingleDatePicker';
 import AlertBar from '../Recyclable/AlertBar';
-import { addQualifcation } from '../../actions/qualification.actions';
+import { addQualification } from '../../actions/qualification.actions';
+import escapeRegexCharacters from '../Utilities/EscapeRegexCharacters';
 import { connect } from 'react-redux';
 
 class PractitionerAddQualificationForm extends Component{
@@ -32,7 +33,7 @@ class PractitionerAddQualificationForm extends Component{
         if (! (degree && institution && description && graduateYear)) {
             this.setState({error: 'All fields are required.'})
         }
-        else if (!graduateYear.match('[0-9]{4}')) {
+        else if (!escapeRegexCharacters(graduateYear).match('[0-9]{4}')) {
             this.setState({error: 'Invalid year expression.'})
         }
         else {
@@ -43,7 +44,11 @@ class PractitionerAddQualificationForm extends Component{
 
     onSubmit = () => {
         let { degree, institution, description, graduateYear } = this.state;
-        let x = {degree,institution,description,graduateYear};
+        let x = {
+			degree:degree.trim(),
+			institution:institution.trim(),
+			description:description.trim(),
+			graduateYear:graduateYear.trim()};
         console.log(x);
         
         this.props.addQualification(x, this.props.toggle);
@@ -70,9 +75,8 @@ class PractitionerAddQualificationForm extends Component{
                 <ModalBody>
                     {this.renderError()}
                     <label htmlFor="degree-input" className="grey-text">Degree</label>
-                    <input name="degree" type="text" id="degree-input" className="form-control" 
+                    <input name="degree" type="text" id="degree-input" className="form-control is-invalid" 
                         onChange={this.onInputChange} value={this.state.degree} />
-                    
                     <label htmlFor="institution-input" className="grey-text">Institution</label>
                     <input name="institution" type="text" id="institution-input" className="form-control" 
                         onChange={this.onInputChange} value={this.state.institution} />
@@ -81,7 +85,7 @@ class PractitionerAddQualificationForm extends Component{
                     <input name="graduateYear" type="text" id="graduate-year-input" className="form-control" 
                         onChange={this.onInputChange} value={this.state.graduateYear} />
                     <label htmlFor="description-input" className="grey-text">Brief description</label>
-                    <textarea name="description" type="text" id="description-input" className="form-control" 
+                    <textarea maxLength="255" name="description" type="text" id="description-input" className="form-control" 
                         onChange={this.onInputChange} value={this.state.description} />
                 </ModalBody>
                 <ModalFooter>
@@ -101,7 +105,7 @@ const mapStateToProps = (state) => {
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        addQualification: (newQualification,successCb) => dispatch(addQualifcation(newQualification,successCb)),
+        addQualification: (newQualification,successCb) => dispatch(addQualification(newQualification,successCb)),
     };
 }
 

@@ -7,11 +7,13 @@ import PractionerAddQualificationForm from './PractitionerAddQualificationForm';
 import PractitionerEditQualificationForm  from './PractitionerEditQualificationForm';
 import Timeline from '../Recyclable/Timeline';
 import PractitionerAddExperienceForm from './PractitionerAddExperienceForm';
+import PractitionerAddSpecialtyForm from './PractitionerAddSpecialtyForm';
 import { getUserDetails } from '../../actions/user.actions';
 import { logout } from '../../actions/auth.actions';
 import { Redirect } from 'react-router-dom';
 import LoadingPage from '../Recyclable/LoadingPage';
-import { getQualifcations } from '../../actions/qualification.actions';
+import { getQualifications } from '../../actions/qualification.actions';
+import { getPracTypeSpecialties } from '../../actions/specialty.actions';
 
 class PractitionerPage extends Component{
     constructor (props){
@@ -19,7 +21,7 @@ class PractitionerPage extends Component{
     }
 
     componentDidMount(){
-        this.props.getUserDetails();
+        this.props.getUserDetails(this.props.getPracTypeSpecialties);
         this.props.getQualifications();
     }
 
@@ -38,24 +40,45 @@ class PractitionerPage extends Component{
                 <div id="practitioner-page" className="right">
                     <UserGeneralInfo />
                     <div className="main-wrapper" >
-                        <PractitionerProfile toggle={this.toggle} section="Qualification" 
+                        <PractitionerProfile toggle={this.toggle} 
+                            section="Qualifications" 
                             buttonID="add-qualification" 
-                            modalTitle="Add qualification"
-                            bodyComponent={<Timeline data={qualifications} 
-                                        flag="degree" 
-                                        timeWrapper="graduateYear" 
-                                        desc="description"
-                                        modalTitle="Edit qualification"
-                                        for="qualification"><PractitionerEditQualificationForm /></Timeline>}>
-                            <PractionerAddQualificationForm />
+                            for="qualification"
+                            data={qualifications} 
+                            flag="degree" 
+                            timeWrapper="graduateYear"
+                            subtext="institution"
+                            desc="description"
+                            editComponent={PractitionerEditQualificationForm}
+                            addComponent={PractionerAddQualificationForm} 
+                        > 
                         </PractitionerProfile>
-                        <PractitionerProfile section="Professional Experience" buttonID="add-experience" modalTitle="Add experience">
+                        <PractitionerProfile 
+                            section="Professional Experience" 
+                            buttonID="add-experience" 
+                            for="experience"
+                            flag="degree" 
+                            timeWrapper="graduateYear"
+                            desc="description"
+                            editComponent={PractitionerEditQualificationForm}
+                            addComponent={PractionerAddQualificationForm}>
                             <PractitionerAddExperienceForm />
                         </PractitionerProfile>
-                    </div>
-                </div>
+						<div className="specialty-wrapper">
+							<div className="practitioner-profile-head" className="row justify-content-between">
+								<div className="col col-md-8 profile-title">
+									<h4>Specialties</h4>
+								</div>
+
+								<div className="horizontal-line"><hr/></div>
+							</div>
+							<PractitionerAddSpecialtyForm />
+						</div>
+					</div>
+				</div>
             );
-        else if (this.props.userState.isGetUserPending){
+        else if (this.props.userState.isGetUserPending || this.props.qualificationState.isGetQualificationPending || 
+		this.props.specialtyState.isGetPracTypeSpecialtyPending ){
             return <LoadingPage />
         }
         else return null;
@@ -67,13 +90,15 @@ const mapStateToProps = (state) => {
         authenticationState: state.authentication,
         userState: state.userDetails,
         qualificationState: state.qualifications,
+		specialtyState: state.specialties,
     };
 }
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserDetails: () => dispatch(getUserDetails()),
-        getQualifications: () => dispatch(getQualifcations()),
+        getUserDetails: (cb) => dispatch(getUserDetails(cb)),
+        getQualifications: () => dispatch(getQualifications()),
+		getPracTypeSpecialties: (pracType) => dispatch(getPracTypeSpecialties(pracType)),
         logout : () => dispatch(logout())
     };
 }
