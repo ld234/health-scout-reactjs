@@ -114,7 +114,7 @@ class PasswordResetForm extends Component {
 									onPaste={ (e) => e.preventDefault() } 
 									value={this.state.passwordConfirm}
 								/>
-								<Button>Reset password</Button>
+								<Button type="submit">Reset password</Button>
 							</form>
 						</div>
 					</div>
