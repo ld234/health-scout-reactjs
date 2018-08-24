@@ -1494,3 +1494,330 @@ h1 {
   transition: background 0s;
 }
 
+/******** Signup Container  *********/
+
+.SignupformNav{
+  margin-top: 5%
+}
+.errorMsg{
+  padding: 0;
+  margin: 0;
+  font-size:0.8em;
+  color: red;
+  float: right;
+}
+
+/******** Subscription payment page *********/
+.StripeElement {
+  margin: 10px 0 20px 0;
+  width: auto;
+  padding: 10px 14px;
+  display: block;
+  box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px, rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+  border-radius: 4px;
+  background: white;
+}
+
+.StripeElement--focus {
+  box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px, rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+}
+.SubOuterCreditCard{
+  position: relative;
+}
+.SubCreditCard{
+  background: #f6f6f6;
+  border: #ccc 1px solid;
+  border-radius: 25px;
+  padding-left: 40%;
+}
+
+.SubCardHolderName{
+  border: none;
+  height:40px;
+  width: 170px;
+}
+.SubCardNum >  .__PrivateStripeElement{
+  width: 140px !important;
+}
+
+.SubCardCvc{
+  width: 60px !important;
+}
+
+.SPouter-container{
+  
+  margin: 50px auto 5% auto;
+  width: 92%;
+  height: 300px;
+}
+
+.SPcontainer{
+  display: inline-block;
+  width: 37.4%;
+  height: 250px;
+  border-radius: 10px;
+  position: relative;
+  top: 0;
+  z-index: 1;
+  box-shadow: 0 5px 10px 0px #3C385C;
+  cursor: pointer;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.SPcontainerSub{
+  color: white;
+  text-align: center;
+  display: block;
+  margin-bottom: 30px;
+  width: 50%;
+  height: 50px;
+  max-height: 250px;
+  border-radius: 10px;
+  position: relative;
+  top: 0;
+  left: 25%;
+  z-index: 1;
+  box-shadow: 0 5px 10px 0px #3C385C;
+  cursor: pointer;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+
+
+.SPcontainer1{
+  background: #5967C3;
+  background: -webkit-linear-gradient(left top, #5967C3, #83cedc);
+  background: linear-gradient(to bottom right, #5967C3, #83cedc);
+}
+
+.SPcontainer2{
+  background: #ffaec2;
+  background: -webkit-linear-gradient(left top, #ffaec2, #7e4aaf);
+  background: linear-gradient(to bottom right, #ffaec2, #7e4aaf);
+  margin-left: -50px;
+  z-index: 2;
+}
+
+.SPcontainer3{
+  background: #CA619C;
+  background: -webkit-linear-gradient(left top, #CA619C, #DBC084);
+  background: linear-gradient(to bottom right, #CA619C, #DBC084);
+  margin-left: -50px;
+}
+
+.SPcontainer4{
+  background: #1d976c; /* Old browsers */
+background: -moz-linear-gradient(top, #1d976c 0%, #93f9b9 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #1d976c 0%,#93f9b9 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #1d976c 0%,#93f9b9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.SPactive{
+  z-index: 3;
+  top: -25px;
+  height: 300px;
+}
+.SPactiveSub{
+  z-index: 3;
+  top: -5px;
+  height: 75px;
+}
+
+.SPtitle{
+  color: #FFF;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.SPtitle::after{
+  content: '';
+  display: block;
+  height: 3.5px;
+  width: 13px;
+  background-color: #FFF;
+  border-radius: 15px;
+  margin: 5px auto 0 auto;
+}
+
+.SPmain_number{
+  position: absolute;
+  top: 52%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 4rem;
+  color: #FFFFFF;
+  opacity: 0.2;
+  font-weight: 800;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.SPmain_number::before{
+  content: '$';
+  font-size: 2rem;
+  position: absolute;
+  top: 10px;
+  left: 8px;
+}
+
+.SPactive .main_number{
+  top: 45%;
+}
+
+.SPcontainer a{
+  text-decoration: none;
+  color: #3C385C;
+  font-weight: 800;
+  font-size: 0.7rem;
+  background-color: #FFF;
+  width: 170px;
+  line-height: 40px;
+  display: block;
+  border-radius: 30px;
+  position: absolute;
+  bottom: 20px;
+  left: 0; right: 0;
+  margin: 0 auto;
+  text-align: center;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.SPcontainer a span{
+  opacity: 0.6;
+}
+
+.SPactive a{
+  bottom: -20px;
+}
+
+.SPactive a span{
+  opacity: 1;
+}
+
+.SPcontainer_text{
+  position: absolute;
+  top: 52%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 0; right: 0;
+  text-align: center;
+  color: #FFFFFF;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.SPactive .SPcontainer_text{
+  top: 65%;
+}
+
+.SPcontainer_text span{
+  display: block;
+}
+
+.SPcontainer_text1{
+  font-size: 0.9rem;
+}
+
+.SPcontainer_text2{
+  font-size: 1.5rem;
+}
+.SPContainer{
+  margin: 50px 0;
+}
+.option h2{
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .SPcontainerSub{
+    display: block;
+    width: 100%;
+    left: 0px;
+    height: 150px;
+
+  }
+
+  .SPouter-container{
+    margin: 0;
+    width: 100%;
+    height: 550px;
+  }
+  
+  .SPcontainer{
+    display: block;
+    height: 150px;
+    width: 100%;
+  }
+
+  .SubCreditCard{
+    border: #ccc 1px solid;
+    border-radius: 25px;
+    padding-left: 20%;
+    padding-top: 20px
+  }
+
+  .SPactive {
+    z-index: 3;
+    top: -10px;
+    height: 200px;
+  }
+
+  .SPactiveSub{
+    z-index: 3;
+    top: -10px;
+    height: 200px;
+  }
+  .SPcontainer2{
+    margin-left: 0px;
+  }
+  
+  .SPcontainer3{
+    margin-left: 0px;
+  }
+}
+
+@media screen and (min-width: 952px) {
+  .SPcontainer{
+    display: inline-block;
+    width: 36.5%;
+  }
+}
+@media screen and (min-width: 1205px) {
+  .SPcontainer{
+    display: inline-block;
+    width: 34.5%;
+  }
+}
+
+/*********************************/
+.comfirmation h3{
+  text-align: center;
+  padding: 30px;
+}
+
+

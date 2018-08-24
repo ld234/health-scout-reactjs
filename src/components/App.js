@@ -1,51 +1,48 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import PasswordResetForm from './User/PasswordResetForm';
 import ForgotPasswordForm from './User/ForgotPasswordForm';
 import PractitionerPage from './Practitioner/PractitionerPage';
-import Navbar from './Recyclable/Header/Navbar';
 import Navigation from './Recyclable/Navigation';
+import SignupForm from './User/Signup/SignupForm';
 import LoginForm from './User/LoginForm';
 import HomePage from './HomePage';
-import SideNavbar from './Practitioner/SideNavbar';
+import MyClientPage from './Practitioner/PractitionerMyClients/PractitionerMyClientsPage';
 import PrivateRoute from './Utilities/PrivateRoute';
+import SingleClientPage from './Practitioner/PractitionerSingleClientPage/PractitionerSingleClientPage';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 	}
-	
-	render(){
+
+	render() {
 		return (
 			<BrowserRouter>
 				<div id="app">
 					<Navigation />
 					<Switch>
+						<Route path="/register" component={SignupForm} />
 						<Route exact path="/" component={HomePage} />
 						<Route path="/login" component={LoginForm} />
-						<Route path="/resetPassword" component={PasswordResetForm}/>
-						<Route path="/forgotPassword" component={ForgotPasswordForm}/> 
-						<PrivateRoute exact path="/profile" component={PractitionerPage} /> 
-					</Switch>																																					
+						<Route path="/resetPassword" component={PasswordResetForm} />
+						<Route path="/forgotPassword" component={ForgotPasswordForm} />
+						<PrivateRoute exact path="/profile" component={PractitionerPage} />
+						<PrivateRoute exact path="/myclients" component={MyClientPage} />
+						<PrivateRoute path="/client" component={SingleClientPage} />
+					</Switch>
 				</div>
 			</BrowserRouter>
 		);
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
 	return {
-	  authenticationState : state.authentication
+		authenticationState: state.authentication,
 	};
-}
+};
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		login: (username, password) => dispatch(login(username, password)),
-	  	
-	};
-}
-  
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
