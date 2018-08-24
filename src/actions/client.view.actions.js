@@ -42,7 +42,7 @@ export function getClients() {
 		dispatch(setGetClientsError(null));
 
 		axios
-			.get(`${ROOT_URL}/view`, {
+			.get(`${ROOT_URL}/`, {
 				headers: {
 					'x-access-token': localStorage.getItem('localToken'),
 				},
@@ -90,7 +90,7 @@ export function getNewClients() {
 		dispatch(setGetNewClientsError(null));
 
 		axios
-			.get(`${ROOT_URL}/viewNew`, {
+			.get(`${ROOT_URL}/new`, {
 				headers: {
 					'x-access-token': localStorage.getItem('localToken'),
 				},
