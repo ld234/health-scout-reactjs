@@ -347,11 +347,13 @@ class SignupForm extends Component {
 		switch (this.state.pageNo) {
 			case 0:
 				currentPage = (
-					<div className="animated fadeInDown card">
-						<div className="card-header blue white-text text-center py-4 animated fadeInUp">
-							{' '}
-							<ProgressBar step={this.state.pageNo} />
+					<div className="animated fadeInDown signupCard">
+						<div className="singup-Header">
+							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
+							<h3>Registration</h3>
 						</div>
+						<ProgressBar step={this.state.pageNo} />
+
 						{this.renderError()}
 						<div className="row justify-content-md-center animated fadeInUp">
 							<div className="account-page-wrapper col-xs-10 col-md-8 col-lg-6 animated fadeInUp">
@@ -371,8 +373,8 @@ class SignupForm extends Component {
 						</div>
 						<div className="row formNav animated fadeInUp">
 							<div className="col-sm-6 animated fadeInUp" />
-							<div className="col-sm-6 animated fadeInUp">
-								<Button className="btn animated fadeInUp" color="blue" onClick={this.nextPageHandler}>
+							<div className="col-sm-3 animated fadeInUp">
+								<Button className="btn-block animated fadeInUp signupBtn" color="blue" onClick={this.nextPageHandler}>
 									Next
 								</Button>
 							</div>
@@ -383,11 +385,13 @@ class SignupForm extends Component {
 				break;
 			case 1:
 				currentPage = (
-					<div className="card">
-						<div className="card-header blue white-text text-center py-4">
-							{' '}
-							<ProgressBar step={this.state.pageNo} />
+					<div className="signupCard">
+						<div className="singup-Header">
+							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
+							<h3>Registration</h3>
 						</div>
+						<ProgressBar step={this.state.pageNo} />
+
 						{this.renderError()}
 						<PractitionerPage
 							next={this.nextPageHandler}
@@ -413,26 +417,30 @@ class SignupForm extends Component {
 				);
 				pagination = (
 					<div className="row">
-						<div className="col-sm-6">
-							<Button className="btn btn-lg btn-block" color="blue" onClick={this.previousPageHandler}>
+						<div className="col-sm-3" />
+						<div className="col-sm-3">
+							<Button className="btn btn-block signupBtn" color="blue" onClick={this.previousPageHandler}>
 								Prev
 							</Button>
 						</div>
-						<div className="col-sm-6">
-							<Button className="btn btn-lg btn-block" color="blue" onClick={this.nextPageHandler}>
+						<div className="col-sm-3">
+							<Button className="btn  btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
 								Next
 							</Button>
 						</div>
+						<div className="col-sm-3" />
 					</div>
 				);
 				break;
 			case 2:
 				currentPage = (
-					<div className="card">
-						<div className="card-header blue white-text text-center py-4">
-							{' '}
-							<ProgressBar step={this.state.pageNo} />
+					<div className="signupCard">
+						<div className="singup-Header">
+							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
+							<h3>Registration</h3>
 						</div>
+						<ProgressBar step={this.state.pageNo} />
+
 						{this.renderError()}
 						<StripeProvider apiKey={apiKey}>
 							<Elements>
@@ -453,37 +461,42 @@ class SignupForm extends Component {
 				break;
 			case 3:
 				currentPage = (
-					<div className="card">
-						<div className="card-header blue white-text text-center py-4">
-							{' '}
-							<ProgressBar step={this.state.pageNo} />
+					<div className="signupCard">
+						<div className="singup-Header">
+							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
+							<h3>Registration</h3>
 						</div>
+						<ProgressBar step={this.state.pageNo} />
+
 						{this.renderError()}
 						<AgreementPage toggle={this.agreementToggle} setAgreement={this.initialiseAgreement} />
 					</div>
 				);
 				pagination = (
 					<div className="row">
-						<div className="col-sm-6">
-							<Button className="btn btn-lg btn-block" color="blue" onClick={this.previousPageHandler}>
+						<div className="col-sm-3" />
+						<div className="col-sm-3">
+							<Button className="btn btn-block signupBtn" color="blue" onClick={this.previousPageHandler}>
 								Prev
 							</Button>
 						</div>
-						<div className="col-sm-6">
-							<Button className="btn btn-lg btn-block" color="blue" onClick={this.nextPageHandler}>
+						<div className="col-sm-3">
+							<Button className="btn btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
 								Next
 							</Button>
 						</div>
+						<div className="col-sm-3" />
 					</div>
 				);
 				break;
 			case 4:
 				currentPage = (
-					<div className="card">
-						<div className="card-header blue white-text text-center py-4">
-							{' '}
-							<ProgressBar step={this.state.pageNo} />
+					<div className="signupCard">
+						<div className="singup-Header">
+							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
+							<h3>Registration</h3>
 						</div>
+						<ProgressBar step={this.state.pageNo} />
 						<div>
 							<ConfirmationPage />
 						</div>

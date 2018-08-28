@@ -2,6 +2,38 @@
     margin: 10px;
 }
 
-.card-header.blue.white-text.text-center.py-4 {
-    margin: 20px 0;
+.singup-Header{
+    color: #1B75E9;
+    text-align: center;
+}
+.signupLogo{
+    width: 75px;
+    margin: 10px;
+}
+.signupCard{
+    position: relative;
+    top: 10px;
+    max-width: 80%;
+    align-content: center;
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+}
+
+.signup-form-Body-Container{
+    width:80%;
+    align-content: center;
+    margin: 0 auto;
+    float: none;
+}
+.signup-PersonalInfo{
+    margin-bottom: 40px;
+    
+}
+.signup-BusinessInfo{
+    margin-top: 20px;
+}
+
+.signupBtn{
+    margin-top:50px !important;
+    margin-bottom: 50px !important;
 }

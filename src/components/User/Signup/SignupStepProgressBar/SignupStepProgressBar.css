@@ -1,13 +1,13 @@
 .ProgressBar{
   counter-reset: step;
-  margin-top: 30px;
-  padding-bottom: 50px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 110px;
   display: block;
   z-index: -1;
 }
 
 .ProgressBar li{
+  font-size: 0.8em;
   list-style-type: none;
   float: left;
   width: 20%;
@@ -15,11 +15,10 @@
   text-align: center;
 }
 .ProgressBar li:before{
-  content: counter(step);
-  counter-increment: step;
-  width: 60px;
-  height: 60px;
-  line-height: 55px;
+  content: "";
+  width: 20px;
+  height: 20px;
+  line-height: 45px;
   border: 1px solid rgb(223, 223, 223);
   display: block;
   text-align: center;
@@ -33,7 +32,7 @@
   width: 100%;
   height: 2px;
   background-color: #ddd;
-  top: 30px;
+  top: 10px;
   left: -50%;
   z-index: -1;
 
@@ -47,8 +46,8 @@
   color: green;
 }
 .ProgressBar li.active:before{
-  border-color:#0F71ED;
-  background-color: #0F71ED;
+  border-color:#0E72EC;
+  background-color: #0E72EC;
   color: white;
 
 ;
@@ -56,5 +55,9 @@
 .ProgressBar li.active + li:after {
   -webkit-transition: 1s; /* Safari */
   transition:5s;
-  background-color: #0F71ED;
+  background-color: #0E72EC;
+}
+
+.SignupSPBar-text{
+  color: #0E72EC;
 }

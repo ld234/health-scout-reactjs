@@ -1,6 +1,6 @@
 import React from 'react';
 import Aux from '../../../../hoc/ReactAux';
-import { Row, Col } from 'react-bootstrap';
+
 const AccountPage = props => {
 	let inputClassNameAtt = 'form-control has-warning';
 	let inputClassError = ' is-invalid';
@@ -40,7 +40,7 @@ const AccountPage = props => {
 					<label className="errorMsg">{props.errors.username}</label>
 				</div>
 				<div className="form-group">
-					<label>Password</label>
+					<label className="grey-text">Password</label>
 					<input
 						type="password"
 						className={props.errors.newPassword ? inputClassNameAtt.concat(inputClassError) : inputClassNameAtt}
@@ -53,7 +53,7 @@ const AccountPage = props => {
 					<label className="errorMsg">{props.errors.newPassword}</label>
 				</div>
 				<div className="form-group">
-					<label>Confirm Password</label>
+					<label className="grey-text">Confirm Password</label>
 					<input
 						type="password"
 						className={props.errors.confirmPassword ? inputClassNameAtt.concat(inputClassError) : inputClassNameAtt}
