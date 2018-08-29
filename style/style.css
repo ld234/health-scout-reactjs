@@ -1468,3 +1468,230 @@ background: linear-gradient(to bottom, #1d976c 0%,#93f9b9 100%); /* W3C, IE10+, 
 }
 
 
+/****** Practitioner Documents ********/
+
+.mydocs-wrapper{
+  padding-bottom: 20px;
+  height: 400px;
+  width: 100%;
+}
+
+#doc-description{
+  resize: none;
+}
+
+ul.rolldown-list{
+  list-style: none;
+  width: 100%;
+  margin: auto 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+ul.rolldown-list li.doc-item{
+  display: flex;
+  padding: 15px 20px;
+  color: #333;
+  margin: 15px 0;
+  transition: .5s;
+  border-radius: 5px;
+  border:2px solid transparent;
+  box-shadow: 0 5px 40px 0 rgba(100, 100, 100, 0.18), 0 4px 15px 0 rgba(130, 130, 130, 0.15);
+}
+
+ul.rolldown-list li.doc-item:hover{
+  display: flex;
+  padding: 15px 20px;
+  color: #333;
+  margin: 15px 0;
+  transition: .5s;
+  background: rgba(100, 100, 100, 0.03);
+  border:2px solid #0E72EC;
+  box-shadow: 0 5px 40px 0 rgba(51, 51, 51, 0.18), 0 4px 15px 0 rgba(130, 130, 130, 0.15);
+}
+
+ul.rolldown-list li.doc-item >span:nth-child(1){
+  width: 5%;
+  color: #666;
+  font-size: 1.5em;
+}
+
+ul.rolldown-list li.doc-item .doc-detail{
+  width: 80%;
+  color: #666;
+  font-size: 1.3em;
+}
+
+ul.rolldown-list li.doc-item > span:nth-child(3){
+  display: none;
+
+}
+
+ul.rolldown-list li.doc-item > span:nth-child(4){
+  display: none;
+}
+
+ul.rolldown-list li.doc-item:hover > span:nth-child(3){
+  display: inline-block;
+  width: 30px;
+  text-align: right;
+  font-size: 1.4em;
+}
+
+ul.rolldown-list li.doc-item:hover > span:nth-child(4){
+  display: inline-block;
+  width: 30px;
+  text-align: right;
+  font-size: 1.4em;
+}
+ul.rolldown-list li.doc-item span:nth-child(3):hover{
+  color: #0E72ECEE;
+  text-shadow: 0px 0px 8px #0E72EC44;
+  cursor: pointer;
+
+}
+
+ul.rolldown-list li.doc-item span:nth-child(4):hover{
+  color: #0E72ECEE;
+  text-shadow: 0px 0px 8px #0E72EC44;
+  cursor: pointer;
+
+}
+
+ul.rolldown-list li.doc-item .doc-detail span:nth-child(1){
+color: blue;
+}
+ul.rolldown-list li.doc-item .doc-detail span:nth-child(2){
+  color: red;
+
+}
+ul.rolldown-list li.doc-item .doc-detail span:nth-child(3){
+  color: green;
+
+}
+
+.specialtyFade-enter {
+  opacity: 0.01;
+}
+
+.specialtyFade-enter.specialtyFade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.specialtyFade-leave {
+  opacity: 1;
+}
+
+.specialtyFade-leave.specialtyFade-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in-out;
+}
+
+/*********************upload-documen*****************/
+
+.file-upload {
+  display: block;
+  margin-top:20px;
+  text-align: center;
+  font-size: 1em;
+}
+.file-upload .file-select {
+  display: block;
+  border: 1px solid rgba(100, 100, 100, 0.18);
+  border-radius: 5px;
+  color: #333;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select .file-select-button {
+  background: rgba(100, 100, 100, 0.18);
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+.file-upload .file-select .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+  text-overflow: ellipsis;
+}
+.file-upload .file-select:hover {
+  border-color: #0E72EC;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select:hover .file-select-button {
+  background: #0E72EC;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select {
+  border-color: #3fa46a;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select .file-select-button {
+  background: #3fa46a;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select input[type="file"] {
+  z-index: 100;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.file-upload .file-select.file-select-disabled {
+  opacity: 0.65;
+}
+.file-upload .file-select.file-select-disabled:hover {
+  cursor: default;
+  display: block;
+  border: 2px solid #dce4ec;
+  color: #34495e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 5px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-button {
+  background: #dce4ec;
+  color: #666666;
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+}
+
+            

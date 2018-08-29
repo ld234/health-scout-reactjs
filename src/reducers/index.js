@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import authReducer from './auth.reducer';
 import userReducer from './user.reducer';
 import qualificationReducer from './qualification.reducer';
+import documentReducer from './myDocs.reducer';
 import specialtyReducer from './specialty.reducer';
 import { persistReducer } from 'redux-persist';
 import clientReducer from './client.reducer';
@@ -55,6 +56,11 @@ const clientsPersistConfig = {
 	storage: storage,
 	blacklist: ['getClientsError'],
 };
+const documentPersistConfig ={
+	key: 'documents',
+	storage: storage,
+	blacklist: ['']
+}
 
 const rootReducer = combineReducers({
 	authentication: persistReducer(authPersistConfig, authReducer),
@@ -62,6 +68,7 @@ const rootReducer = combineReducers({
 	qualifications: persistReducer(qualificationPersistConfig, qualificationReducer),
 	specialties: persistReducer(specialtyPersistConfig, specialtyReducer),
 	clients: persistReducer(clientsPersistConfig, clientReducer),
+	documents: persistReducer(documentPersistConfig, documentReducer),
 });
 
 export default persistReducer(rootPersistConfig, rootReducer);
