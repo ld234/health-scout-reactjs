@@ -22,8 +22,9 @@ class Navigation extends Component {
 			pathname === '/' ||
 			pathname === '/register' ||
 			pathname === '/login' ||
-			pathname === '/resetPassword' ||
-			pathname === '/forgotPassword'
+			pathname.match('^/resetPassword.*$') ||
+			pathname === '/forgotPassword' ||
+			pathname.match('^/verify.*$')
 		) {
 			return <Navbar />;
 		} /*if (this.state.width > 768) */ else return <SideNavbar path={pathname} id="side-nav" />;

@@ -4,8 +4,9 @@ import ClientGeneralInfo from './ClientGeneralInfo';
 import { Modal, ModalBody, ModalHeader, ModalFooter, Tooltip } from 'mdbreact';
 import '../../../../style/MyClientPage.css';
 import { getClients } from '../../../actions/client.view.actions';
-import escapeRegexCharacters from '../../Utilities/EscapeRegexCharacters';
 import '../../../../style/PractitionerSingleClientPage.css';
+import { Link } from 'react-router-dom';
+import AnimatedWrapper from '../../Utilities/AnimatedWrapper';
 
 class PractitionerSingleClientPage extends Component {
 	constructor(props) {
@@ -37,71 +38,31 @@ class PractitionerSingleClientPage extends Component {
 	componentDidMount() {
 		this.props.getClients();
 	}
-	/*
 
-<li className="band-item" data-toggle="tooltip" title="Tooltip on left">
-                        <a className="menu-card" >
-                            <div className="thumb"></div>
-                            <article>
-                            </article>
-                        </a>
-                    </li>
-                    */
 	render() {
+		const arr = ['New Consultation', 'Medical History', 'My Past Consultations', 'Document Exchange'];
+		const tos = [
+			'/client/new-consultation',
+			'/client/medical-history',
+			'/client/my-past-consultations',
+			'/client/document-exchange',
+		];
 		return (
 			<div id="practitioner-single-client-page" className="right">
 				<ClientGeneralInfo />
-				<ul className="band">
-					<Tooltip
-						id="tooltip-top"
-						placement="top"
-						componentClass="band-item"
-						tag="li"
-						tooltipContent="New Consultation"
-					>
-						<a className="menu-card">
-							<div className="thumb" />
-						</a>
-					</Tooltip>
-					<Tooltip
-						id="tooltip-top"
-						placement="top"
-						componentClass="band-item"
-						tag="li"
-						tooltipContent="Medical History"
-					>
-						<a className="menu-card">
-							<div className="thumb" />
-						</a>
-					</Tooltip>
-					<Tooltip
-						id="tooltip-top"
-						placement="top"
-						componentClass="band-item"
-						tag="li"
-						tooltipContent="My Past Consultations"
-					>
-						<a className="menu-card">
-							<div className="thumb" />
-						</a>
-					</Tooltip>
-					<Tooltip id="tooltip-top" placement="top" componentClass="band-item" tag="li" tooltipContent="Send Documents">
-						<a className="menu-card">
-							<div className="thumb" />
-						</a>
-					</Tooltip>
-					<Tooltip
-						id="tooltip-top"
-						placement="top"
-						componentClass="band-item"
-						tag="li"
-						tooltipContent="Received Documents"
-					>
-						<a className="menu-card">
-							<div className="thumb" />
-						</a>
-					</Tooltip>
-				</ul>
+				<div className="main-wrapper">
+					<ul className="band animated fadeIn">
+						{arr.map((item, idx) => {
+							return (
+								<li key={`menu-item-${idx}`}>
+									<Link to={tos[idx]} className="menu-card" menutitle={item}>
+										<div className="thumb" />
+									</Link>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
 			</div>
 		);
 	}

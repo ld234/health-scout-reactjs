@@ -75,6 +75,18 @@ ul.rolldown-list li.specialty-item span:nth-child(3):hover{
     transition: opacity 500ms ease-in-out;
 }
 
+@media(max-width: 565px){
+    ul.rolldown-list{
+        padding-left: 30px;
+    }
+    .specialty-item * {
+        font-size:0.8em !important;
+    }
+    .specialty-name{
+        padding-left: 15px;
+    }
+  }
+
 /*
 .rolldown-list {
     text-align: left;

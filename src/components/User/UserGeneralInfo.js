@@ -19,7 +19,7 @@ class UserGeneralInfo extends Component {
 								className="rounded-circle img-fluid"
 								alt="practitioner avatar"
 							/>
-							<div id="avatar-overlay" className="rounded-circle mask flex-center">
+							<div id="avatar-overlay" className="rounded-circle mask flex-center rgba-stylish-light">
 								<p className="white-text">Change avatar</p>
 							</div>
 						</div>
@@ -28,8 +28,10 @@ class UserGeneralInfo extends Component {
 						<h3>
 							{user.title} {user.fName} {user.lName}
 						</h3>
-						<div>{user.pracType}</div>
-						<StarRating rating={user.rating} />
+						<div className="grey-text">
+							<i>{user.pracType}</i>
+						</div>
+						<StarRating rating={user.rating} size={22} />
 					</div>
 				</div>
 			);

@@ -68,7 +68,8 @@
 
 ::-webkit-scrollbar
 {
-	width: 8px;
+  width: 8px;
+  height: 8px;
 	background-color: #F5F5F5;
 }
 
@@ -90,4 +91,8 @@
 	margin-right: 0;
 	width: 110%!important;
 	height: 42px;
+}
+
+.collapse-body-wrapper{
+  height: 30px;
 }

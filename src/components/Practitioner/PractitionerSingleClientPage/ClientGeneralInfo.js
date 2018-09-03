@@ -20,7 +20,13 @@ class ClientGeneralInfo extends Component {
 						<h3>
 							{client.title} {client.fName} {client.lName}
 						</h3>
-						<div>{Math.abs(new Date(Date.now() - new Date(client.dob)).getUTCFullYear() - 1970)} years old</div>
+						<div className="patient-age grey-text">
+							<i>{Math.abs(new Date(Date.now() - new Date(client.dob)).getUTCFullYear() - 1970)} years old </i>
+						</div>
+						<div>
+							Health condition: {client.conditions} <br />
+							Health goal: {client.goal}
+						</div>
 					</div>
 				</div>
 			);

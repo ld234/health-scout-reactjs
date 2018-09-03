@@ -5,6 +5,8 @@ import qualificationReducer from './qualification.reducer';
 import specialtyReducer from './specialty.reducer';
 import { persistReducer } from 'redux-persist';
 import clientReducer from './client.reducer';
+import consultationReducer from './consultation.reducer';
+import medicalHistoryReducter from './medical.history.reducer';
 import storage from 'redux-persist/lib/storage';
 
 const rootPersistConfig = {
@@ -16,7 +18,7 @@ const rootPersistConfig = {
 const authPersistConfig = {
 	key: 'auth',
 	storage: storage,
-	blacklist: ['loginError'],
+	blacklist: ['loginError', 'isVerifyEmailSuccess', 'verifyEmailError'],
 };
 
 const userPersistConfig = {
@@ -53,7 +55,19 @@ const specialtyPersistConfig = {
 const clientsPersistConfig = {
 	key: 'clients',
 	storage: storage,
-	blacklist: ['getClientsError'],
+	blacklist: ['getClientsError', 'getNewClientsError', 'acceptConnectionError'],
+};
+
+const consultationPersistConfig = {
+	key: 'consultations',
+	storage: storage,
+	blacklist: ['addConsultationError', 'getConsultationsError', 'isAddConsultationSuccess'],
+};
+
+const medicalHistoryPersistConfig = {
+	key: 'medicalHistory',
+	storage: storage,
+	blacklist: ['getAllergiesError', 'getFamilyHistoryError'],
 };
 
 const rootReducer = combineReducers({
@@ -62,6 +76,8 @@ const rootReducer = combineReducers({
 	qualifications: persistReducer(qualificationPersistConfig, qualificationReducer),
 	specialties: persistReducer(specialtyPersistConfig, specialtyReducer),
 	clients: persistReducer(clientsPersistConfig, clientReducer),
+	consultations: persistReducer(consultationPersistConfig, consultationReducer),
+	medicalHistory: persistReducer(medicalHistoryPersistConfig, medicalHistoryReducter),
 });
 
 export default persistReducer(rootPersistConfig, rootReducer);

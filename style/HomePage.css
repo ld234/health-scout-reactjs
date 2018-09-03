@@ -10,7 +10,7 @@
   top: -10px;
   right: 0;
   z-index: 1;
-  transition: all 1000ms;
+  transition: all 300ms;
   background-size: 115%;
   background-position: center;
   background-repeat: no-repeat;
@@ -32,7 +32,7 @@
 .cover:hover .bg {
   filter: blur(2px);
   -webkit-filter: blur(2px);
-  background-size: 130%;
+  /* background-size: 120%; */
   background-position: center;
 }
 

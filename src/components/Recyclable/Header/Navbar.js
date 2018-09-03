@@ -19,7 +19,7 @@ class Navbar extends Component {
 							</span>
 						</li>
 						<li className="nav-item navLink">
-							<Link to="/profile" className="nav-link waves-effect">
+							<Link to="/myclients" className="nav-link waves-effect">
 								Dashboard
 							</Link>
 						</li>

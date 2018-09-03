@@ -15,6 +15,7 @@ class PractitionerAddQualificationForm extends Component {
 			description: '',
 			graduateYear: '',
 			modal: false,
+			errors: {},
 			error: null,
 		};
 	}
@@ -52,6 +53,16 @@ class PractitionerAddQualificationForm extends Component {
 		this.props.addQualification(x, this.props.toggle);
 	};
 
+	onBlur = event => {
+		if (_.isEmpty(event.target.value)) {
+			const newErr = _.merge(this.state.errors, { [event.target.name]: '*field required' });
+			this.setState({ errors: newErr });
+		} else {
+			const newErr = _.merge(this.state.errors, { [event.target.name]: '' });
+			this.setState({ errors: newErr });
+		}
+	};
+
 	renderError = () => {
 		let { addQualificationError } = this.props.qualificationState;
 		if (addQualificationError)
@@ -84,7 +95,9 @@ class PractitionerAddQualificationForm extends Component {
 						className="form-control"
 						onChange={this.onInputChange}
 						value={this.state.degree}
+						onBlur={this.onBlur}
 					/>
+					<label className="errorMsg clearfix">{this.state.errors.degree}</label>
 					<label htmlFor="institution-input" className="grey-text">
 						Institution
 					</label>
@@ -95,10 +108,11 @@ class PractitionerAddQualificationForm extends Component {
 						className="form-control"
 						onChange={this.onInputChange}
 						value={this.state.institution}
+						onBlur={this.onBlur}
 					/>
-
+					<label className="errorMsg clearfix">{this.state.errors.institution}</label>
 					<label htmlFor="year-input" className="grey-text">
-						Date acquired
+						Year
 					</label>
 					<input
 						name="graduateYear"
@@ -107,19 +121,25 @@ class PractitionerAddQualificationForm extends Component {
 						className="form-control"
 						onChange={this.onInputChange}
 						value={this.state.graduateYear}
+						onBlur={this.onBlur}
 					/>
-					<label htmlFor="description-input" className="grey-text">
+					<label className="errorMsg clearfix">{this.state.errors.graduateYear}</label>
+					<label htmlFor="qualification-description-input" className="grey-text">
 						Brief description
 					</label>
-					<textarea
-						maxLength="255"
-						name="description"
-						type="text"
-						id="description-input"
-						className="form-control"
-						onChange={this.onInputChange}
-						value={this.state.description}
-					/>
+					<div className="qualification-description-wrapper">
+						<textarea
+							maxLength="255"
+							name="description"
+							type="text"
+							id="qualification-description-input"
+							className="form-control"
+							onChange={this.onInputChange}
+							value={this.state.description}
+							onBlur={this.onBlur}
+						/>
+						<label className="errorMsg clearfix">{this.state.errors.description}</label>
+					</div>
 				</ModalBody>
 				<ModalFooter>
 					<Button className="button" color="primary" type="submit">

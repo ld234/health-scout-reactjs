@@ -458,3 +458,20 @@ h1 {
   font-size: 24px;
   color: #0E72EC;
 }
+
+
+@media(max-width: 565px){
+  .timeline{
+    padding-right: 0px;
+  }
+  .timeline .event{
+    padding-left:0;
+    padding-right:0;
+  }
+  .timeline .timeline-text-wrapper{
+    width: 100%;
+  }
+  .timeline .timeline-text-wrapper *{
+    font-size:0.9em!important;
+  }
+}

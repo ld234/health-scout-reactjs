@@ -1,8 +1,8 @@
 .band {
-    width: 40%;
+    width: 50%;
     max-width: 1240px;
     margin: 0 auto;
-    padding-top: 37%;
+    /* padding-top: 37%; */
     display: grid;
     list-style-type:none;
     grid-template-columns: 1fr;
@@ -12,22 +12,51 @@
     column-gap: 70px;
     row-gap: 17px;
   }
-  
-  
-  @media only screen and (min-width: 530px) {
-    .band {
-      grid-template-columns: 1fr 1fr;
-      padding-top: 27%;
-      width: 60%;
-    }
+
+ @media only screen and (max-width: 529px) {
+  .userInfo h3{
+    font-size: .9em;
   }
   
-  @media only screen and (min-width: 1300px) {
+  .userInfo *{
+    font-size: .9em;
+  }
+
+  .menu-card::after{
+    font-size: 0.6em;
+    top: -100%;
+  }
+  .menu-card .thumb{
+    background-size: 200%!important;
+  }
+ }
+
+ @media only screen and (min-width: 530px) {
+  .band {
+    grid-template-columns: 1fr 1fr;
+    /* padding-top: 22%; */
+    width: 55%;
+    column-gap: 80px;
+  }
+}
+  
+  @media only screen and (min-width: 800px) {
     .band {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      /* padding-top: 22%; */
+      width: 55%;
+      column-gap: 80px;
+    }
+
+    
+  }
+  
+  @media only screen and (min-width: 1200px) {
+    .band {
+      grid-template-columns: 1fr 1fr;
       grid-auto-rows: 1fr;
-      padding-top: 15%;
-      width: 60%;
+      /* padding-top: 19%; */
+      width: 45%;
     }
   }
   
@@ -59,8 +88,8 @@
   }
   
   .menu-card .thumb {
-    padding-bottom: 100%;
-    background-size: 50%;
+    padding-bottom: 120%;
+    background-size: 300%;
     background-position: center center;
     background-repeat: no-repeat;
   }
@@ -92,9 +121,6 @@
   ul.band li:nth-child(4) .thumb{
     background-image: url('./img/icon/Send\ doc2.png');
   }
-  ul.band li:nth-child(5) .thumb{
-    background-image: url('./img/icon/recieve\ doc\ 2.png');
-  }
 
   
   .menu-card span {
@@ -106,16 +132,15 @@
     margin: 2em 0 0 0;
   }
 
-  .tooltip-inner {
-    font-family: 'Quicksand',sans-serif;
-  }
+.patient-age{
+  margin-bottom: 10px;
+}
 
-  .tooltip .tooltip-inner {
-    background-color: rgba(77, 157, 255, 0.5);
-    color: #333;
-    min-width: 100px;
-  }
-
-  .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
-    border-top-color: rgba(77, 157, 255, 0.5) !important;
+.menu-card::after{
+  content: attr(menutitle);
+  margin: 0 auto!important;
+  position: relative;
+  top: -35px;
+  display: block;
+  color: #555;
 }

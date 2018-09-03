@@ -9,7 +9,8 @@ export const GET_NEW_CLIENTS_ERROR = 'GET_NEW_CLIENTS_ERROR';
 export const ACCEPT_CLIENT_PENDING = 'ACCEPT_CLIENT_PENDING';
 export const ACCEPT_CLIENT_SUCCESS = 'ACCEPT_CLIENT_SUCCESS';
 export const ACCEPT_CLIENT_ERROR = 'ACCEPT_CLIENT_ERROR';
-export const CHOOSE_CLIENT = 'CHOOSE_CLIENT';
+export const CHOOSE_CLIENT_SUCCESS = 'CHOOSE_CLIENT';
+export const CHOOSE_CLIENT_PENDING = 'CHOOSE_CLIENT_PENDING';
 
 const ROOT_URL = 'http://localhost:8080/api/clients';
 
@@ -162,15 +163,24 @@ export function acceptConnection(newPatient, idx, cb) {
 	};
 }
 
+function setChooseClientPending(isChooseClientPending) {
+	return {
+		type: CHOOSE_CLIENT_PENDING,
+		isChooseClientPending,
+	};
+}
+
 function setCurrentClient(idx) {
 	return {
-		type: CHOOSE_CLIENT,
+		type: CHOOSE_CLIENT_SUCCESS,
 		currentClientIndex: idx,
 	};
 }
 
 export function chooseClient(idx) {
 	return dispatch => {
+		dispatch(setChooseClientPending(true));
 		dispatch(setCurrentClient(idx));
+		dispatch(setChooseClientPending(false));
 	};
 }

@@ -37,7 +37,7 @@ class PractitionerPage extends Component {
 		// }
 		if (this.props.userState.isGetUserSuccess)
 			return (
-				<div id="practitioner-page" className="right">
+				<div id="practitioner-page" className="right animated fadeIn">
 					<UserGeneralInfo />
 					<div className="main-wrapper">
 						<PractitionerProfile

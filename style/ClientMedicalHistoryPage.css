@@ -1,0 +1,142 @@
+.medical-history-menu {
+  padding-top: 0;
+}
+
+/* #practitioner-single-client-page .breadcrumbs{
+  position:absolute;
+  top: 200px;
+} */
+
+/* #practitioner-single-client-page .horizontal-line{
+  position:absolute;
+  top: 200px;
+} */
+
+@media only screen and (max-width: 529px) {
+.userInfo h3{
+  font-size: .9em;
+}
+
+.userInfo *{
+  font-size: .9em;
+}
+
+.menu-card::after{
+  font-size: 0.6em;
+  top: -100%;
+}
+.menu-card .thumb{
+  background-size: 40%!important;
+}
+}
+
+/* @media only screen and (min-width: 530px) {
+  .medical-history-menu {
+    grid-template-columns: 1fr 1fr;
+    width: 55%;
+    column-gap: 80px;
+  }
+} */
+
+/* @media only screen and (min-width: 800px) {
+  .medical-history-menu {
+    grid-template-columns: 1fr 1fr;
+    width: 55%;
+    column-gap: 80px;
+  }
+
+  
+} */
+
+/* @media only screen and (min-width: 1200px) {
+  .medical-history-menu {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    width: 45%;
+  }
+} */
+
+
+.menu-card {
+  background: white;
+  text-decoration: none;
+  color: #444;
+  box-shadow: 0 px 25px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  position: relative;
+  top: 0;
+  transition: all .1s ease-in;
+  border: 2px solid transparent;
+}
+
+.menu-card:hover {
+  /* top: -2px; */
+  box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+  border: 2px solid #0E72EC;
+  border-radius: 5px;
+}
+
+.menu-card article {
+  height: 50px;
+  padding: 20px;
+}
+
+.menu-card .thumb {
+  padding-bottom: 100%;
+  background-size: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* typography */
+.menu-card h1 {
+  font-size: 20px;
+  margin: 0;
+  color: #333;
+}
+
+.menu-card p { 
+  line-height: 1.4;
+}
+
+ul.medical-history-menu li:nth-child(1) .thumb{
+  background-image: url('./img/icon/past\ consultation.png');
+}
+
+ul.medical-history-menu li:nth-child(2) .thumb{
+  background-image: url('./img/icon/mediccation\ history.png');
+}
+/* ul.medical-history-menu li:nth-child(3) .thumb{
+  background-image: url('./img/icon/health\ goals.png');
+} */
+ul.medical-history-menu li:nth-child(3) .thumb{
+  background-image: url('./img/icon/family\ history.png');
+}
+ul.medical-history-menu li:nth-child(4) .thumb{
+  background-image: url('./img/icon/allergies.png');
+}
+
+
+.menu-card span {
+  font-size: 12px;
+  font-weight: bold;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin: 2em 0 0 0;
+}
+
+.patient-age{
+margin-bottom: 10px;
+}
+
+.menu-card::after{
+  content: attr(menutitle);
+  margin: 0 auto!important;
+  position: relative;
+  top: -30px;
+  display: block;
+  color: #555;
+}

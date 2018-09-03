@@ -1,0 +1,81 @@
+.new-consultation-main-wrapper{
+    padding-top: 16%;
+    padding-left: 6%;
+    padding-right: 3%;
+    z-index: 2;
+}
+
+.client-consultation-form{
+    width: 70%;
+    margin: 40px auto 30px auto;
+}
+
+.client-consultation-form button{
+    margin-top: 30px;
+    float: right;
+    margin-right: 0;
+}
+
+label.grey-text{
+    color: #777!important;
+}
+
+.client-fields{
+    height: 75px;
+}
+.client-field{
+    padding-right:0!important;
+    padding-left: 0!important;
+}
+
+.new-consultation-main-wrapper .alert.alert-danger{
+    position: absolute!important;
+    width: 60%;
+    top: 30%;
+    margin: 0 auto;
+    background: #e46969;
+    color: #fff;
+}
+
+.alert.alert-danger{
+    background: #e46969!important;
+    color:#fff!important;
+    border: 1px solid #e46969;
+}
+
+.new-consultation-main-wrapper .alert.alert-success{
+    position: absolute!important;
+    width: 60%;
+    top: 30%;
+    margin: 0 auto;
+    background: #19cc19;
+    color: #fff;
+}
+
+@media only screen and (max-width: 529px) {
+    .client-consultation-form  input, .client-consultation-form  textarea, .client-consultation-form  label{
+        font-size: 0.8em;
+    }   
+    
+    .client-consultation-form input#date{
+        font-size: 0.8em;
+    }
+
+    .client-consultation-form .btn{
+        margin-top:5px;
+    }
+
+    .breadcrumbs{
+        padding-left: 10%;
+        padding-top: 10%;
+        font-size: 0.8em;
+    }
+
+    .SingleDatePicker_picker{
+        /* width: 30%; */
+    }
+    .SingleDatePicker_picker *{
+        /* width: 60%; */
+        /* font-size: 0.8em; */
+    }
+}

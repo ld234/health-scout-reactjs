@@ -1,3 +1,8 @@
+#app-body{
+  overflow: auto!important;
+  font-family: 'Quicksand', sans-serif;
+}
+/***** all ******/
 a:hover{
   text-decoration: underline;
   color:#4CAF50;
@@ -6,6 +11,12 @@ a:hover{
 
 input, textarea{
   font-family:'Quicksand', 'sans-serif' !important;    
+}
+
+input.form-control:focus, textarea.form-control:focus{
+  outline: 0!important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 a{
@@ -126,6 +137,7 @@ form a {
 .app-container{
   font-family: 'Quicksand', sans-serif;
   height: 100%;
+  overflow: auto!important;
 }
 
 /* body{background: #eee url(http://subtlepatterns.com/patterns/sativa.png);} */
@@ -155,6 +167,15 @@ html,body{
     box-shadow: 0 5px 11px 0 rgba(100, 100, 100, 0.18), 0 4px 15px 0 rgba(130, 130, 130, 0.15);
 }
 
+@media (max-width: 365px){
+  .login-container{
+    width: 320px;
+  }
+  #output{
+    width:320px!important;
+  }
+}
+
 #output{
     position: absolute;
     width: 350px;
@@ -168,7 +189,7 @@ html,body{
 }
 
 #output.alert-danger{
-    background: rgb(228, 105, 105);
+    background: #e46969;
 }
 
 /* .login-container::before,.login-container::after{
@@ -717,7 +738,6 @@ button {
   padding-top: 5px;
 }
 
-
 .left li {
   /* width: auto;
   height: 0px; */
@@ -726,7 +746,10 @@ button {
   color:white!important;
   vertical-align: middle;
   margin: 0 0 10px 0;
-  transition: 0.5s all ease-in-out;
+  transition: 0.2s all ease-in-out;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 1.1px;
 }
 
 .left a:active li{
@@ -736,14 +759,27 @@ button {
 .left li:hover, .left li.clicked{
   /* background: rgba(14, 114, 236, 0.5); */
     /* color:#fff !important; */
-  border-radius: 3px 3px ;
-  background: rgb(50,79,169);
+  border-radius: 30px;
+  /* background: rgb(50,79,169);
   background: -moz-linear-gradient(45deg, rgba(50,79,169,1) 0%, rgba(56,117,195,1) 49%, rgba(65,175,234,1) 92%);
   background: -webkit-linear-gradient(45deg, rgba(50,79,169,1) 0%, rgba(56,117,195,1) 49%, rgba(65,175,234,1) 92%);
-  background: linear-gradient(45deg, rgba(50,79,169,1) 0%, rgba(56,117,195,1) 49%, rgba(65,175,234,1) 92%);
+  background: linear-gradient(45deg, rgba(50,79,169,1) 0%, rgba(56,117,195,1) 49%, rgba(65,175,234,1) 92%); */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#324fa9",endColorstr="#41afea",GradientType=1);
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18);
-  
+}
+
+.left li.clicked, .left li.clicked:hover {
+  text-shadow: 0px 0px 30px #0E72EC44!important;
+  background: white;
+  color: #0E72EC!important;
+}
+
+.left li:hover {
+  background: rgba(255,255,255,.2);
+}
+
+.left li.clicked span.fas{
+  color: #0E72EC;
 }
 
 .left:hover {
@@ -761,6 +797,26 @@ button {
   text-decoration: none!important;
 }
 
+#side-nav-logo{
+  padding-left: 7px;
+  line-height: 80px;
+  font-size: 1.3em;
+  margin-bottom: 40px;
+  vertical-align: bottom!important;
+}
+
+#side-nav-logo .side-logo-text{
+  display: inline;
+  vertical-align: bottom;
+  padding-left: 2%;
+}
+
+#side-nav-logo:hover{
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
 span.menu{
   padding-left: 25px;
   vertical-align: middle;
@@ -773,9 +829,10 @@ span.menu{
   width: 190px
 }
 
+
 span.fas{
   display: inline-block;
-  font-size: 30px;
+  font-size: 25px;
   width: 50px;
   text-align: center!important;
   color: white;
@@ -794,11 +851,21 @@ span.fas{
   }
   
   .left li {
-    line-height: 50px;  
+    line-height: 40px;  
     padding-left: 3px;
     color:white!important;
     vertical-align: middle;
     margin: 0 0 10px 0; 
+    font-size: 0.7em;
+  }
+  
+  #side-nav-logo{
+    padding-left: 2px;
+    font-size: 1.1em;
+  }
+
+  #side-nav-logo .side-logo-text{
+    padding-left: 0;
   }
   
   
@@ -808,7 +875,7 @@ span.fas{
   }  
   
   .left .item-menu {
-    height:55px;
+    /* height:55px; */
     overflow:hidden;
   }
   
@@ -843,7 +910,7 @@ span.fas{
   animation-duration: 1.5s;
 }
 
-.fadeInUp {
+.login-form.fadeInUp {
   animation-duration: 1.0s!important;
 }
 
@@ -901,6 +968,31 @@ div.avatar{
   }
 }
 
+@media (max-width: 408px){
+  .userInfo{
+    padding-top:3px!important;
+  }
+  div.avatar{
+    width: 90.28px!important;
+    height: 90.28px!important;
+    margin-left: 46px!important;
+    padding: 0 0 5px 0;
+  }
+
+  div.overlay{
+    width: 90.28px!important;
+    height: 90.28px!important;
+    cursor:pointer;
+    font-size: 12px;
+  }
+  
+  .avatar img{
+    object-fit: cover;
+    height: 90.28px!important;
+    width: 90.28px!important;
+  }
+}
+
 div.overlay{
   width: 144.28px;
   height: 144.28px;
@@ -919,11 +1011,24 @@ div.userDetails{
   vertical-align: middle;
   padding: 10px 15px;
   height: 80%;
-  width:52%;
+  width:50%;
 }
 
 .userDetails h3{
   text-transform: uppercase!important;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 576px) {
+  div.userDetails div{
+    font-size: 0.7em;
+  }
+}
+
+@media (max-width: 365px) {
+  div.userDetails div{
+    font-size: 0.6em;
+  }
 }
 
 @media (min-width: 576px) {
@@ -1468,3 +1573,88 @@ background: linear-gradient(to bottom, #1d976c 0%,#93f9b9 100%); /* W3C, IE10+, 
 }
 
 
+
+
+/*** AnimatedWrapper ***/
+
+.animated-page-wrapper {
+  position: absolute;
+  top: 62px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Error cross mark */
+
+.error-cross-mark {
+  width: 100px;
+  display: block;
+  margin: 40px auto 0;
+}
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+}
+.path.circle {
+  -webkit-animation: dash 0.9s ease-in-out;
+  animation: dash 0.9s ease-in-out;
+}
+.path.line {
+  stroke-dashoffset: 1000;
+  -webkit-animation: dash 0.9s 0.35s ease-in-out forwards;
+  animation: dash 0.9s 0.35s ease-in-out forwards;
+}
+.path.check {
+  stroke-dashoffset: -100;
+  -webkit-animation: dash-check 0.9s 0.35s ease-in-out forwards;
+  animation: dash-check 0.9s 0.35s ease-in-out forwards;
+}
+
+p.success {
+  margin-top: 10px;
+  color: #73AF55;
+  font-size: 1.5em;
+}
+p.error {
+  margin-top: 10px;
+  color: #D06079;
+  font-size: 1.5em;
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+
+/******* Add qualification form ********/
+.qualification-description-wrapper{
+  height: 65px;
+}

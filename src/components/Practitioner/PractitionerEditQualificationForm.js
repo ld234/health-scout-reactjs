@@ -18,6 +18,7 @@ class PractitionerEditQualificationForm extends Component {
 			graduateYear: this.props.qualificationState.qualifications[this.props.hoveredItem].graduateYear,
 			modal: false,
 			error: null,
+			errors: {},
 		};
 	}
 
@@ -128,7 +129,7 @@ class PractitionerEditQualificationForm extends Component {
 						onChange={this.onInputChange}
 						value={this.state.degree}
 					/>
-
+					<label className="errorMsg clearfix">{this.state.errors.degree}</label>
 					<label htmlFor="institution-input" className="grey-text">
 						Institution
 					</label>
@@ -140,7 +141,7 @@ class PractitionerEditQualificationForm extends Component {
 						onChange={this.onInputChange}
 						value={this.state.institution}
 					/>
-
+					<label className="errorMsg clearfix">{this.state.errors.institution}</label>
 					<label htmlFor="year-input" className="grey-text">
 						Graduate year
 					</label>
@@ -152,18 +153,22 @@ class PractitionerEditQualificationForm extends Component {
 						onChange={this.onInputChange}
 						value={this.state.graduateYear}
 					/>
+					<label className="errorMsg clearfix">{this.state.errors.graduateYear}</label>
 					<label htmlFor="description-input" className="grey-text">
 						Brief description
 					</label>
-					<textarea
-						maxLength="255"
-						name="description"
-						type="text"
-						id="description-input"
-						className="form-control"
-						onChange={this.onInputChange}
-						value={this.state.description}
-					/>
+					<div className="qualification-description-wrapper">
+						<textarea
+							maxLength="255"
+							name="description"
+							type="text"
+							id="description-input"
+							className="form-control"
+							onChange={this.onInputChange}
+							value={this.state.description}
+						/>
+						<label className="errorMsg clearfix">{this.state.errors.description}</label>
+					</div>
 				</ModalBody>
 				<ModalFooter>
 					<button onClick={this.handleDelete} type="button" className="btn btn-danger">

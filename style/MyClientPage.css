@@ -1,8 +1,8 @@
   .search-wrapper{
-      top : 24%;
-      position: fixed;
-      left: 68%;
-      z-index: 300;
+    top : 24%;
+    position: fixed;
+    left: 68%;
+    z-index: 300;
   }
   .search-container {
     position: absolute;
@@ -133,7 +133,22 @@
     }
   }
   @media (max-width: 600px) {
-
+    .search-container {
+      width: 140px;
+      height: 0;
+    }
+    .search-container input:focus {
+      width: 150%;
+      left: -120%;
+      font-size: 0.8em;
+    }
+    .search-container input:focus ~ .search {
+      right: 0px;
+    }
+    div.search{
+      width: 56px!important;
+      height: 56px!important;
+    }
   }
   .search-container input::placeholder {
     color: #444;
@@ -145,7 +160,7 @@
 
   #movie-card-list{
       margin: 0 auto;
-      padding: 2% 0;
+      padding: 2% 13%;
   }
   
   *, *::before, *::after {
@@ -156,11 +171,11 @@
     /* background-image: url(https://blog.oncallinternational.com/wp-content/uploads/2017/04/Medical-Paperwork-on-Clipboard.jpg); */
     background-size: cover;
     background-repeat: no-repeat;
-    width: 75%;
-    max-width: 950px;
+    width: 100%;
+    /* max-width: 950px; */
     height: 210px;
     display: block;
-    margin: 0 auto;
+    margin: 0 0 0 0;
     border-radius: 5px;
     border: 2px solid /*rgba(238, 238, 238,0.5)*/ transparent;
     box-shadow: 0px 8px 30px 0px rgba(0, 0, 0, 0.25);
@@ -168,6 +183,13 @@
     transition-duration: 0.3s;
     transition-property: box-shadow background-color;
     margin-bottom: 30px;
+    color: #333;
+  }
+
+  .movie-card p{
+    margin-top: 20px;
+    color: #888;
+    transition: .3s all ease-in-out;
   }
   
   .movie-card:hover{
@@ -180,8 +202,18 @@
     border: 3px solid #0E72EC!important;
   }
 
+  .movie-card h3{
+    transition: .3s all ease-in-out;
+  }
+
   .movie-card:hover h3{
     color: #0E72EC;
+    
+  }
+  
+  .movie-card:hover p{
+    color: #555;
+
   }
   
   .color-overlay {
@@ -249,11 +281,11 @@
   
   @media (max-width: 1000px) {
     .movie-card{
-        width: 95%;
+        width: 100%;
         margin-left: 6%;
     }
     .movie-content {
-      width: 70%;
+      width: 68%;
       max-width: 95%;
     }
     .avatar{
@@ -262,12 +294,15 @@
     }
   }
   @media (max-width: 800px) {
+    .main-wrapper2{
+      padding-top: 30%!important;
+    }
     .avatar{
         margin-right: 10px !important;
     }
 
     .movie-content {
-        width: 70%;
+        width: 65%;
         font-size: 70%;
     }
     .movie-content  h1{
@@ -279,8 +314,9 @@
     }
 
     .movie-card {
-      width: 95%;
-      max-width: 95%;
+      width: 100%;
+      max-width: 100%;
+      height: 180px;
     }
     .btn-outline{
       font-size: 1.3em;
@@ -291,23 +327,27 @@
       height: 100px!important;
       width: 100px!important;
       margin-right: 0px!important;
+      transition: .3s all ease-in-out;
+
     }
 
     .client-avatar{
       height: 100px!important;
       width: 100px!important;
       margin-right: 0px!important;
+      transition: .3s all ease-in-out;
     }
 
     .client-overlay{
       height: 100px!important;
       width: 100px!important;
       margin-right: 0px!important;
+      transition: .3s all ease-in-out;
     }
   }
   @media (max-width: 600px) {
     #movie-card-list{
-        padding-top: 35%!important;
+        padding-top: 10%!important;
     }
     .movie-card h1{
         font-size: 1.5em;
@@ -325,14 +365,23 @@
     .movie-content {
       margin-top: 4.2em;
       width: 90%;
+      font-size: 0.9em;
     }
     .movie-card{
         margin-left: 6%;
+    }
+
+    .main-wrapper2{
+      padding-top:40%!important;
+      padding-left: 6%;
+      padding-right: 3%;
+      z-index: 2;
     }
   }
   
   .client-avatar{
       border: 3px solid #777!important;
+      transition: .3s all ease-in-out;
   }
 
   .main-wrapper2{
@@ -390,9 +439,23 @@
   background-color: #00a75f;
 }
 
-.modal-body{
-  
-}
 #confirm-accept-modal{
   margin-top :20%!important;
+}
+
+@media (max-width: 411px){
+  .practitioner-profile-head h4{
+    font-size:1.2em;
+  }
+
+  #movie-card-list{
+    margin-left: 20px;
+  }
+
+  .movie-card h3{
+    font-size: 1.2em;
+  }
+  .profile-title{
+    margin-left:20px;
+  }
 }

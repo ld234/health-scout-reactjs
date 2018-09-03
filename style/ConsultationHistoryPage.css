@@ -1,0 +1,116 @@
+.editable-data-table tr{
+    transition: .4s all ease-out;
+}
+
+.editable-data-table thead{
+    background: #0e72ec;
+    color: #fff;
+}
+table.table-hover tbody tr:hover {
+    cursor: pointer!important;
+}
+.editable-data-table tr.active {
+    height: 200px;
+}
+
+.editable-data-table div.dataTables_filter label{
+    content: none;
+}
+
+.editable-data-table td{
+    padding: 0!important;
+}
+
+.editable-data-table td div{
+    height: 100%;
+    padding: 15px 0 15px 10px ;
+}
+.pagination .page-item.active .page-link:hover {
+    background-color: #0e72ec!important;
+}
+
+.consultation-details.animated.fadeInUp{
+    animation-duration: 0.6s!important;
+}
+
+.table-row.client-consultation-row .cell:nth-child(1){
+    width: 28%;
+    padding-left: 40px;
+}
+.table-row.client-consultation-row .cell:nth-child(2){
+    width: 22%;
+    padding-left: 40px;
+}
+.table-row.client-consultation-row .cell:nth-child(3){
+    width: 25%;
+    padding-left: 40px;
+}
+.table-row.client-consultation-row .cell:nth-child(4){
+    width: 25%;
+    padding-left: 40px;
+}
+
+.table-metadata{
+    margin: 20px 0;
+    height: 100px;
+}
+
+.table-current-show{
+    float: left;
+    width: 40%;
+    line-height: 34px;
+}
+
+.page-numbers-group{
+    width: 60%;
+    float:right;
+}
+.page-number{
+    float:left;
+    width: 34px;
+    border: none;
+    position: relative;
+    padding: auto ;
+    line-height: 34px;
+    text-align: center;
+    vertical-align: middle;
+    background: #0e72ec;
+    color: white;
+    margin-left: 10px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, background .8s;
+}
+
+.page-number-clicked{
+    background: white;
+    color: #0e72ec;
+}
+
+.page-number:focus{
+    outline: 0;
+}
+
+.page-number:hover{
+    cursor: pointer;
+    display: inline-block;
+    width: 34px;
+    position: relative;
+    padding: auto ;
+    line-height: 34px;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    margin-left: 10px;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    background: #3d86df radial-gradient(circle, transparent 1%, #3d86df 1%) center/15000%;
+}
+
+.page-number:active{
+    background-color: rgb(99, 174, 236);
+    background-size: 100%;
+    transition: background 0s;
+}
+
+.page-numbers-float-wrapper{
+    float: right;
+}

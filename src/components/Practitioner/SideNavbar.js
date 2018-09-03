@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth.actions';
 import { Redirect, Link } from 'react-router-dom';
+import LogoDiv from './LogoDiv';
 
 class SideNavbar extends React.Component {
 	constructor(props) {
@@ -35,6 +36,7 @@ class SideNavbar extends React.Component {
 			return (
 				<div className="left">
 					<ul>
+						<LogoDiv />
 						{secondSpans.map((itemName, idx) => {
 							if (idx === 4)
 								return (

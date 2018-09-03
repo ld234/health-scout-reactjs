@@ -8,7 +8,8 @@ import {
 	ACCEPT_CLIENT_PENDING,
 	ACCEPT_CLIENT_SUCCESS,
 	ACCEPT_CLIENT_ERROR,
-	CHOOSE_CLIENT,
+	CHOOSE_CLIENT_PENDING,
+	CHOOSE_CLIENT_SUCCESS,
 } from '../actions/client.view.actions';
 
 const INITIAL_STATE = {
@@ -20,11 +21,11 @@ const INITIAL_STATE = {
 	getNewClientsError: null,
 	clients: [],
 	newClients: [],
+	isChooseClientPending: false,
 	currentClient: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
-	console.log('state', state);
 	switch (action.type) {
 		case GET_CLIENTS_PENDING:
 			return {
@@ -77,7 +78,12 @@ export default (state = INITIAL_STATE, action) => {
 				...state,
 				acceptClientError: action.isAcceptClientError,
 			};
-		case CHOOSE_CLIENT:
+		case CHOOSE_CLIENT_PENDING:
+			return {
+				...state,
+				isChooseClientPending: action.isChooseClientPending,
+			};
+		case CHOOSE_CLIENT_SUCCESS:
 			return {
 				...state,
 				currentClient: state.clients[action.currentClientIndex],

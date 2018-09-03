@@ -64,55 +64,59 @@ class MyClientPage extends Component {
 			<div id="movie-card-list">
 				{clients
 					.filter(c => {
-						return (
-							c.fName.toLowerCase().match(`^.*${escapeRegexCharacters(this.state.searchInput.toLowerCase())}.*$`) ||
-							c.lName.toLowerCase().match(`^.*${escapeRegexCharacters(this.state.searchInput.toLowerCase())}.*$`)
-						);
+						return `${c.fName} ${c.lName}`
+							.toLowerCase()
+							.match(`^.*${escapeRegexCharacters(this.state.searchInput.toLowerCase())}.*$`);
 					})
 					.map((client, idx) => {
 						return (
-							<div key={`client${idx}`} className="movie-card">
-								<div className="color-overlay">
-									<div className="avatar mx-auto col col-lg-2 client-avatar-div">
-										<div className="view overlay client-overlay">
-											<img
-												src={`http://localhost:8080/api${client.profilePic}`}
-												className="rounded-circle img-fluid client-avatar"
-												alt="client-avatar"
-											/>
+							<Link
+								key={`client${idx}`}
+								to={newC ? '/myclients' : `/client`}
+								onClick={
+									newC
+										? () => {
+												console.log('it works');
+												this.setState({ justClicked: idx }, () => {
+													console.log(this.state.justClicked);
+													parseInt(this.props.userState.user.availableConnections) > 0
+														? this.toggle2(idx)
+														: this.toggle();
+												});
+										  }
+										: () => {
+												this.props.chooseClient(idx);
+										  }
+								}
+							>
+								<div key={`client${idx}`} className="movie-card">
+									<div className="color-overlay">
+										<div className="avatar mx-auto col col-lg-2 client-avatar-div">
+											<div className="view overlay client-overlay">
+												<img
+													src={`http://localhost:8080/api${client.profilePic}`}
+													className="rounded-circle img-fluid client-avatar"
+													alt="client-avatar"
+												/>
+											</div>
 										</div>
-									</div>
-									<div className="movie-content">
-										<div className="movie-header">
-											<h3 className="movie-title">
-												{client.title} {client.fName} {client.lName}
-											</h3>
-											<h4 className="movie-info">
-												Last visit: {client.lastConsultation ? client.lastConsultation : 'N/A'}
-											</h4>
+										<div className="movie-content">
+											<div className="movie-header">
+												<h3 className="movie-title">
+													{client.title} {client.fName} {client.lName}
+												</h3>
+												<h4 className="movie-info">
+													Last visit: {client.lastConsultation ? client.lastConsultation : 'N/A'}
+												</h4>
+												<p>
+													Health condition: {client.conditions} <br />
+													Health goal: {client.goal}
+												</p>
+											</div>
 										</div>
-
-										<Link
-											to={newC ? '/myclients' : `/client/${idx}`}
-											className="btn btn-outline"
-											onClick={
-												newC
-													? () => {
-															parseInt(this.props.userState.user.availableConnections) > 0
-																? this.toggle2()
-																: this.toggle();
-															this.setState({ justClicked: idx });
-													  }
-													: () => {
-															this.props.chooseClient(idx);
-													  }
-											}
-										>
-											{buttonText}
-										</Link>
 									</div>
 								</div>
-							</div>
+							</Link>
 						);
 					})}
 			</div>
@@ -123,7 +127,7 @@ class MyClientPage extends Component {
 		let newClient = this.props.clientState.newClients;
 		let clients = this.props.clientState.clients;
 		return (
-			<div id="practitioner-client-page" className="right">
+			<div id="practitioner-client-page" className="right animated fadeIn">
 				<UserGeneralInfo />
 				<div className="main-wrapper2">
 					<div className="search-wrapper">
@@ -169,6 +173,10 @@ class MyClientPage extends Component {
 				<Modal id="client-error-modal" isOpen={this.state.errorModal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Error!</ModalHeader>
 					<ModalBody>
+						<div />
+						{this.state.justClicked !== null && this.props.clientState.newClients[this.state.justClicked]
+							? this.props.clientState.newClients[this.state.justClicked].message
+							: ''}
 						You do not have enough connections available to connect. Please purchase extra connections.
 					</ModalBody>
 					<ModalFooter />
@@ -177,68 +185,6 @@ class MyClientPage extends Component {
 		);
 	}
 }
-/*
-let newClient = this.props.clientState.newClients;
-        let clients =this.props.clientState.clients;
-        return (
-            <div id="practitioner-client-page" className="right">
-                <UserGeneralInfo />
-                <div className="main-wrapper2">
-                    <div className="search-wrapper">
-                        <div className="search-container">
-                            <input onChange={this.onChange} value={this.state.searchInput} type="text" placeholder="Search..." />
-                            <div className="search" onClick={() => this.setState({searchInput:""})}></div>
-                        </div>
-                    </div>
-                    {newClient && newClient.length > 0? this.renderClientListHead("New Clients", newClient.length): null}
-                    {newClient && newClient.length > 0? this.renderCardList(newClient, "Connect with this client",true): null}
-                    {clients? this.renderClientListHead("Clients",clients.length): null}
-                    {clients? this.renderCardList(clients, "View client",false): null}
-                </div>
-                <Modal id="confirm-accept-modal" isOpen={this.state.modal} toggle={this.toggle2}>
-                    <ModalHeader toggle={this.toggle2}>Confirmation</ModalHeader>
-                    <ModalBody>
-                        Are you sure you want to accept this incoming connection?
-                    </ModalBody>
-                    <ModalFooter>
-                        <div className="buttons">
-                            <a onClick={this.toggle2} >Cancel</a>
-                            <a onClick={() => {
-                                this.props.acceptConnection(
-                                    this.state.justClicked!=null && 
-                                    this.props.clientState.newClients && 
-                                    this.props.clientState.newClients.length >= this.state.justClicked + 1
-                                        ? this.props.clientState.newClients[this.state.justClicked].patientUsername
-                                        : null,
-                                    this.state.justClicked,
-                                    () => {
-                                        this.props.getClients();
-                                    }
-                                )
-                                this.toggle2();
-                            }} className="confirm-accept" 
-                            >Accept</a>
-                        </div>
-                    </ModalFooter>
-                </Modal>
-                <Modal id="error-modal" isOpen={this.state.errorModal} toggle={this.toggle}>
-                    <ModalHeader toggle={this.toggle}>Error!</ModalHeader>
-                    <ModalBody>
-                        You do not have enough connections available to connect. Please purchase extra connections.
-                    </ModalBody>
-                    <ModalFooter>
-                        
-                    </ModalFooter>
-                </Modal>
-            </div>
-        );*/
-
-/*
-<p className="movie-desc">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer scelerisque enim justo. 
-                                Praesent felis urna, tempor at lectus ut, euismod volutpat mauris. 
-                                </p>
-                                */
 
 const mapStateToProps = state => {
 	return {
