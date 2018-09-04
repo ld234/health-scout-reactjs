@@ -1,25 +1,24 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import UserGeneralInfo from '../User/UserGeneralInfo';
 import MyDocuments from './PractitionerMyDocuments';
 import PractitionerAddDocument from './PractitionerAddDocumentForm';
-class PractitionerMyDocumentPage extends Component{
-    constructor (props){
-        super(props);
-    }
+import PractitionerEditDocument from './PractitionerEditDocumentForm';
 
-    render (){
-        return(
-        <div id="practitioner-page" className="right">
-            
-                    <UserGeneralInfo />
-                    <div className="main-wrapper" >
-                        <MyDocuments
-                        addComponent={PractitionerAddDocument}/>
-                    </div>
-        </div>
-        );
-    }
+class PractitionerMyDocumentPage extends Component {
+	constructor(props) {
+		super(props);
+	}
 
+	render() {
+		return (
+			<div id="practitioner-page" className="right">
+				<UserGeneralInfo />
+				<div className="main-wrapper">
+					<MyDocuments addComponent={PractitionerAddDocument} editComponent={PractitionerEditDocument} />
+				</div>
+			</div>
+		);
+	}
 }
 
 export default PractitionerMyDocumentPage;

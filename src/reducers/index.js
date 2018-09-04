@@ -56,11 +56,11 @@ const clientsPersistConfig = {
 	storage: storage,
 	blacklist: ['getClientsError'],
 };
-const documentPersistConfig ={
+const documentPersistConfig = {
 	key: 'documents',
 	storage: storage,
-	blacklist: ['']
-}
+	blacklist: ['editDocumentError'],
+};
 
 const rootReducer = combineReducers({
 	authentication: persistReducer(authPersistConfig, authReducer),
