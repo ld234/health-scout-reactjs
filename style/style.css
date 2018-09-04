@@ -1697,8 +1697,8 @@ text-overflow: ellipsis;
 }
 .viewPdfModal .modal-content{
   width: auto !important;
-
 }
+
 .pdf-arrow-right {
   position: absolute;
   display: static;
@@ -1710,7 +1710,7 @@ text-overflow: ellipsis;
   margin: 100px 0 0 100px;
   width: 70px;
   height: 70px;
-  border: solid 6px #ccc;
+  border: solid 4px #ccc;
   opacity: 0.3;
   border-radius: 100%;
   z-index: 1;
@@ -1763,7 +1763,7 @@ text-overflow: ellipsis;
   margin: 100px 0 0 100px;
   width: 70px;
   height: 70px;
-  border: solid 6px #ccc;
+  border: solid 4px #ccc;
   border-radius: 100%;
   opacity: 0.3;
   z-index: 1;
