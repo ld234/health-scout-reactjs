@@ -1511,12 +1511,13 @@ ul.rolldown-list li.doc-item{
   border-radius: 2px;
   transition: all .3s;
   /* border:1px solid transparent; */
-  box-shadow: 0 5px 40px 0 rgba(207, 87, 87, 0.1), 0 4px 15px 0 rgba(130, 130, 130, 0.1);
+  box-shadow: 0 5px 40px 0 rgba(126, 122, 122, 0.1), 0 4px 15px 0 rgba(130, 130, 130, 0.1);
 }
 
 ul.rolldown-list li.doc-item:hover{
   color: #333;
-  transform: translateY(-3px);
+  cursor: pointer;
+  /* transform: translateY(-3px); */
 
   /* border:1px solid #1B75E8; */
   /* background-color: rgba(14, 114, 236, 0.05); */
@@ -1703,7 +1704,7 @@ text-overflow: ellipsis;
   position: absolute;
   display: static;
   top: 30%;
-  right: 1%;  
+  right: 2%;  
   box-sizing: border-box;
   cursor: pointer;
   display: block;
@@ -1719,9 +1720,8 @@ text-overflow: ellipsis;
 .pdf-arrow-right:before, .pdf-arrow-right:after {
   content: "";
   position: absolute;
-  width: 35%;
-  height: 10%;
-  font-weight: 4em;
+  width: 31%;
+  height: 7%;
   top: 41%;
   left: 55%;
   background: #ccc;
@@ -1739,13 +1739,13 @@ text-overflow: ellipsis;
 }
 .pdf-arrow-right:hover {
   opacity: 0.7;
-  border: solid 8px #999;
+  border: solid 4px #999;
 }
 .pdf-arrow-right:hover:after, .pdf-arrow-right:hover:before {
   background: #999;
 }
 .pdf-arrow-right:active {
-  border: solid 8px #777;
+  border: solid 4px #777;
 }
 .pdf-arrow-right:active:after, .pdf-arrow-right:active:before {
   background: #777;
@@ -1757,7 +1757,7 @@ text-overflow: ellipsis;
   position: absolute;
   display: static;
   top: 30%;
-  left: -12%;  
+  left: -15%;  
   cursor: pointer;
   display: block;
   margin: 100px 0 0 100px;
@@ -1772,8 +1772,8 @@ text-overflow: ellipsis;
 .pdf-arrow-left:before, .pdf-arrow-left:after {
   content: "";
   position: absolute;
-  width: 35%;
-  height: 10%;
+  width: 31%;
+  height: 7%;
   top: 59%;
   left: 55%;
   background:#ccc;
@@ -1791,13 +1791,13 @@ text-overflow: ellipsis;
 }
 .pdf-arrow-left:hover {
   opacity: 0.7;
-  border: solid 8px #999;
+  border: solid 4px #999;
 }
 .pdf-arrow-left:hover:after, .pdf-arrow-left:hover:before {
   background: #999;
 }
 .pdf-arrow-left:active {
-  border: solid 8px #777;
+  border: solid 4px #777;
 }
 .pdf-arrow-left:active:after, .pdf-arrow-left:active:before {
   background:  #777;

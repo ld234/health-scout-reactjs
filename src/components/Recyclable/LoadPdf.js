@@ -33,7 +33,7 @@ class LoadPdf extends Component {
 		return (
 			<div>
 				<Document file={filepath} onLoadSuccess={this.onDocumentLoad}>
-					<Page pageNumber={pageNumber} />
+					<Page pageNumber={pageNumber} width={600} />
 				</Document>
 				<span className="pdf-arrow-left" onClick={this.handlePrevious} />
 				<span className="pdf-arrow-right" onClick={this.handleNext} />

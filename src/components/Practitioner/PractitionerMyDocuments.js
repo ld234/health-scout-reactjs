@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody } from 'mdbreact';
+import { Button, Modal, ModalHeader, Pagination, PageItem, PageLink } from 'mdbreact';
 import { getDocument } from '../../actions/document.action';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ViewPDF from '../Recyclable/LoadPdf';
@@ -16,11 +16,15 @@ class PractitionerMyDocuments extends Component {
 			hoveredItem: null,
 			pos: null,
 			selectedDoc: null,
+			pages: 2,
+			docNum: null,
 		};
 	}
 	componentDidMount() {
 		console.log('inside component did mount', this.props.documentState.editDocumentError);
 		this.props.getDocument();
+		let pages = Math.floor(this.props.documentState.documents.length / 10);
+		this.setState({ pages });
 	}
 	componentWillUpdate(nextprops, nextstate) {
 		console.log('[Component will update]', nextprops);
@@ -45,7 +49,6 @@ class PractitionerMyDocuments extends Component {
 	toggleEditDocument = (doc, i) => {
 		this.setState({ hoveredItem: doc });
 		this.setState({ pos: i });
-
 		this.setState((prevState, props) => {
 			return {
 				editDocumentToggle: !prevState.editDocumentToggle,
@@ -88,6 +91,41 @@ class PractitionerMyDocuments extends Component {
 				);
 			});
 		}
+
+		let renderPagination;
+		if (this.state.pages > 1) {
+			renderPagination = (
+				<Pagination className="pg-blue">
+					<PageItem disabled>
+						<PageLink className="page-link" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							<span className="sr-only">Previous</span>
+						</PageLink>
+					</PageItem>
+					<PageItem active>
+						<PageLink className="page-link">
+							1 <span className="sr-only">(current)</span>
+						</PageLink>
+					</PageItem>
+					<PageItem>
+						<PageLink className="page-link">2</PageLink>
+					</PageItem>
+					<PageItem>
+						<PageLink className="page-link">3</PageLink>
+					</PageItem>
+					<PageItem>
+						<PageLink className="page-link">4</PageLink>
+					</PageItem>
+					<PageItem>
+						<PageLink className="page-link">5</PageLink>
+					</PageItem>
+					<PageItem>
+						<PageLink className="page-link">&raquo;</PageLink>
+					</PageItem>
+				</Pagination>
+			);
+		}
+
 		return (
 			<div>
 				<div className="practitioner-profile-head row justify-content-between">
@@ -118,6 +156,7 @@ class PractitionerMyDocuments extends Component {
 									transitionLeaveTimeout={500}
 								/>
 								{docList}
+								{renderPagination}
 							</ul>
 						</div>
 					</div>
