@@ -50,6 +50,11 @@ table.table-hover tbody tr:hover {
     padding-left: 40px;
 }
 
+.table-row.client-consultation-row:not(.header):hover {
+    background-color: #ececff;
+    cursor: pointer;
+}
+
 .table-metadata{
     margin: 20px 0;
     height: 100px;
