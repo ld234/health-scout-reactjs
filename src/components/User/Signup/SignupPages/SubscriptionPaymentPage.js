@@ -32,7 +32,7 @@ class SubscriptionPaymentPage extends Component {
 				},
 				{
 					num: 4,
-					name: '',
+					name: 'subscription',
 					title: 'Subscription only',
 					price: 5.0,
 					desc: 'asdflhaosfha',
@@ -68,11 +68,9 @@ class SubscriptionPaymentPage extends Component {
 				this.setState({ CardNumberError: '' });
 				this.props.setToken(result.token.id);
 				console.log(result.token.id);
-				this.props.setBundle(this.state.selectedPackage[this.state.selected].name);
 				this.props.next();
 			}
 		} else if (this.state.selected == 3) {
-			this.props.setBundle(this.state.selectedPackage[this.state.selected].name);
 			this.props.next();
 		} else {
 			if (this.state.isEmptyCardCvc) {
@@ -105,6 +103,8 @@ class SubscriptionPaymentPage extends Component {
 
 	onSelectHandler = selected => {
 		this.setState({ selected });
+		this.props.setBundle(this.state.selectedPackage[selected - 1].name);
+		console.log('sending bundle:', this.state.selectedPackage[selected - 1].name);
 	};
 
 	render() {

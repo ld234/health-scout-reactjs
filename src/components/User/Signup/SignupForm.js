@@ -105,7 +105,7 @@ class SignupForm extends Component {
 		this.setState({ stripeToken: token });
 	};
 	setBundle = bundle => {
-		console.log('bundle:', bundle);
+		console.log('bundle selected in SignupForm:', bundle);
 		this.setState({ bundle: bundle });
 	};
 
@@ -142,14 +142,17 @@ class SignupForm extends Component {
 	};
 
 	practitionerDetailCheck = () => {
-		const { pageNo, verificationErr, email, abn, medicareProNum } = this.state;
+		const { pageNo, verificationErr, businessAddress, businessName, abn, medicareProNum } = this.state;
+		console.log(abn);
 
 		axios({
 			method: 'post',
 			url: 'http://localhost:8080/api/user/checkPracDetails',
 			data: {
-				abn: abn,
+				ABN: abn,
 				medicalProviderNum: medicareProNum,
+				businessName: businessName,
+				businessAddress: businessAddress,
 			},
 		})
 			.then(res => {
@@ -197,48 +200,35 @@ class SignupForm extends Component {
 			bundle,
 			stripeToken,
 		} = this.state;
-		if (bundle == '') {
-			console.log('bundle', bundle);
-			formData.append('title', title);
-			formData.append('password', newPassword);
-			formData.append('fName', firstName);
-			formData.append('lName', lastName);
-			formData.append('username', username);
-			formData.append('gender', gender);
-			formData.append('email', email);
-			formData.append('dob', dob);
-			formData.append('ABN', abn);
-			formData.append('pracType', pracType);
-			formData.append('serviceProvided', serviceProvided);
-			formData.append('medicalProviderNum', medicareProNum);
-			formData.append('accBody', accreditedBodies);
-			formData.append('businessName', businessName);
-			formData.append('businessAddress', businessAddress);
-			formData.append('profilePic', this.state.selectedImg, this.state.selectedImg.name);
-		} else {
-			console.log('bundle', bundle);
-			formData.append('title', title);
-			formData.append('password', newPassword);
-			formData.append('fName', firstName);
-			formData.append('lName', lastName);
-			formData.append('username', username);
-			formData.append('gender', gender);
-			formData.append('email', email);
-			formData.append('dob', dob);
-			formData.append('ABN', abn);
-			formData.append('pracType', pracType);
-			formData.append('serviceProvided', serviceProvided);
-			formData.append('medicalProviderNum', medicareProNum);
-			formData.append('accBody', accreditedBodies);
-			formData.append('businessName', businessName);
-			formData.append('businessAddress', businessAddress);
+
+		console.log('bundle', bundle);
+
+		formData.append('title', title);
+		formData.append('password', newPassword);
+		formData.append('fName', firstName);
+		formData.append('lName', lastName);
+		formData.append('username', username);
+		formData.append('gender', gender);
+		formData.append('email', email);
+		formData.append('dob', dob);
+		formData.append('profilePic', this.state.selectedImg, this.state.selectedImg.name);
+		formData.append('ABN', abn);
+		formData.append('pracType', pracType);
+		formData.append('serviceProvided', serviceProvided);
+		formData.append('medicalProviderNum', medicareProNum);
+		formData.append('accBody', accreditedBodies);
+		formData.append('businessName', businessName);
+		formData.append('businessAddress', businessAddress);
+
+		if (bundle !== 'subscription') {
 			formData.append('bundle', bundle);
 			formData.append('stripeToken', stripeToken);
-			formData.append('profilePic', this.state.selectedImg, this.state.selectedImg.name);
 		}
+
 		axios
-			.post('http://localhost:8080/api/user', formData)
+			.post('http://localhost:8080/api/user/prac', formData)
 			.then(res => {
+				console.log('works?');
 				const newPageNo = pageNo + 1;
 				this.setState({ pageNo: newPageNo });
 				this.setState({ verificationErr: null });
