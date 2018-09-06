@@ -1575,9 +1575,6 @@ background: linear-gradient(to bottom, #1d976c 0%,#93f9b9 100%); /* W3C, IE10+, 
   padding: 30px;
 }
 
-
-
-
 /*** AnimatedWrapper ***/
 
 .animated-page-wrapper {
@@ -1660,4 +1657,342 @@ p.error {
 /******* Add qualification form ********/
 .qualification-description-wrapper{
   height: 65px;
+}
+/****** Practitioner Documents ********/
+
+.mydocs-wrapper{
+
+  padding-bottom: 20px;
+  height: 400px;
+  width: 100%;
+  /* background-color: #F5F6FA; */
+}
+
+.mydocs-wrapper .row{
+  color:#8C93A5;
+  font-size: 0.9em;
+  max-height: 30px !important;
+
+}
+.mydocs-wrapper .col{
+  max-height: 30px !important;
+  padding: 10px;
+}
+
+#doc-description{
+  resize: none;
+}
+
+ul.rolldown-list{
+  list-style: none;
+  width: 100%;
+  margin: auto 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+ul.rolldown-list li.doc-item{
+  background-color: white;
+  display: flex;
+  padding: 15px 20px;
+  color: #333;
+  margin: 15px 0;
+  transition: .5s;
+  border-radius: 2px;
+  transition: all .3s;
+  /* border:1px solid transparent; */
+  box-shadow: 0 5px 40px 0 rgba(126, 122, 122, 0.1), 0 4px 15px 0 rgba(130, 130, 130, 0.1);
+}
+
+ul.rolldown-list li.doc-item:hover{
+  color: #333;
+  cursor: pointer;
+  /* transform: translateY(-3px); */
+
+  /* border:1px solid #1B75E8; */
+  /* background-color: rgba(14, 114, 236, 0.05); */
+  box-shadow: 0 5px 40px 0 rgba(51, 51, 51, 0.18), 0 4px 15px 0 rgba(130, 130, 130, 0.15);
+}
+
+.doc-detail{
+  position: relative;
+  width: 95%;
+  color: #666;
+  font-size: 1.1em;
+}
+
+li.doc-item .doc-modify{
+  display: none;
+
+}
+li.doc-item:hover .doc-modify{
+  display: inline-block;
+  width: 30px;
+  text-align: right;
+  font-size: 1em;
+}
+
+li.doc-item .doc-modify:hover{
+  color: #0E72ECEE;
+  text-shadow: 0px 0px 8px #0E72EC44;
+  cursor: pointer;
+}
+
+.doc-detail span:nth-child(1){
+color: #d13135;
+}
+.doc-detail span:nth-child(2){
+position: absolute;
+left: 20%;
+width: 20%;
+overflow: hidden;
+white-space: nowrap; 
+text-overflow: ellipsis; 
+
+}
+.doc-detail span:nth-child(3){
+position: absolute;
+left: 41.6%;
+width: 41.6%;
+overflow: hidden;
+white-space: nowrap; 
+text-overflow: ellipsis; 
+}
+
+.specialtyFade-enter {
+  opacity: 0.01;
+}
+
+.specialtyFade-enter.specialtyFade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.specialtyFade-leave {
+  opacity: 1;
+}
+
+.specialtyFade-leave.specialtyFade-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in-out;
+}
+
+/*********************upload-documen*****************/
+
+.file-upload {
+  display: block;
+  margin-top:20px;
+  text-align: center;
+  font-size: 1em;
+}
+.file-upload .file-select {
+  display: block;
+  border: 1px solid rgba(100, 100, 100, 0.18);
+  border-radius: 5px;
+  color: #333;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select .file-select-button {
+  background: rgba(100, 100, 100, 0.18);
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+.file-upload .file-select .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+  text-overflow: ellipsis;
+}
+.file-upload .file-select:hover {
+  border-color: #0E72EC;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select:hover .file-select-button {
+  background: #0E72EC;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select {
+  border-color: #3fa46a;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select .file-select-button {
+  background: #3fa46a;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select input[type="file"] {
+  z-index: 100;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.file-upload .file-select.file-select-disabled {
+  opacity: 0.65;
+}
+.file-upload .file-select.file-select-disabled:hover {
+  cursor: default;
+  display: block;
+  border: 2px solid #dce4ec;
+  color: #34495e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 5px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-button {
+  background: #dce4ec;
+  color: #666666;
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+}
+/******************View Pdf Modal***************/
+.viewPdfModal{
+  position: relative;
+}
+.viewPdfModal .modal-content{
+  width: auto !important;
+}
+
+.pdf-arrow-right {
+  position: absolute;
+  display: static;
+  top: 30%;
+  right: 2%;  
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  margin: 100px 0 0 100px;
+  width: 70px;
+  height: 70px;
+  border: solid 4px #ccc;
+  opacity: 0.3;
+  border-radius: 100%;
+  z-index: 1;
+  transition: all 0.2s linear;
+}
+.pdf-arrow-right:before, .pdf-arrow-right:after {
+  content: "";
+  position: absolute;
+  width: 31%;
+  height: 7%;
+  top: 41%;
+  left: 55%;
+  background: #ccc;
+  z-index: 2;
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+          transform: translate(-50%, -50%) rotate(45deg);
+  transition: all 0.2s linear;
+}
+.pdf-arrow-right:after {
+  z-index: 3;
+  top: 59%;
+  left: 55%;
+  -webkit-transform: translate(-50%, -50%) rotate(-45deg);
+          transform: translate(-50%, -50%) rotate(-45deg);
+}
+.pdf-arrow-right:hover {
+  opacity: 0.7;
+  border: solid 4px #999;
+}
+.pdf-arrow-right:hover:after, .pdf-arrow-right:hover:before {
+  background: #999;
+}
+.pdf-arrow-right:active {
+  border: solid 4px #777;
+}
+.pdf-arrow-right:active:after, .pdf-arrow-right:active:before {
+  background: #777;
+}
+
+
+.pdf-arrow-left {
+  box-sizing: border-box;
+  position: absolute;
+  display: static;
+  top: 30%;
+  left: -15%;  
+  cursor: pointer;
+  display: block;
+  margin: 100px 0 0 100px;
+  width: 70px;
+  height: 70px;
+  border: solid 4px #ccc;
+  border-radius: 100%;
+  opacity: 0.3;
+  z-index: 1;
+  transition: all .2s linear;
+}
+.pdf-arrow-left:before, .pdf-arrow-left:after {
+  content: "";
+  position: absolute;
+  width: 31%;
+  height: 7%;
+  top: 59%;
+  left: 55%;
+  background:#ccc;
+  z-index: 2;
+  -webkit-transform: translate(-70%, -70%) rotate(45deg);
+          transform: translate(-70%, -70%) rotate(45deg);
+  transition: all .2s linear;
+}
+.pdf-arrow-left:after {
+  z-index: 3;
+  top: 41%;
+  left: 55%;
+  -webkit-transform: translate(-70%, -70%) rotate(-45deg);
+          transform: translate(-70%, -70%) rotate(-45deg);
+}
+.pdf-arrow-left:hover {
+  opacity: 0.7;
+  border: solid 4px #999;
+}
+.pdf-arrow-left:hover:after, .pdf-arrow-left:hover:before {
+  background: #999;
+}
+.pdf-arrow-left:active {
+  border: solid 4px #777;
+}
+.pdf-arrow-left:active:after, .pdf-arrow-left:active:before {
+  background:  #777;
+}
+
+.pdf-pagination{
+  text-align: center;
 }

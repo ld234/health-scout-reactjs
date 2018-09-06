@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import authReducer from './auth.reducer';
 import userReducer from './user.reducer';
 import qualificationReducer from './qualification.reducer';
+import documentReducer from './myDocs.reducer';
 import specialtyReducer from './specialty.reducer';
 import { persistReducer } from 'redux-persist';
 import clientReducer from './client.reducer';
@@ -69,6 +70,11 @@ const medicalHistoryPersistConfig = {
 	storage: storage,
 	blacklist: ['getAllergiesError', 'getFamilyHistoryError'],
 };
+const documentPersistConfig = {
+	key: 'documents',
+	storage: storage,
+	blacklist: ['editDocumentError'],
+};
 
 const rootReducer = combineReducers({
 	authentication: persistReducer(authPersistConfig, authReducer),
@@ -78,6 +84,7 @@ const rootReducer = combineReducers({
 	clients: persistReducer(clientsPersistConfig, clientReducer),
 	consultations: persistReducer(consultationPersistConfig, consultationReducer),
 	medicalHistory: persistReducer(medicalHistoryPersistConfig, medicalHistoryReducter),
+	documents: persistReducer(documentPersistConfig, documentReducer),
 });
 
 export default persistReducer(rootPersistConfig, rootReducer);

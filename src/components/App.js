@@ -6,6 +6,8 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 import PasswordResetForm from './User/PasswordResetForm';
 import ForgotPasswordForm from './User/ForgotPasswordForm';
 import PractitionerPage from './Practitioner/PractitionerPage';
+import MyDocumentPage from './Practitioner/PractitionerMyDocumentsPage';
+import Navbar from './Recyclable/Header/Navbar';
 import Navigation from './Recyclable/Navigation';
 import SignupForm from './User/Signup/SignupForm';
 import LoginForm from './User/LoginForm';
@@ -48,8 +50,8 @@ class App extends Component {
 						<PrivateRoute path="/client/medical-history/allergies" component={ClientAllergiesPage} />
 						<PrivateRoute path="/client/medical-history/family-history" component={ClientFamilyHistoryPage} />
 						<PrivateRoute path="/client/medical-history/medication-history" component={ClientMedicationHistoryPage} />
-
 						<PrivateRoute path="/settings" component={SettingsPage} />
+						<PrivateRoute exact path="/mydocs" component={MyDocumentPage} />
 					</Switch>
 				</div>
 			</BrowserRouter>
