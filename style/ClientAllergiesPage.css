@@ -115,14 +115,14 @@
     width: 100% !important;
   }
 
-  .table-row.header:hover *{
+  /* .table-row.header:hover *{
     color: #0E72EC!important;
     cursor: pointer;
-  }
+  } */
   
-  .table-row:hover {
+  .table-row:not(.header):hover{
     background-color: #ececff;
-    cursor: pointer;
+    /* cursor: pointer; */
   }
   
   @media (max-width: 768px) {
