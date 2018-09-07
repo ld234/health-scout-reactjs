@@ -1,14 +1,16 @@
 import React from 'react';
-import {Button} from 'mdbreact';
-export default class Btn extends React.Component{
-	constructor(props){
+import { Button } from 'mdbreact';
+export default class Btn extends React.Component {
+	constructor(props) {
 		super(props);
 	}
 	//console.log(props);
-	render(){
+	render() {
 		// let buttonLabel = props["buttonLabel"];
 		return (
-			<Button className="btn btn-block login button" color="primary" {...this.props}>{this.props.children}</Button>
+			<Button className="btn btn-block login button" color="primary" {...this.props}>
+				{this.props.children}
+			</Button>
 		);
 	}
 }

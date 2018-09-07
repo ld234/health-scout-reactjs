@@ -8,16 +8,16 @@ import { Button } from '../Recyclable/Button';
 import qs from 'query-string';
 
 class AccountActivationPage extends Component {
-	componentWillMount() {
+	componentDidMount() {
 		const parsed = qs.parse(this.props.location.search);
-		//this.props.verifyEmail(parsed.id);
+		this.props.verifyEmail(parsed.id);
 	}
 
 	render() {
 		if (this.props.authState.isVerifyEmailSuccess)
 			return (
 				<div className="container">
-					<div className="login-container">
+					<div className="login-container password-reset-container">
 						<SuccessCheckMark />
 						<p className="success">Successfully activated account</p>
 						<Link to="/login" style={{ textDecoration: 'none' }}>

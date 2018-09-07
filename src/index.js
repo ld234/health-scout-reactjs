@@ -20,7 +20,7 @@ import '../node_modules/mdbreact/dist/css/mdb.css';
 // import '../node_modules/jquery/dist/jquery.slim.min';
 // import '../node_modules/bootstrap/dist/js/bootstrap.min';
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk,reduxLogger)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, reduxLogger)(createStore);
 const store = createStoreWithMiddleware(persistedReducer);
 const persistor = persistStore(store);
 
@@ -29,5 +29,6 @@ ReactDOM.render(
 		<PersistGate loading={null} persistor={persistor}>
 			<App />
 		</PersistGate>
-	</Provider>
-  , document.querySelector('.app-container'));
+	</Provider>,
+	document.querySelector('.app-container')
+);

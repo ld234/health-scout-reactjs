@@ -10,27 +10,35 @@ class SubscriptionPaymentPage extends Component {
 		this.state = {
 			selectedPackage: [
 				{
+					num: 1,
 					name: 'standard',
-					default: 'SPcontainer SPcontainer1',
-					classAttr: 'SPcontainer SPcontainer1',
+					title: 'Subscription + Standard bundle',
+					price: 10.0,
+					desc: 'asdflhaosfha',
 				},
 				{
+					num: 2,
 					name: 'premium',
-					default: 'SPcontainer SPcontainer2',
-					classAttr: 'SPcontainer SPcontainer2',
+					title: 'Subscription + Premium bundle',
+					price: 15.0,
+					desc: 'asdflhaosfha',
 				},
 				{
+					num: 3,
 					name: 'platinum',
-					default: 'SPcontainer SPcontainer3',
-					classAttr: 'SPcontainer SPcontainer3',
+					title: 'Subscription + Platinum bundle',
+					price: 20.0,
+					desc: 'asdflhaosfha',
 				},
 				{
-					name: '',
-					default: 'SPcontainerSub SPcontainer4',
-					classAttr: 'SPcontainerSub SPcontainer4 SPactiveSub',
+					num: 4,
+					name: 'subscription',
+					title: 'Subscription only',
+					price: 5.0,
+					desc: 'asdflhaosfha',
 				},
 			],
-			selected: 3,
+			selected: 4,
 			validCardNumber: false,
 			validCardCvc: false,
 			validCardExpiry: false,
@@ -60,11 +68,9 @@ class SubscriptionPaymentPage extends Component {
 				this.setState({ CardNumberError: '' });
 				this.props.setToken(result.token.id);
 				console.log(result.token.id);
-				this.props.setBundle(this.state.selectedPackage[this.state.selected].name);
 				this.props.next();
 			}
 		} else if (this.state.selected == 3) {
-			this.props.setBundle(this.state.selectedPackage[this.state.selected].name);
 			this.props.next();
 		} else {
 			if (this.state.isEmptyCardCvc) {
@@ -96,44 +102,31 @@ class SubscriptionPaymentPage extends Component {
 	};
 
 	onSelectHandler = selected => {
-		let selectedPackage = this.state.selectedPackage;
-		let newClassAttr;
-		if (selected < 3) {
-			this.setState({ selected });
-			this.props.setBundle(this.state.selectedPackage[selected].name);
-			newClassAttr = selectedPackage.map((bundle, i) => {
-				return i == selected
-					? (bundle.classAttr = bundle.default.concat(' SPactive'))
-					: (bundle.classAttr = bundle.default);
-			});
-		} else if (selected == 3) {
-			this.setState({ selected });
-			this.props.setBundle(this.state.selectedPackage[selected].name);
-			newClassAttr = selectedPackage.map((bundle, i) => {
-				return i == 3
-					? (bundle.classAttr = bundle.default.concat(' SPactiveSub'))
-					: (bundle.classAttr = bundle.default);
-			});
-		} else {
-			this.setState({ selected: -1 });
-
-			newClassAttr = selectedPackage.map((bundle, i) => {
-				return (bundle.classAttr = bundle.default);
-			});
-		}
-
-		selectedPackage[0].classAttr = newClassAttr[0];
-		selectedPackage[1].classAttr = newClassAttr[1];
-		selectedPackage[2].classAttr = newClassAttr[2];
-		selectedPackage[3].classAttr = newClassAttr[3];
-
-		this.setState({ selectedPackage });
+		this.setState({ selected });
+		this.props.setBundle(this.state.selectedPackage[selected - 1].name);
+		console.log('sending bundle:', this.state.selectedPackage[selected - 1].name);
 	};
 
 	render() {
-		let creditCard;
-		this.state.selected != -1 && this.state.selected != 3
-			? (creditCard = (
+		let cart = (
+			<div>
+				<h5>
+					<i className="fas fa-shopping-cart" /> Cart information
+				</h5>
+				<div className="SubOuterCreditCard">
+					<div className="RselectedInfo">
+						<h6>{this.state.selectedPackage[this.state.selected - 1].title}</h6>
+						<h6>${this.state.selectedPackage[this.state.selected - 1].price.toFixed(2)}</h6>
+					</div>
+				</div>
+			</div>
+		);
+		let creditCard =
+			this.state.selected != 4 ? (
+				<div>
+					<h5>
+						<i className="fas fa-credit-card" /> Enter Payment information
+					</h5>
 					<div className="SubOuterCreditCard">
 						<div className="SubCreditCard">
 							<div className="row">
@@ -167,12 +160,35 @@ class SubscriptionPaymentPage extends Component {
 							</div>
 						</div>
 					</div>
-			  ))
-			: null;
+				</div>
+			) : null;
 
+		let packages = this.state.selectedPackage.map(pkg => {
+			return this.state.selected == pkg.num ? (
+				<div className="rPlanCard" key={pkg.num}>
+					{' '}
+					<div className="rAccordion rActive">
+						<span className="rATitle">{pkg.title}</span>
+						<span className="rAPrice">${pkg.price.toPrecision(2)}</span>
+					</div>
+					<div className="rPanel">{pkg.desc}</div>
+				</div>
+			) : (
+				<div key={pkg.num}>
+					<div className="rAccordion" onClick={() => this.onSelectHandler(pkg.num)}>
+						<span className="rATitle">{pkg.title}</span>
+						<span className="rAPrice">${pkg.price.toPrecision(2)}</span>
+					</div>
+				</div>
+			);
+		});
 		return (
-			<div className="SPContainer">
+			<div className="subscriptionPageContainer">
 				<div className="row">
+					<div className="col-md-8">
+						<h5>Select your plan</h5>
+						<div className="SPContainer">{packages}</div>
+						{/* <div className="row">
 					<div className={this.state.selectedPackage[3].classAttr} onClick={() => this.onSelectHandler(3)}>
 						Only Subscription
 					</div>
@@ -224,24 +240,28 @@ class SubscriptionPaymentPage extends Component {
 							</a>
 						</div>
 					</div>
+				</div> */}
+					</div>
+					<div className="col-md-4">
+						{cart}
+						<br />
+						{creditCard}
+					</div>
 				</div>
-				{creditCard}
-				<br />
-				<br />
-				<br />
 				<div className="row">
-					<div className="col-sm-6">
-						<Button className="btn btn-lg btn-block" color="blue" onClick={this.props.prev}>
+					<div className="col-md-3" />
+					<div className="col-md-3">
+						<Button className="btn btn-block signupBtn" color="blue" onClick={this.props.prev}>
 							Prev
 						</Button>
 					</div>
-					<div className="col-sm-6">
-						<Button className="btn btn-lg btn-block" color="blue" onClick={this.handleSubmit}>
+					<div className="col-md-3">
+						<Button className="btn btn-block signupBtn" color="blue" onClick={this.handleSubmit}>
 							Next
 						</Button>
 					</div>
+					<div className="col-md-3" />
 				</div>
-				;
 			</div>
 		);
 	}

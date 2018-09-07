@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { validateRegister } from '../../Utilities/Validator';
 import _ from 'lodash';
-import ProgressBar from './SignupStepProgressBar/SignupStepProgressBar';
-import AccountPage from './SignupPages/AccountPage';
-import PractitionerPage from './SignupPages/PractitionerDetailPage';
-import SubscriptionPaymentPage from './SignupPages/SubscriptionPaymentPage';
-import AgreementPage from './SignupPages/AgreementPage';
-import ConfirmationPage from './SignupPages/ConfirmationPage';
+import styles from './SignupForm.css';
+import Aux from '../../hoc/ReactAux';
+import ProgressBar from '../../components/User/Signup/SignupStepProgressBar/SignupStepProgressBar';
+import AccountPage from '../../components/User/Signup/SignupPages/AccountPage';
+import PractitionerPage from '../../components/User/Signup/SignupPages/PractitionerDetailPage';
+import SubscriptionPaymentPage from '../../components/User/Signup/SignupPages/SubscriptionPaymentPage';
+import AgreementPage from '../../components/User/Signup/SignupPages/AgreementPage';
+import ConfirmationPage from '../../components/User/Signup/SignupPages/ConfirmationPage';
+import { validateRegister } from '../../components/Utility/Validator';
 import { Elements, StripeProvider } from 'react-stripe-elements';
+import buttons from '../../components/Recyclable/Button.css';
+import { Grid, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import Aux from '../../../hoc/ReactAux';
-import { Button } from 'mdbreact';
-import './SignupForm.css';
+import AlertBar from '../../components/Recyclable/AlertBar';
 
 class SignupForm extends Component {
 	state = {
@@ -45,26 +47,10 @@ class SignupForm extends Component {
 		description: '',
 		pracType: '',
 
-		apiKey: 'pk_test_6ENTZj1Qk1DRjeqgLBVRyrCN',
 		agreement: null,
 
 		registrationError: false,
 	};
-
-	componentDidMount() {
-		const stripeJs = document.createElement('script');
-		stripeJs.src = 'https://js.stripe.com/v3/';
-		stripeJs.async = true;
-		stripeJs.onload = () => {
-			// The setTimeout lets us pretend that Stripe.js took a long time to load
-			// Take it out of your production code!
-
-			this.setState({
-				stripe: window.Stripe(this.state.apiKey),
-			});
-		};
-		document.body && document.body.appendChild(stripeJs);
-	}
 
 	onChange = event => {
 		this.setState({ [event.target.name]: event.target.value });
@@ -103,17 +89,14 @@ class SignupForm extends Component {
 
 	setToken = token => {
 		this.setState({ stripeToken: token });
-	};
-	setBundle = bundle => {
-		console.log('bundle selected in SignupForm:', bundle);
-		this.setState({ bundle: bundle });
+		console.log('token ', token);
 	};
 
 	usernameCheck = () => {
 		const { pageNo, username, email, verificationErr } = this.state;
 		axios({
 			method: 'post',
-			url: 'http://localhost:8080/api/user/checkUserDetails',
+			url: 'http://localhost:8888/user/checkUserDetails',
 			data: {
 				username: username,
 				email: email,
@@ -128,7 +111,7 @@ class SignupForm extends Component {
 					this.setState({ verificationErr: null });
 				} else {
 					const errorMsg = resArray[0];
-					this.setState({ verificationErr: errorMsg + ' already registered' });
+					this.setState({ verificationErr: errorMsg });
 					console.log('error res', res);
 				}
 			})
@@ -142,31 +125,21 @@ class SignupForm extends Component {
 	};
 
 	practitionerDetailCheck = () => {
-		const { pageNo, verificationErr, businessAddress, businessName, abn, medicareProNum } = this.state;
-		console.log(abn);
+		const { pageNo, verificationErr, email, abn, medicareProNum } = this.state;
 
 		axios({
 			method: 'post',
-			url: 'http://localhost:8080/api/user/checkPracDetails',
+			url: 'http://localhost:8888/user/checkPracDetails',
 			data: {
 				ABN: abn,
 				medicalProviderNum: medicareProNum,
-				businessName: businessName,
-				businessAddress: businessAddress,
 			},
 		})
 			.then(res => {
-				console.log('practitionerDetail error', res);
-
-				const resArray = res && res.data;
-				if (resArray.length == 0) {
-					const newPageNo = pageNo + 1;
-					this.setState({ pageNo: newPageNo });
-					this.setState({ verificationErr: null });
-				} else {
-					const errorMsg = resArray[0];
-					this.setState({ verificationErr: errorMsg });
-				}
+				console.log('practitionerDetail res', res);
+				const newPageNo = pageNo + 1;
+				this.setState({ pageNo: newPageNo });
+				this.setState({ verificationErr: null });
 			})
 			.catch(({ response }) => {
 				console.log('practitionerDetail error', response);
@@ -179,7 +152,6 @@ class SignupForm extends Component {
 
 	registerHandler = () => {
 		let formData = new FormData();
-		console.log('token', this.state.stripeToken);
 		const {
 			pageNo,
 			username,
@@ -200,45 +172,66 @@ class SignupForm extends Component {
 			bundle,
 			stripeToken,
 		} = this.state;
+		if (bundle == '') {
+			console.log('only Subscription');
+			formData.append('title', title);
+			formData.append('password', newPassword);
+			formData.append('fName', firstName);
+			formData.append('lName', lastName);
+			formData.append('username', username);
+			formData.append('gender', gender);
+			formData.append('email', email);
+			formData.append('dob', dob);
+			formData.append('ABN', abn);
+			formData.append('pracType', pracType);
+			formData.append('serviceProvided', serviceProvided);
+			formData.append('medicalProviderNum', medicareProNum);
+			formData.append('accBody', accreditedBodies);
+			formData.append('businessName', businessName);
+			formData.append('businessAddress', businessAddress);
+			formData.append('profilePic', this.state.selectedImg, this.state.selectedImg.name);
+		} else {
+			console.log('Subscription + package');
 
-		console.log('bundle', bundle);
-
-		formData.append('title', title);
-		formData.append('password', newPassword);
-		formData.append('fName', firstName);
-		formData.append('lName', lastName);
-		formData.append('username', username);
-		formData.append('gender', gender);
-		formData.append('email', email);
-		formData.append('dob', dob);
-		formData.append('profilePic', this.state.selectedImg, this.state.selectedImg.name);
-		formData.append('ABN', abn);
-		formData.append('pracType', pracType);
-		formData.append('serviceProvided', serviceProvided);
-		formData.append('medicalProviderNum', medicareProNum);
-		formData.append('accBody', accreditedBodies);
-		formData.append('businessName', businessName);
-		formData.append('businessAddress', businessAddress);
-
-		if (bundle !== 'subscription') {
+			formData.append('title', title);
+			formData.append('password', newPassword);
+			formData.append('fName', firstName);
+			formData.append('lName', lastName);
+			formData.append('username', username);
+			formData.append('gender', gender);
+			formData.append('email', email);
+			formData.append('dob', dob);
+			formData.append('ABN', abn);
+			formData.append('pracType', pracType);
+			formData.append('serviceProvided', serviceProvided);
+			formData.append('medicalProviderNum', medicareProNum);
+			formData.append('accBody', accreditedBodies);
+			formData.append('businessName', businessName);
+			formData.append('businessAddress', businessAddress);
 			formData.append('bundle', bundle);
 			formData.append('stripeToken', stripeToken);
+			formData.append('profilePic', this.state.selectedImg, this.state.selectedImg.name);
 		}
 
+		console.log(formData.values);
 		axios
-			.post('http://localhost:8080/api/user/prac', formData)
+			.post('http://localhost:8888/user', formData)
 			.then(res => {
-				console.log('works?');
+				console.log('practitionerDetail res', res);
 				const newPageNo = pageNo + 1;
 				this.setState({ pageNo: newPageNo });
 				this.setState({ verificationErr: null });
 			})
 			.catch(({ response }) => {
+				console.log('practitionerDetail error', response);
 				const errorMsg = response && response.data && response.data.message;
 				this.setState({ verificationErr: errorMsg }, () => {
 					window.scrollTo(0, 0);
 				});
 			});
+
+		// const newPageNo = pageNo + 1;
+		// this.setState({pageNo: newPageNo});
 	};
 
 	initialiseAgreement = agreement => {
@@ -255,17 +248,6 @@ class SignupForm extends Component {
 		console.log('agrement', this.state.agreement);
 	};
 
-	renderError = () => {
-		if (this.state.verificationErr) {
-			return (
-				<div className="alert alert-danger alert-dismissible fade show animated fadeInUp" role="alert">
-					{this.state.verificationErr}
-				</div>
-			);
-		} else {
-			return null;
-		}
-	};
 	previousPageHandler = () => {
 		const { pageNo } = this.state;
 		if (pageNo <= 0) {
@@ -276,7 +258,6 @@ class SignupForm extends Component {
 	};
 
 	nextPageHandler = () => {
-		console.log('Checking sub', this.state.pageNo);
 		if (this.isValidCheck()) {
 			const { pageNo, verificationErr } = this.state;
 			if (pageNo >= 4) {
@@ -292,7 +273,6 @@ class SignupForm extends Component {
 						break;
 					case 2:
 						{
-							console.log('next page? subscription');
 							const newPageNo = pageNo + 1;
 							this.setState({ pageNo: newPageNo });
 							this.setState({ verificationErr: null });
@@ -312,7 +292,6 @@ class SignupForm extends Component {
 		let currentPage = null;
 		let pagination = null;
 		const {
-			apiKey,
 			username,
 			newPassword,
 			confirmPassword,
@@ -328,7 +307,8 @@ class SignupForm extends Component {
 			accreditedBodies,
 			businessName,
 			businessAddress,
-			pracType,
+			selectedImg,
+			stripeToken,
 			bundle,
 			verificationErr,
 			agreement,
@@ -337,18 +317,11 @@ class SignupForm extends Component {
 		switch (this.state.pageNo) {
 			case 0:
 				currentPage = (
-					<div className="animated fadeInDown signupCard">
-						<div className="singup-Header">
-							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
-							<h3>Registration</h3>
-						</div>
-						<ProgressBar step={this.state.pageNo} />
-
-						{this.renderError()}
-						<div className="row justify-content-md-center animated fadeInUp">
-							<div className="account-page-wrapper col-xs-10 col-md-8 col-lg-6 animated fadeInUp">
+					<div className={styles.Border}>
+						<Row>
+							<Col xs={1} md={2} lg={3} />
+							<Col xs={10} md={8} lg={6}>
 								<AccountPage
-									className="animated fadeInUp"
 									email={email}
 									username={username}
 									newPassword={newPassword}
@@ -359,30 +332,24 @@ class SignupForm extends Component {
 									onBlur={this.onBlur}
 									next={this.nextPageHandler}
 								/>
-							</div>
-						</div>
-						<div className="row formNav animated fadeInUp">
-							<div className="col-sm-6 animated fadeInUp" />
-							<div className="col-sm-3 animated fadeInUp">
-								<Button className="btn-block animated fadeInUp signupBtn" color="blue" onClick={this.nextPageHandler}>
-									Next
-								</Button>
-							</div>
-						</div>
+							</Col>
+						</Row>
 					</div>
 				);
-				pagination = '';
+				pagination = (
+					<Row>
+						<Col sm={6} />
+						<Col sm={6}>
+							<a className={[buttons.btn, buttons.btngreen].join(' ')} onClick={this.nextPageHandler}>
+								next
+							</a>
+						</Col>
+					</Row>
+				);
 				break;
 			case 1:
 				currentPage = (
-					<div className="signupCard">
-						<div className="singup-Header">
-							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
-							<h3>Registration</h3>
-						</div>
-						<ProgressBar step={this.state.pageNo} />
-
-						{this.renderError()}
+					<div className={styles.Border}>
 						<PractitionerPage
 							next={this.nextPageHandler}
 							prev={this.previousPageHandler}
@@ -397,7 +364,6 @@ class SignupForm extends Component {
 							accreditedBodies={accreditedBodies}
 							businessName={businessName}
 							businessAddress={businessAddress}
-							pracType={pracType}
 							errors={errors}
 							onChange={this.onChange}
 							onClick={this.onInputClickHandler}
@@ -406,37 +372,28 @@ class SignupForm extends Component {
 					</div>
 				);
 				pagination = (
-					<div className="row">
-						<div className="col-sm-3" />
-						<div className="col-sm-3">
-							<Button className="btn btn-block signupBtn" color="blue" onClick={this.previousPageHandler}>
-								Prev
-							</Button>
-						</div>
-						<div className="col-sm-3">
-							<Button className="btn  btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
-								Next
-							</Button>
-						</div>
-						<div className="col-sm-3" />
-					</div>
+					<Row>
+						<Col sm={6}>
+							<a className={[buttons.btn, buttons.btngreen].join(' ')} onClick={this.previousPageHandler}>
+								prev
+							</a>
+						</Col>
+						<Col sm={6}>
+							<a className={[buttons.btn, buttons.btngreen].join(' ')} onClick={this.nextPageHandler}>
+								next
+							</a>
+						</Col>
+					</Row>
 				);
 				break;
 			case 2:
 				currentPage = (
-					<div className="signupCard">
-						<div className="singup-Header">
-							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
-							<h3>Registration</h3>
-						</div>
-						<ProgressBar step={this.state.pageNo} />
-
-						{this.renderError()}
-						<StripeProvider apiKey={apiKey}>
+					<div className={styles.Border}>
+						<StripeProvider apiKey="pk_test_6ENTZj1Qk1DRjeqgLBVRyrCN">
 							<Elements>
 								<SubscriptionPaymentPage
 									setToken={this.setToken}
-									setBundle={this.setBundle}
+									bundle={bundle}
 									onChange={this.onChange}
 									onClick={this.onInputClickHandler}
 									next={this.nextPageHandler}
@@ -446,56 +403,57 @@ class SignupForm extends Component {
 						</StripeProvider>
 					</div>
 				);
-				pagination = '';
+				pagination = (
+					<Row>
+						<Col sm={6}>
+							<a className={[buttons.btn, buttons.btngreen].join(' ')} onClick={this.previousPageHandler}>
+								prev
+							</a>
+						</Col>
+						<Col sm={6}>
+							<a className={[buttons.btn, buttons.btngreen].join(' ')} onClick={this.nextPageHandler}>
+								next
+							</a>
+						</Col>
+					</Row>
+				);
 
 				break;
 			case 3:
 				currentPage = (
-					<div className="signupCard">
-						<div className="singup-Header">
-							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
-							<h3>Registration</h3>
-						</div>
-						<ProgressBar step={this.state.pageNo} />
-
-						{this.renderError()}
+					<div className={styles.Border}>
 						<AgreementPage toggle={this.agreementToggle} setAgreement={this.initialiseAgreement} />
 					</div>
 				);
 				pagination = (
-					<div className="row">
-						<div className="col-sm-3" />
-						<div className="col-sm-3">
-							<Button className="btn btn-block signupBtn" color="blue" onClick={this.previousPageHandler}>
-								Prev
-							</Button>
-						</div>
-						<div className="col-sm-3">
-							<Button className="btn btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
-								Next
-							</Button>
-						</div>
-						<div className="col-sm-3" />
-					</div>
+					<Row>
+						<Col sm={6}>
+							<a className={[buttons.btn, buttons.btngreen].join(' ')} onClick={this.previousPageHandler}>
+								prev
+							</a>
+						</Col>
+						<Col sm={6}>
+							<button
+								className={[buttons.btn, buttons.btngreen].join(' ')}
+								onClick={this.nextPageHandler}
+								disabled={agreement}
+							>
+								confirm
+							</button>
+						</Col>
+					</Row>
 				);
 				break;
 			case 4:
 				currentPage = (
-					<div className="signupCard">
-						<div className="singup-Header">
-							<img className="signupLogo" src="../../../../style/img/healthscout_logo.png" />
-							<h3>Registration</h3>
-						</div>
-						<ProgressBar step={this.state.pageNo} />
-						<div>
-							<ConfirmationPage />
-						</div>
+					<div className={styles.Border}>
+						<ConfirmationPage />
 					</div>
 				);
 				break;
 			default:
 				currentPage = (
-					<div>
+					<div className={styles.Border}>
 						<AccountPage next={this.nextPageHandler} />
 					</div>
 				);
@@ -503,8 +461,12 @@ class SignupForm extends Component {
 
 		return (
 			<Aux>
-				{currentPage}
-				{pagination}
+				<Grid>
+					{verificationErr && <AlertBar componentType="danger">{verificationErr}</AlertBar>}
+					<ProgressBar step={this.state.pageNo} />
+					{currentPage}
+					{pagination}
+				</Grid>
 			</Aux>
 		);
 	}

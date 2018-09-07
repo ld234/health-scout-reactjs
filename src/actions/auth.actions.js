@@ -125,9 +125,6 @@ export function verifyEmail(token) {
 				`${ROOT_URL}/verifyEmail`,
 				{},
 				{
-					headers: {
-						'x-access-token': localStorage.getItem('localToken'),
-					},
 					params: {
 						token,
 					},

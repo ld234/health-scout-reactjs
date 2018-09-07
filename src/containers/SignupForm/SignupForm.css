@@ -1,0 +1,34 @@
+.Buttons{
+  margin: 30px;
+  align: center;
+}
+.Label{
+
+}
+
+body{
+  background-color: #e7f1fd;
+}
+.Input{}
+
+.Border{
+  align-items: center;
+  background-color: white;
+  padding: 2em;
+  box-sizing: border-box;
+  border-radius: 15px;
+  margin-top: 80px;
+  -webkit-box-shadow: 0px 17px 66px -4px rgba(0,0,0,0.31);
+-moz-box-shadow: 0px 17px 66px -4px rgba(0,0,0,0.31);
+box-shadow: 0px 17px 66px -4px rgba(0,0,0,0.31);
+    /*
+  margin-left: 10%;
+  margin-right: 10%;
+  padding-top: 20px;
+  padding-right: 40px; */
+
+}
+
+.Pagination{
+  text-align: center;
+}
