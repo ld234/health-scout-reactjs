@@ -335,7 +335,7 @@ class SignupForm extends Component {
 			errors,
 		} = this.state;
 		switch (this.state.pageNo) {
-			case 0:
+			case 4:
 				currentPage = (
 					<div className="animated fadeInDown signupCard">
 						<div className="singup-Header">
@@ -479,7 +479,7 @@ class SignupForm extends Component {
 					</div>
 				);
 				break;
-			case 4:
+			case 0:
 				currentPage = (
 					<div className="signupCard">
 						<div className="singup-Header">

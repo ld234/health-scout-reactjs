@@ -53,7 +53,7 @@ class SubscriptionPaymentPage extends Component {
 
 	async handleSubmit() {
 		if (
-			this.state.selected != 3 &&
+			this.state.selected != 4 &&
 			this.state.validCardCvc &&
 			this.state.validCardNumber &&
 			this.state.validCardExpiry
@@ -70,7 +70,8 @@ class SubscriptionPaymentPage extends Component {
 				console.log(result.token.id);
 				this.props.next();
 			}
-		} else if (this.state.selected == 3) {
+		} else if (this.state.selected == 4) {
+			console.log('next sub');
 			this.props.next();
 		} else {
 			if (this.state.isEmptyCardCvc) {

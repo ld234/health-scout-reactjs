@@ -103,6 +103,7 @@ const PractitionerPage = props => {
 							</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
+							<option value="Other">Other</option>
 						</select>
 						<label className="errorMsg">{props.errors.gender}</label>
 					</div>
