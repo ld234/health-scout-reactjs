@@ -41,7 +41,6 @@ class PractitionerEditDocumentForm extends Component {
 		e.preventDefault();
 		e.stopPropagation();
 		e.nativeEvent.stopImmediatePropagation();
-		console.log('deleting document');
 		this.props.deleteDocument(this.state.oldTitle, this.props.pos, this.props.toggle);
 	};
 
@@ -56,18 +55,19 @@ class PractitionerEditDocumentForm extends Component {
 	};
 	onSubmit = () => {
 		let { chooseFile, description, title, oldTitle } = this.state;
-		console.log('choose file', chooseFile);
+		console.log('[choose file]', chooseFile);
 		let formData = new FormData();
 		formData.append('oldTitle', oldTitle);
 		formData.append('newTitle', title);
 		formData.append('description', description);
-		formData.append('file', chooseFile, title);
+		if (chooseFile != null) {
+			formData.append('file', chooseFile, title);
+		}
 		this.props.editDocument(formData, this.props.pos, this.props.toggle);
 	};
 
 	renderError = () => {
 		let { editDocumentError } = this.props.documentState;
-		console.log(editDocumentError);
 		if (editDocumentError)
 			return (
 				<div className="alert alert-danger alert-dismissible fade show animated fadeInUp" role="alert">

@@ -12,7 +12,7 @@ export const DELETE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const DELETE_DOCUMENT_PENDING = 'DELETE_DOCUMENT_PENDING';
 export const DELETE_DOCUMENT_ERROR = 'DELETE_DOCUMENT_ERROR';
 
-const ROOT_URL = 'http://localhost:8080/api/document';
+const ROOT_URL = 'http://localhost:8080/sapi/document';
 
 export function addDocument(newDocument, successCb) {
 	return dispatch => {

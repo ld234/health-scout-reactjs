@@ -39,6 +39,12 @@ module.exports = {
 				changeOrigin: true,
 				secure: true,
 			},
+			'/sapi': {
+				target: 'https://localhost:9000',
+				pathRewrite: { '^/sapi': '' },
+				changeOrigin: true,
+				secure: false,
+			},
 		},
 	},
 };

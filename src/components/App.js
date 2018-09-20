@@ -23,6 +23,7 @@ import AccountActivationPage from './User/AccountActivationPage';
 import ClientAllergiesPage from './Client/ClientAllergiesPage';
 import ClientFamilyHistoryPage from './Client/ClientFamilyHistoryPage';
 import ClientMedicationHistoryPage from './Client/ClientMedicationHistoryPage';
+import ClientDocumentExchangePage from './Client/ClientDocumentExchange';
 
 class App extends Component {
 	constructor(props) {
@@ -46,6 +47,8 @@ class App extends Component {
 						<PrivateRoute exact path="/client" component={SingleClientPage} />
 						<PrivateRoute exact path="/client/new-consultation" component={ClientNewConsultationPage} />
 						<PrivateRoute exact path="/client/medical-history" component={ClientMedicalHistoryPage} />
+						<PrivateRoute exact path="/client/document-exchange" component={ClientDocumentExchangePage} />
+
 						<PrivateRoute path="/client/medical-history/consultation-history" component={ConsultationHistoryPage} />
 						<PrivateRoute path="/client/medical-history/allergies" component={ClientAllergiesPage} />
 						<PrivateRoute path="/client/medical-history/family-history" component={ClientFamilyHistoryPage} />
