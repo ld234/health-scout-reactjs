@@ -6,12 +6,12 @@ export const ADD_CONSULTATION_ERROR = 'ADD_CONSULTATION_ERROR';
 export const GET_CONSULTATIONS_PENDING = 'GET_CONSULTATIONS_PENDING';
 export const GET_CONSULTATIONS_SUCCESS = 'GET_CONSULTATIONS_SUCCESS';
 export const GET_CONSULTATIONS_ERROR = 'GET_CONSULTATIONS_ERROR';
-const ACCEPT_CLIENT_PENDING = 'ACCEPT_CLIENT_PENDING';
-const ACCEPT_CLIENT_SUCCESS = 'ACCEPT_CLIENT_SUCCESS';
-const ACCEPT_CLIENT_ERROR = 'ACCEPT_CLIENT_ERROR';
+export const EDIT_CONSULTATION_PENDING = 'EDIT_CONSULTATION_PENDING';
+export const EDIT_CONSULTATION_SUCCESS = 'EDIT_CONSULTATION_SUCCESS';
+export const EDIT_CONSULTATION_ERROR = 'EDIT_CONSULTATION_ERROR';
 const CHOOSE_CLIENT = 'CHOOSE_CLIENT';
 
-const ROOT_URL = 'http://localhost:8080/api/clients/profile';
+const ROOT_URL = 'http://localhost:8080/api/clients/profile/consultation';
 
 function setAddConsultationPending(isAddConsultationPending) {
 	return {
@@ -41,7 +41,7 @@ export function addConsultation(newConsultation, cb) {
 		dispatch(setAddConsultationError(null));
 
 		axios
-			.post(`${ROOT_URL}/consultation`, newConsultation, {
+			.post(`${ROOT_URL}`, newConsultation, {
 				headers: {
 					'x-access-token': localStorage.getItem('localToken'),
 				},
@@ -76,7 +76,7 @@ function setGetConsultationsSuccess(isGetConsultationsSuccess, consultations) {
 	};
 }
 
-function setGetConsultationsError(getConsultationsError) {
+export function setGetConsultationsError(getConsultationsError) {
 	return {
 		type: GET_CONSULTATIONS_ERROR,
 		getConsultationsError: getConsultationsError,
@@ -88,9 +88,9 @@ export function getConsultations(patientUsername, cb) {
 		dispatch(setGetConsultationsPending(true));
 		dispatch(setGetConsultationsSuccess(false, null));
 		dispatch(setGetConsultationsError(null));
-
+		console.log(cb.toString());
 		axios
-			.get(`${ROOT_URL}/consultation`, {
+			.get(`${ROOT_URL}`, {
 				headers: {
 					'x-access-token': localStorage.getItem('localToken'),
 				},
@@ -112,57 +112,53 @@ export function getConsultations(patientUsername, cb) {
 	};
 }
 
-function setAcceptClientPending(isAcceptClientPending) {
+function setEditConsultationPending(isEditConsultationPending) {
 	return {
-		type: ACCEPT_CLIENT_PENDING,
-		isAcceptClientPending: isAcceptClientPending,
+		type: EDIT_CONSULTATION_PENDING,
+		isEditConsultationPending: isEditConsultationPending,
 	};
 }
 
-function setAcceptClientSuccess(isAcceptClientSuccess, idx) {
+function setEditConsultationSuccess(isEditConsultationSuccess, newConsultation, idx) {
 	return {
-		type: ACCEPT_CLIENT_SUCCESS,
-		isAcceptClientSuccess: isAcceptClientSuccess,
+		type: EDIT_CONSULTATION_SUCCESS,
+		newConsultation,
+		isEditConsultationSuccess: isEditConsultationSuccess,
 		idx,
 	};
 }
 
-function setAcceptClientError(addConsultationError) {
+export function setEditConsultationError(editConsultationError) {
 	return {
-		type: ACCEPT_CLIENT_ERROR,
-		addConsultationError: addConsultationError,
+		type: EDIT_CONSULTATION_ERROR,
+		editConsultationError: editConsultationError,
 	};
 }
 
-function acceptConnection(newPatient, idx, cb) {
+export function editConsultation(newConsultation, idx, cb) {
 	return dispatch => {
-		dispatch(setAcceptClientPending(true));
-		dispatch(setAcceptClientSuccess(false, null));
-		dispatch(setAcceptClientError(null));
+		console.log('axios', idx);
+		dispatch(setEditConsultationPending(true));
+		dispatch(setEditConsultationSuccess(false, null));
+		dispatch(setEditConsultationError(null));
 
 		axios
-			.put(
-				`${ROOT_URL}/clickNew`,
-				{},
-				{
-					headers: {
-						'x-access-token': localStorage.getItem('localToken'),
-					},
-					params: {
-						patientUsername: newPatient,
-					},
-				}
-			)
-			.then(() => {
-				dispatch(setAcceptClientPending(false));
-				dispatch(setAcceptClientSuccess(true, idx));
+			.put(`${ROOT_URL}`, newConsultation, {
+				headers: {
+					'x-access-token': localStorage.getItem('localToken'),
+				},
+			})
+			.then(res => {
+				console.log(res);
+				dispatch(setEditConsultationPending(false));
+				dispatch(setEditConsultationSuccess(true, res.data.consultation, idx));
 				cb();
 			})
 			.catch(err => {
 				console.log('err', err);
-				dispatch(setAcceptClientPending(false));
-				dispatch(setAcceptClientSuccess(false, null));
-				if (err.response.data) dispatch(setAcceptClientError(err.response.data.message));
+				dispatch(setEditConsultationPending(false));
+				dispatch(setEditConsultationSuccess(false, null));
+				if (err.response.data) dispatch(setEditConsultationError(err.response.data.message));
 			});
 	};
 }

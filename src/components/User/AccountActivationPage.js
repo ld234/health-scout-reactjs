@@ -14,28 +14,33 @@ class AccountActivationPage extends Component {
 	}
 
 	render() {
-		if (this.props.authState.isVerifyEmailSuccess)
+		if (this.props.authState.isVerifyEmailSuccess) {
+			console.log('success activation');
 			return (
 				<div className="container">
 					<div className="login-container password-reset-container">
 						<SuccessCheckMark />
 						<p className="success">Successfully activated account</p>
 						<Link to="/login" style={{ textDecoration: 'none' }}>
-							<Button>Click here to login"</Button>
+							<Button id="login-button">Click here to login"</Button>
 						</Link>
 					</div>
 				</div>
 			);
-		else
+		} else {
 			return (
 				<div className="container">
-					<div className="login-container">
+					<div className="login-container password-reset-container">
 						<ErrorCrossMark />
 						<p className="error">Invalid activation link</p>
-						<p>Your link may have expired. Please register your account again to receive a new activation link.</p>
+						<p>
+							Your link may have expired. Please contact us at{' '}
+							<a href="healthscout321@gmail.com">healthscout321@gmail.com</a> to receive support.
+						</p>
 					</div>
 				</div>
 			);
+		}
 	}
 }
 

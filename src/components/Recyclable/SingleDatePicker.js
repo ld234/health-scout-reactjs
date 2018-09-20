@@ -9,10 +9,16 @@ import 'react-dates/lib/css/_datepicker.css';
 export default class App extends React.Component {
 	constructor(props, context) {
 		super(props, context);
-
-		this.state = {
-			date: moment(),
-		};
+		if (!this.props.date)
+			this.state = {
+				date: moment(),
+			};
+		else {
+			this.state = {
+				date: this.props.date,
+			};
+			console.log(typeof this.props.date);
+		}
 		this.props.onChange(this.state.date);
 	}
 

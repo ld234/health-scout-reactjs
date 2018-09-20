@@ -4,6 +4,7 @@ import { Button, Modal, ModalHeader, Pagination, PageItem, PageLink } from 'mdbr
 import { getDocument } from '../../actions/document.action';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ViewPDF from '../Recyclable/LoadPdf';
+import LoadingPage from '../Recyclable/LoadingPage';
 
 class PractitionerMyDocuments extends Component {
 	constructor(props) {
@@ -23,8 +24,8 @@ class PractitionerMyDocuments extends Component {
 	componentDidMount() {
 		console.log('inside component did mount', this.props.documentState.editDocumentError);
 		this.props.getDocument();
-		let pages = Math.floor(this.props.documentState.documents.length / 10);
-		this.setState({ pages });
+		// let pages = Math.floor(this.props.documentState.documents.length / 10);
+		// this.setState({ pages });
 	}
 	componentWillUpdate(nextprops, nextstate) {
 		console.log('[Component will update]', nextprops);
@@ -71,7 +72,7 @@ class PractitionerMyDocuments extends Component {
 								this.toggleViewDocument(doc.file);
 							}}
 						>
-							<span className=" doc-number">
+							<span className="doc-number">
 								<i className="fas fa-file-pdf" />
 							</span>
 							<span className="doc-modification">{doc.title}</span>
@@ -93,7 +94,7 @@ class PractitionerMyDocuments extends Component {
 		}
 
 		let renderPagination;
-		if (this.state.pages > 1) {
+		if (this.props.documentState.documents) {
 			renderPagination = (
 				<Pagination className="pg-blue">
 					<PageItem disabled>
@@ -126,6 +127,8 @@ class PractitionerMyDocuments extends Component {
 			);
 		}
 
+		if (this.props.documentState.isGetDocumentPending) return <LoadingPage />;
+
 		return (
 			<div>
 				<div className="practitioner-profile-head row justify-content-between">
@@ -143,7 +146,7 @@ class PractitionerMyDocuments extends Component {
 					<div className="col col-md-12 myDocuments">
 						<div className="mydocs-wrapper">
 							<div className="row">
-								<div className="col col-xs-1" />
+								<div className="col"> </div>
 								<div className="col col-xs-3">NAME</div>
 								<div className="col col-xs-5">DESCRIPTION</div>
 								<div className="col col-xs-2"> LAST MODIFIED</div>

@@ -62,7 +62,7 @@ const clientsPersistConfig = {
 const consultationPersistConfig = {
 	key: 'consultations',
 	storage: storage,
-	blacklist: ['addConsultationError', 'getConsultationsError', 'isAddConsultationSuccess'],
+	blacklist: ['addConsultationError', 'getConsultationsError', 'isAddConsultationSuccess', 'editConsultationError'],
 };
 
 const medicalHistoryPersistConfig = {

@@ -66,6 +66,9 @@
     .menu-card .thumb{
       background-size: 60%!important;
     }
+    .menu-card::after{
+      font-size: 1.2em;
+    }
   }
   
   

@@ -98,7 +98,7 @@ class ForgotPasswordForm extends Component {
 		if (!this.state.loading && !this.state.success)
 			return (
 				<div className={`${classNames} container`}>
-					<div className="login-container">
+					<div className="login-container password-reset-container">
 						{this.renderError()}
 						<div className="app-icon" />
 						<h3>Forgot password?</h3>
@@ -115,7 +115,9 @@ class ForgotPasswordForm extends Component {
 									onChange={this.onFieldsChange}
 									value={this.state.resetMeans}
 								/>
-								<Button type="submit">Send reset email</Button>
+								<Button id="login-button" type="submit">
+									Send reset email
+								</Button>
 							</form>
 						</div>
 					</div>

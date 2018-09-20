@@ -13,6 +13,20 @@ import LoadingPage from '../Recyclable/LoadingPage';
 import { getQualifications } from '../../actions/qualification.actions';
 import { getPracTypeSpecialties, getSpecialties } from '../../actions/specialty.actions';
 
+/*
+
+<PractitionerProfile
+							section="Professional Experience"
+							buttonID="add-experience"
+							for="experience"
+							flag="degree"
+							timeWrapper="graduateYear"
+							desc="description"
+							editComponent={PractitionerEditQualificationForm}
+							addComponent={PractionerAddQualificationForm}
+						/>
+*/
+
 class PractitionerPage extends Component {
 	constructor(props) {
 		super(props);
@@ -49,16 +63,6 @@ class PractitionerPage extends Component {
 							flag="degree"
 							timeWrapper="graduateYear"
 							subtext="institution"
-							desc="description"
-							editComponent={PractitionerEditQualificationForm}
-							addComponent={PractionerAddQualificationForm}
-						/>
-						<PractitionerProfile
-							section="Professional Experience"
-							buttonID="add-experience"
-							for="experience"
-							flag="degree"
-							timeWrapper="graduateYear"
 							desc="description"
 							editComponent={PractitionerEditQualificationForm}
 							addComponent={PractionerAddQualificationForm}

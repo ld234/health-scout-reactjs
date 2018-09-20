@@ -29,6 +29,8 @@ class SideNavbar extends React.Component {
 	};
 
 	render() {
+		console.log('rerenders', this.state.clickedItem);
+
 		let tos = ['/myclients', '/profile', '/mydocs', '/settings', '/login'];
 		let firstSpans = ['fas fa-users', 'fas fa-user-md', 'fas fa-file-medical', 'fas fa-cogs', 'fas fa-sign-out-alt'];
 		let secondSpans = ['My Clients', 'Profile', 'My Documents', 'Settings', 'Logout'];
@@ -47,7 +49,7 @@ class SideNavbar extends React.Component {
 										</li>
 									</Link>
 								);
-							if (idx === this.state.clickedItem)
+							else if (idx === this.state.clickedItem)
 								return (
 									<Link key={`navitem${idx}`} to={tos[idx]} onClick={() => this.onItemClick(idx)}>
 										<li className="item-menu nav-link clicked">
@@ -56,14 +58,15 @@ class SideNavbar extends React.Component {
 										</li>
 									</Link>
 								);
-							return (
-								<Link key={`navitem${idx}`} to={tos[idx]} onClick={() => this.onItemClick(idx)}>
-									<li className="item-menu nav-link">
-										<span className={firstSpans[idx]} />
-										<span className="menu">{itemName}</span>
-									</li>
-								</Link>
-							);
+							else
+								return (
+									<Link key={`navitem${idx}`} to={tos[idx]} onClick={() => this.onItemClick(idx)}>
+										<li className="item-menu nav-link">
+											<span className={firstSpans[idx]} />
+											<span className="menu">{itemName}</span>
+										</li>
+									</Link>
+								);
 						})}
 					</ul>
 				</div>

@@ -27,7 +27,6 @@ class ClientNewConsultationForm extends Component {
 	};
 
 	onDateChange = date => {
-		console.log(date);
 		this.setState({ consultDate: date });
 	};
 
@@ -35,8 +34,6 @@ class ClientNewConsultationForm extends Component {
 		e.preventDefault();
 		const { title, consultDate, summary, intervention } = this.state;
 		const fields = ['title', 'consultDate', 'summary', 'intervention'];
-		console.log('is empty string', _.isEmpty(this.state.consultDate));
-		console.log('consultDate', this.state.consultDate);
 		if (!fields.every(field => !_.isEmpty(this.state[field]))) {
 			this.setState({ error: 'All fields are required.' });
 		} else {
@@ -105,7 +102,6 @@ class ClientNewConsultationForm extends Component {
 
 	renderSuccess = () => {
 		let { isAddConsultationSuccess } = this.props.consultationState;
-		console.log('isAddConsultationSuccess', isAddConsultationSuccess);
 		if (isAddConsultationSuccess)
 			return (
 				<div className="clearfix">

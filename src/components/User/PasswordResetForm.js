@@ -77,11 +77,11 @@ class PasswordResetForm extends Component {
 	renderSuccess = () => {
 		return (
 			<div className="container">
-				<div className="login-container">
+				<div className="login-container password-reset-container">
 					<SuccessCheckMark />
 					<h6>Successfully reset password</h6>
 					<Link to="/login" style={{ textDecoration: 'none' }}>
-						<Button>Click here to login"</Button>
+						<Button id="login-button">Click here to login"</Button>
 					</Link>
 				</div>
 			</div>
@@ -92,7 +92,7 @@ class PasswordResetForm extends Component {
 		if (!this.state.loading && !this.state.success)
 			return (
 				<div className="animated fadeInDown container">
-					<div className="login-container">
+					<div className="login-container password-reset-container">
 						{this.renderError()}
 						<div className="app-icon" />
 						<h3>Reset password</h3>
@@ -115,7 +115,9 @@ class PasswordResetForm extends Component {
 									onPaste={e => e.preventDefault()}
 									value={this.state.passwordConfirm}
 								/>
-								<Button type="submit">Reset password</Button>
+								<Button id="login-button" type="submit">
+									Reset password
+								</Button>
 							</form>
 						</div>
 					</div>

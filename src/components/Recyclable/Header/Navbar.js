@@ -35,12 +35,12 @@ class Navbar extends Component {
 			return (
 				<div className="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
 					<ul className="navbar-nav ml-auto">
-						<li className="nav-item">
+						<li className="nav-item navLink">
 							<Link to="/login" className="nav-link waves-effect">
 								Login
 							</Link>
 						</li>
-						<li className="nav-item">
+						<li className="nav-item navLink">
 							<Link to="/register" className="nav-link waves-effect">
 								Register
 							</Link>

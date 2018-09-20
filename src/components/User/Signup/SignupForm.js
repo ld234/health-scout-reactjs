@@ -102,6 +102,7 @@ class SignupForm extends Component {
 	};
 
 	setToken = token => {
+		console.log('token', token);
 		this.setState({ stripeToken: token });
 	};
 	setBundle = bundle => {
@@ -202,6 +203,7 @@ class SignupForm extends Component {
 		} = this.state;
 
 		console.log('bundle', bundle);
+		console.log('token', stripeToken);
 
 		formData.append('title', title);
 		formData.append('password', newPassword);

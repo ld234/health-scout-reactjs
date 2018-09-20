@@ -169,7 +169,7 @@ class ConsultationHistoryPage extends Component {
 					<div className="main-wrapper">
 						<div className="search-wrapper">
 							<div className="search-container">
-								<input onChange={this.onChange} value={this.state.searchInput} type="text" placeholder="Search..." />
+								<input onChange={this.onChange} value={this.state.searchInput} type="text" placeholder="Search patient by name..." />
 								<div className="search" onClick={() => this.setState({ searchInput: '' })} />
 							</div>
 						</div>

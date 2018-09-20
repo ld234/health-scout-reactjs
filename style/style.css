@@ -1,17 +1,23 @@
 #app-body{
-  overflow: auto!important;
+  /* overflow: auto!important; */
+  overflow-x: hidden;
   font-family: 'Quicksand', sans-serif;
   scroll-behavior: smooth;
+
 }
 /***** all ******/
-a:hover{
-  text-decoration: underline;
-  color:#4CAF50;
+.login-container a:hover{
+  text-decoration: none;
+  color: rgb(0, 204, 255);
   transition-duration: 0.1s;
 }
 
 input, textarea{
-  font-family:'Quicksand', 'sans-serif' !important;    
+  font-family:'Quicksand', 'sans-serif' !important;
+}
+
+textarea{ 
+  resize: none!important;
 }
 
 input.form-control:focus, textarea.form-control:focus{
@@ -168,6 +174,10 @@ html,body{
     border: 1px solid #eee;
     transition:width 1s ease-in-out;
     box-shadow: 0 5px 11px 0 rgba(100, 100, 100, 0.18), 0 4px 15px 0 rgba(130, 130, 130, 0.15);
+}
+
+.password-reset-container{
+  padding-bottom: 50px;
 }
 
 @media (max-width: 365px){
@@ -725,7 +735,8 @@ button {
   transition: width 0.4s ;
   position: fixed;
   z-index: 1011; 
-  background-image: url("https://images.pexels.com/photos/920163/pexels-photo-920163.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-image: url("./img/side-background.jpg");
+    /*"https://images.pexels.com/photos/920163/pexels-photo-920163.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"*/
     /* "https://images.pexels.com/photos/414727/pexels-photo-414727.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"); */
     /* "https://images.pexels.com/photos/68474/water-drip-drop-blue-68474.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"); */
   /* https://www.publicdomainpictures.net/pictures/130000/velka/degrade-de-couleur-5.jpg"); */
@@ -1679,8 +1690,9 @@ ul.rolldown-list li.doc-item{
   color: #333;
   margin: 15px 0;
   transition: .5s;
-  border-radius: 2px;
+  border-radius: 3px;
   transition: all .3s;
+  border:2px solid transparent;
   /* border:1px solid transparent; */
   box-shadow: 0 5px 40px 0 rgba(126, 122, 122, 0.1), 0 4px 15px 0 rgba(130, 130, 130, 0.1);
 }
@@ -1690,7 +1702,7 @@ ul.rolldown-list li.doc-item:hover{
   cursor: pointer;
   /* transform: translateY(-3px); */
 
-  /* border:1px solid #1B75E8; */
+  border:2px solid #1B75E8;
   /* background-color: rgba(14, 114, 236, 0.05); */
   box-shadow: 0 5px 40px 0 rgba(51, 51, 51, 0.18), 0 4px 15px 0 rgba(130, 130, 130, 0.15);
 }
@@ -1710,7 +1722,7 @@ li.doc-item:hover .doc-modify{
   display: inline-block;
   width: 30px;
   text-align: right;
-  font-size: 1em;
+  font-size: 1.12em;
 }
 
 li.doc-item .doc-modify:hover{

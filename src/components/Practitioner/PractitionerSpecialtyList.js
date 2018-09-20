@@ -71,48 +71,56 @@ li key={idx} className={classes} >{specialty}
 */
 	render() {
 		console.log('clicked this', this.state.justClicked);
+		if (this.props.specialtyState.specialties && this.props.specialtyState.specialties.length > 0)
+			return (
+				<div className="specialty-wrapper">
+					<ul className="rolldown-list" id="myList">
+						<ReactCSSTransitionGroup
+							transitionName="specialtyFade"
+							transitionEnterTimeout={500}
+							transitionLeaveTimeout={500}
+						>
+							{this.renderListItems()}
+						</ReactCSSTransitionGroup>
+					</ul>
+					<Modal id="confirm-accept-modal" isOpen={this.state.modal} toggle={this.toggle2}>
+						<ModalHeader toggle={this.toggle2}>Confirmation</ModalHeader>
+						<ModalBody>
+							Are you sure you want to delete specialty&nbsp;
+							{this.state.justClicked !== null
+								? this.props.specialtyState.specialties[this.state.justClicked].specialty
+								: this.state.justClicked}
+							?
+						</ModalBody>
+						<ModalFooter>
+							<div className="buttons">
+								<a onClick={this.toggle2}>Cancel</a>
+								<a
+									className="confirm-accept"
+									onClick={() => {
+										this.setState({ justDelete: this.state.justClicked, justClicked: null }, () => {
+											setTimeout(() => this.setState({ justDelete: null }), 1000);
+											console.log(this.state);
+										});
+										this.props.deleteSpecialty(
+											this.props.specialtyState.specialties[this.state.justClicked],
+											this.state.justClicked
+										);
+										this.toggle2();
+									}}
+								>
+									Accept
+								</a>
+							</div>
+						</ModalFooter>
+					</Modal>
+				</div>
+			);
 		return (
-			<div className="specialty-wrapper">
-				<ul className="rolldown-list" id="myList">
-					<ReactCSSTransitionGroup
-						transitionName="specialtyFade"
-						transitionEnterTimeout={500}
-						transitionLeaveTimeout={500}
-					>
-						{this.renderListItems()}
-					</ReactCSSTransitionGroup>
-				</ul>
-				<Modal id="confirm-accept-modal" isOpen={this.state.modal} toggle={this.toggle2}>
-					<ModalHeader toggle={this.toggle2}>Confirmation</ModalHeader>
-					<ModalBody>
-						Are you sure you want to delete specialty&nbsp;
-						{this.state.justClicked !== null
-							? this.props.specialtyState.specialties[this.state.justClicked].specialty
-							: this.state.justClicked}
-						?
-					</ModalBody>
-					<ModalFooter>
-						<div className="buttons">
-							<a onClick={this.toggle2}>Cancel</a>
-							<a
-								className="confirm-accept"
-								onClick={() => {
-									this.setState({ justDelete: this.state.justClicked, justClicked: null }, () => {
-										setTimeout(() => this.setState({ justDelete: null }), 1000);
-										console.log(this.state);
-									});
-									this.props.deleteSpecialty(
-										this.props.specialtyState.specialties[this.state.justClicked],
-										this.state.justClicked
-									);
-									this.toggle2();
-								}}
-							>
-								Accept
-							</a>
-						</div>
-					</ModalFooter>
-				</Modal>
+			<div className="small-text">
+				<p className="text-center">
+					<i>Start adding your specialty(ies) to increase credibility and searchability.</i>
+				</p>
 			</div>
 		);
 	}

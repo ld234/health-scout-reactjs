@@ -23,6 +23,7 @@ import AccountActivationPage from './User/AccountActivationPage';
 import ClientAllergiesPage from './Client/ClientAllergiesPage';
 import ClientFamilyHistoryPage from './Client/ClientFamilyHistoryPage';
 import ClientMedicationHistoryPage from './Client/ClientMedicationHistoryPage';
+import ClientMyConsultationPage from './Client/ClientMyPastConsultation';
 
 class App extends Component {
 	constructor(props) {
@@ -50,6 +51,7 @@ class App extends Component {
 						<PrivateRoute path="/client/medical-history/allergies" component={ClientAllergiesPage} />
 						<PrivateRoute path="/client/medical-history/family-history" component={ClientFamilyHistoryPage} />
 						<PrivateRoute path="/client/medical-history/medication-history" component={ClientMedicationHistoryPage} />
+						<PrivateRoute path="/client/my-past-consultations" component={ClientMyConsultationPage} />
 						<PrivateRoute path="/settings" component={SettingsPage} />
 						<PrivateRoute exact path="/mydocs" component={MyDocumentPage} />
 					</Switch>
