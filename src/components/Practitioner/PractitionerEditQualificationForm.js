@@ -33,7 +33,7 @@ class PractitionerEditQualificationForm extends Component {
 	validateForm = e => {
 		e.preventDefault();
 		let { degree, institution, description, graduateYear } = this.state;
-		if (!(degree && institution && description && graduateYear)) {
+		if (!(degree && institution && graduateYear)) {
 			this.setState({ error: 'All fields are required.' });
 		} else if (!graduateYear.toString().match('[0-9]{4}')) {
 			this.setState({ error: 'Invalid year expression.' });
@@ -167,7 +167,6 @@ class PractitionerEditQualificationForm extends Component {
 							onChange={this.onInputChange}
 							value={this.state.description}
 						/>
-						<label className="errorMsg clearfix">{this.state.errors.description}</label>
 					</div>
 				</ModalBody>
 				<ModalFooter>

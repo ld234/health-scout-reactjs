@@ -70,19 +70,16 @@ class MyClientPage extends Component {
 							.match(`^.*${escapeRegexCharacters(this.state.searchInput.toLowerCase())}.*$`);
 					})
 					.map((client, idx) => {
-						const selected = this.props.clientState.clients.findIndex(
-							clnt => clnt.patientUsername === client.patientUsername
-						);
+						const selected = clients.findIndex(clnt => clnt.patientUsername === client.patientUsername);
 						return (
 							<Link
-								key={`client${selected}`}
+								key={`client${idx}`}
 								to={newC ? '/myclients' : `/client`}
 								onClick={
 									newC
 										? () => {
-												console.log('it works');
 												this.setState({ justClicked: selected }, () => {
-													console.log(this.state.justClicked);
+													console.log('justClicked my client', this.state.justClicked, selected);
 													parseInt(this.props.userState.user.availableConnections) > 0
 														? this.toggle2(selected)
 														: this.toggle();
@@ -93,7 +90,7 @@ class MyClientPage extends Component {
 										  }
 								}
 							>
-								<div key={`client${idx}`} className="movie-card">
+								<div className="movie-card">
 									<div className="color-overlay">
 										<div className="avatar mx-auto col col-lg-2 client-avatar-div">
 											<div className="view overlay client-overlay">
@@ -156,7 +153,17 @@ class MyClientPage extends Component {
 					</div>
 					<Modal id="confirm-accept-modal" isOpen={this.state.modal} toggle={this.toggle2}>
 						<ModalHeader toggle={this.toggle2}>Confirmation</ModalHeader>
-						<ModalBody>Are you sure you want to accept this incoming connection?</ModalBody>
+						<ModalBody>
+							<div className="bubble">
+								<div className="content">
+									{this.state.justClicked !== null && this.props.clientState.newClients[this.state.justClicked]
+										? this.props.clientState.newClients[this.state.justClicked].message
+										: ''}
+								</div>
+							</div>
+							<br />
+							Are you sure you want to accept this incoming connection?
+						</ModalBody>
 						<ModalFooter>
 							<div className="buttons">
 								<a onClick={this.toggle2}>Cancel</a>

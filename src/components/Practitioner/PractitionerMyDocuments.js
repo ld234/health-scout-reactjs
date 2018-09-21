@@ -17,19 +17,16 @@ class PractitionerMyDocuments extends Component {
 			hoveredItem: null,
 			pos: null,
 			selectedDoc: null,
-			pages: 2,
+			// pages: 2,
 			docNum: null,
+			currentPage: 1,
 		};
 	}
 	componentDidMount() {
 		console.log('inside component did mount', this.props.documentState.editDocumentError);
 		this.props.getDocument();
-		// let pages = Math.floor(this.props.documentState.documents.length / 10);
-		// this.setState({ pages });
 	}
-	componentWillUpdate(nextprops, nextstate) {
-		console.log('[Component will update]', nextprops);
-	}
+
 	toggleAddDocument = () => {
 		console.log('toggle', this.state.addDocumentToggle);
 		this.setState((prevState, props) => {
@@ -56,14 +53,93 @@ class PractitionerMyDocuments extends Component {
 			};
 		});
 	};
+	setPageHandler = pageNum => {
+		this.setState({ currentPage: pageNum });
+	};
 
-	deleteDocucmentHandler = () => {};
-
+	prevPaginationHandler() {
+		this.setState((prevState, props) => {
+			return {
+				currentPage: prevState.currentPage - 1,
+			};
+		});
+	}
+	nextPaginationHandler() {
+		this.setState((prevState, props) => {
+			return {
+				currentPage: prevState.currentPage + 1,
+			};
+		});
+	}
 	render() {
+		let renderPagination;
+		if (this.props.documentState.documents) {
+			let pages = Math.floor(this.props.documentState.documents.length / 10) + 1;
+			console.log('document rendered');
+			renderPagination = (
+				<Pagination className="pg-blue">
+					{this.state.currentPage == 1 ? (
+						<PageItem disabled onClick={() => this.prevPaginationHandler()}>
+							<PageLink className="page-link" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+								<span className="sr-only">Previous</span>
+							</PageLink>
+						</PageItem>
+					) : (
+						<PageItem onClick={() => this.prevPaginationHandler()}>
+							<PageLink className="page-link" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+								<span className="sr-only">Previous</span>
+							</PageLink>
+						</PageItem>
+					)}
+					{Array.apply(null, { length: pages }).map((doc, idx) => {
+						if (idx + 1 === this.state.currentPage) {
+							return (
+								<PageItem active>
+									<PageLink className="page-link">
+										{idx + 1} <span className="sr-only">(current)</span>
+									</PageLink>
+								</PageItem>
+							);
+						} else if (idx + 1 == this.state.currentPage - 1) {
+							return (
+								<PageItem onClick={() => this.setPageHandler(idx + 1)}>
+									<PageLink className="page-link">
+										{idx + 1} <span className="sr-only">(current)</span>
+									</PageLink>
+								</PageItem>
+							);
+						} else if (idx + 1 == this.state.currentPage + 1) {
+							return (
+								<PageItem onClick={() => this.setPageHandler(idx + 1)}>
+									<PageLink className="page-link">
+										{idx + 1} <span className="sr-only">(current)</span>
+									</PageLink>
+								</PageItem>
+							);
+						}
+					})}
+
+					{this.state.currentPage == pages ? (
+						<PageItem disabled onClick={() => this.nextPaginationHandler()}>
+							<PageLink className="page-link">&raquo;</PageLink>
+						</PageItem>
+					) : (
+						<PageItem onClick={() => this.nextPaginationHandler()}>
+							<PageLink className="page-link">&raquo;</PageLink>
+						</PageItem>
+					)}
+				</Pagination>
+			);
+		}
 		let docList;
 		console.log(this.props.documentState.documents);
 		if (this.props.documentState.documents) {
-			docList = this.props.documentState.documents.map((doc, idx) => {
+			docList = this.props.documentState.documents.filter(
+				(doc, idx) => Math.floor(idx / 10) + 1 === this.state.currentPage
+			); //(this.state.currentPage-1*10 )&& idx < (this.state.currentPage*10) )
+			docList = docList.map((doc, idx) => {
 				return doc == null ? null : (
 					<li key={idx} className="doc-item">
 						<div
@@ -92,42 +168,6 @@ class PractitionerMyDocuments extends Component {
 				);
 			});
 		}
-
-		let renderPagination;
-		if (this.props.documentState.documents) {
-			renderPagination = (
-				<Pagination className="pg-blue">
-					<PageItem disabled>
-						<PageLink className="page-link" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-							<span className="sr-only">Previous</span>
-						</PageLink>
-					</PageItem>
-					<PageItem active>
-						<PageLink className="page-link">
-							1 <span className="sr-only">(current)</span>
-						</PageLink>
-					</PageItem>
-					<PageItem>
-						<PageLink className="page-link">2</PageLink>
-					</PageItem>
-					<PageItem>
-						<PageLink className="page-link">3</PageLink>
-					</PageItem>
-					<PageItem>
-						<PageLink className="page-link">4</PageLink>
-					</PageItem>
-					<PageItem>
-						<PageLink className="page-link">5</PageLink>
-					</PageItem>
-					<PageItem>
-						<PageLink className="page-link">&raquo;</PageLink>
-					</PageItem>
-				</Pagination>
-			);
-		}
-
-		if (this.props.documentState.isGetDocumentPending) return <LoadingPage />;
 
 		return (
 			<div>

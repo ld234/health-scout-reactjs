@@ -8,6 +8,7 @@ import { persistReducer } from 'redux-persist';
 import clientReducer from './client.reducer';
 import consultationReducer from './consultation.reducer';
 import medicalHistoryReducter from './medical.history.reducer';
+import documentExchangeReducer from './documentExchange.reducer';
 import storage from 'redux-persist/lib/storage';
 
 const rootPersistConfig = {
@@ -75,6 +76,11 @@ const documentPersistConfig = {
 	storage: storage,
 	blacklist: ['editDocumentError'],
 };
+const documentExchangePersistConfig = {
+	key: 'documentExchange',
+	storage: storage,
+	blacklist: ['isGetExchangeDocumentsError', 'isGetNewRecievedDocumentsError', 'isGetOldRecievedDocumentsError'],
+};
 
 const rootReducer = combineReducers({
 	authentication: persistReducer(authPersistConfig, authReducer),
@@ -85,6 +91,7 @@ const rootReducer = combineReducers({
 	consultations: persistReducer(consultationPersistConfig, consultationReducer),
 	medicalHistory: persistReducer(medicalHistoryPersistConfig, medicalHistoryReducter),
 	documents: persistReducer(documentPersistConfig, documentReducer),
+	documentExchange: persistReducer(documentExchangePersistConfig, documentExchangeReducer),
 });
 
 export default persistReducer(rootPersistConfig, rootReducer);

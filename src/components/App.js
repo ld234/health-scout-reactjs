@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import PasswordResetForm from './User/PasswordResetForm';
 import ForgotPasswordForm from './User/ForgotPasswordForm';
 import PractitionerPage from './Practitioner/PractitionerPage';
 import MyDocumentPage from './Practitioner/PractitionerMyDocumentsPage';
-import Navbar from './Recyclable/Header/Navbar';
 import Navigation from './Recyclable/Navigation';
 import SignupForm from './User/Signup/SignupForm';
 import LoginForm from './User/LoginForm';
@@ -24,6 +22,7 @@ import ClientAllergiesPage from './Client/ClientAllergiesPage';
 import ClientFamilyHistoryPage from './Client/ClientFamilyHistoryPage';
 import ClientMedicationHistoryPage from './Client/ClientMedicationHistoryPage';
 import ClientMyConsultationPage from './Client/ClientMyPastConsultation';
+import ClientDocumentExchangePage from './Client/ClientDocumentExchange';
 
 class App extends Component {
 	constructor(props) {
@@ -47,6 +46,8 @@ class App extends Component {
 						<PrivateRoute exact path="/client" component={SingleClientPage} />
 						<PrivateRoute exact path="/client/new-consultation" component={ClientNewConsultationPage} />
 						<PrivateRoute exact path="/client/medical-history" component={ClientMedicalHistoryPage} />
+						<PrivateRoute exact path="/client/document-exchange" component={ClientDocumentExchangePage} />
+
 						<PrivateRoute path="/client/medical-history/consultation-history" component={ConsultationHistoryPage} />
 						<PrivateRoute path="/client/medical-history/allergies" component={ClientAllergiesPage} />
 						<PrivateRoute path="/client/medical-history/family-history" component={ClientFamilyHistoryPage} />
