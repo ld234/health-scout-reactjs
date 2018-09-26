@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'mdbreact';
-
+import { setNewPassword } from '../../actions/setting.actions';
 class UpdatePasswordForm extends React.Component {
 	state = {
 		oldPassword: '',
@@ -24,12 +24,63 @@ class UpdatePasswordForm extends React.Component {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
-	renderError() {
-		return null;
+	validateForm() {
+		var returnVal = true;
+		const { newPassword, newPasswordConfirm } = this.state;
+		if (_.isEmpty(newPassword)) {
+			const newErr = _.merge(this.state.errors, { newPassword: '*New password required' });
+			this.setState({ errors: newErr });
+			console.log('empty:', newErr);
+			returnVal = false;
+		} else if (newPassword.length < 8) {
+			const newErr = _.merge(this.state.errors, { newPassword: '*Password needs to have at least 8 characters' });
+			this.setState({ errors: newErr });
+			console.log('length:', this.state.errors);
+			returnVal = false;
+		} else if (!/\d/.test(newPassword)) {
+			const newErr = _.merge(this.state.errors, { newPassword: '*Password needs to contain at least 1 digit' });
+			this.setState({ errors: newErr });
+			console.log('digit:', this.state.errors);
+			returnVal = false;
+		} else if (newPassword != newPasswordConfirm) {
+			const newErr = _.merge(this.state.errors, { newPasswordConfirm: '*Password does not match' });
+			this.setState({ errors: newErr });
+			console.log('match:', this.state.errors);
+			returnVal = false;
+		}
+
+		return returnVal;
 	}
+
+	onSubmit = e => {
+		const { oldPassword, newPassword, newPasswordConfirm } = this.state;
+		e.preventDefault();
+		if (this.validateForm()) {
+			let data = { oldPassword, newPassword, confirmPassword: newPasswordConfirm };
+			this.props.setNewPassword(data);
+		}
+	};
+
+	renderError = () => {
+		let { isSetNewPasswordError, isSetNewPasswordSuccess } = this.props.settingState;
+		if (isSetNewPasswordError)
+			return (
+				<div className="alert alert-danger alert-dismissible fade show animated fadeInUp" role="alert">
+					{isSetNewPasswordError}
+				</div>
+			);
+		else if (isSetNewPasswordSuccess)
+			return (
+				<div className="alert alert-success alert-dismissible fade show animated fadeInUp" role="alert">
+					Successfully changed password
+				</div>
+			);
+		return null;
+	};
+
 	render() {
 		return (
-			<form className="change-pw-form">
+			<form className="change-pw-form" onSubmit={this.onSubmit}>
 				{this.renderError()}
 				<label htmlFor="password-input" className="grey-text">
 					Old password
@@ -81,5 +132,20 @@ class UpdatePasswordForm extends React.Component {
 		);
 	}
 }
+const mapStateToProps = state => {
+	return {
+		clientState: state.clients,
+		settingState: state.settingInfo,
+	};
+};
 
-export default UpdatePasswordForm;
+const mapDispatchToProps = dispatch => {
+	return {
+		setNewPassword: data => dispatch(setNewPassword(data)),
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(UpdatePasswordForm);

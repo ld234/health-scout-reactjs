@@ -3,10 +3,16 @@ import { Button, Modal, ModalHeader } from 'mdbreact';
 import ClientGeneralInfo from '../Practitioner/PractitionerSingleClientPage/ClientGeneralInfo';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getNewRecievedDocuments, getOldRecievedDocuments } from '../../actions/documentExchange.actions';
+import {
+	getNewRecievedDocuments,
+	getOldRecievedDocuments,
+	setSeenExchangeDocument,
+} from '../../actions/documentExchange.actions';
 import '../../../style/ClientDocumentExchange.css';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import SendDocument from './ClientDocumentSend';
+import ViewPDF from '../Recyclable/LoadPdf';
+import axios from 'axios';
 class ClientDocumentExchange extends Component {
 	constructor(props) {
 		super(props);
@@ -14,7 +20,29 @@ class ClientDocumentExchange extends Component {
 			newRecieved: [],
 			oldRecieved: [],
 			sendDocumentToggle: false,
+			viewDocumentToggle: false,
+			selectedDoc: null,
 		};
+	}
+	download() {
+		let data = { title: 'test11', patientUsername: 'tn000' };
+		axios
+			.put('http://localhost:8080/sapi/clients/profile/exchangeDocument/seeDocument/', data, {
+				responseType: 'arraybuffer',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-access-token': localStorage.getItem('localToken'),
+				},
+			})
+			.then(response => {
+				const url = window.URL.createObjectURL(new Blob([response.data]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute('download', 'file.pdf'); //or any other extension
+				document.body.appendChild(link);
+				link.click();
+			})
+			.catch(error => console.log(error));
 	}
 
 	componentDidMount() {
@@ -31,8 +59,34 @@ class ClientDocumentExchange extends Component {
 			sendDocumentToggle: !this.state.sendDocumentToggle,
 		});
 	};
+	toggleViewDocument = filepath => {
+		// filepath = '../..'+ filepath;
+		console.log('toggle view doc:', filepath);
+		this.setState((prevState, props) => {
+			return {
+				viewDocumentToggle: !prevState.viewDocumentToggle,
+				selectedDoc: filepath,
+			};
+		});
+	};
 
-	onReadDoc = () => {};
+	onReadDoc = (title, filepath, patientUsername) => {
+		// console.log(this.state.newRecieved);
+		// let doc = this.state.newRecieved.find((doc)=>{
+		//     return doc.title == title;
+		// })
+		// let newRecieved = this.state.newRecieved.filter((doc) =>{
+		//     console.log(doc.title);
+		//     return doc.title !== title;
+		// })
+		// let oldRecieved = this.state.oldRecieved;
+		// oldRecieved.unshift(doc);
+		// this.setState({newRecieved});
+		// this.setState({oldRecieved});
+		// let data ={patientUsername,title};
+		// this.toggleViewDocument(filepath);
+		// this.props.setSeenExchangeDocument(data);
+	};
 
 	render() {
 		const { fName, lName, patientUsername } = this.props.clientState.currentClient;
@@ -41,11 +95,21 @@ class ClientDocumentExchange extends Component {
 		let recievedList = this.state.newRecieved.map((doc, idx) => {
 			return (
 				<li key={idx} className="docEx-item docEx-notseen">
-					<div className="docEx-detail">
+					<div
+						className="docEx-detail"
+						onClick={() => {
+							this.onReadDoc(doc.title, doc.receivedLink, patientUsername);
+						}}
+					>
 						<span className="docEx-modification">{doc.title}</span>
 						<span className=" docEx-desc">{doc.description}</span>
 					</div>
-					<div className="docEx-modify">
+					<div
+						className="docEx-modify"
+						onClick={() => {
+							this.download();
+						}}
+					>
 						<span>
 							<i class="fas fa-download" />
 						</span>
@@ -56,7 +120,12 @@ class ClientDocumentExchange extends Component {
 		let seenDocList = this.state.oldRecieved.map((doc, idx) => {
 			return (
 				<li key={idx + recievedList.length} className="docEx-item">
-					<div className="docEx-detail">
+					<div
+						className="docEx-detail"
+						onClick={() => {
+							this.toggleViewDocument(doc.receivedLink);
+						}}
+					>
 						<span className="docEx-modification">{doc.title}</span>
 						<span className=" docEx-desc">{doc.description}</span>
 					</div>
@@ -143,6 +212,15 @@ class ClientDocumentExchange extends Component {
 					<ModalHeader toggle={this.toggleSendDocument}>Send Documents</ModalHeader>
 					<SendDocument toggle={this.toggleSendDocument} />
 				</Modal>
+				<Modal
+					className="viewPdfModal"
+					isOpen={this.state.viewDocumentToggle}
+					toggle={this.toggleViewDocument}
+					centered
+				>
+					<ModalHeader toggle={this.toggleViewDocument}>View Documents</ModalHeader>
+					<ViewPDF data={this.state.selectedDoc} />
+				</Modal>
 			</div>
 		);
 	}
@@ -157,6 +235,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		setSeenExchangeDocument: data => dispatch(setSeenExchangeDocument(data)),
 		getNewRecievedDocuments: patientUsername => dispatch(getNewRecievedDocuments(patientUsername)),
 		getOldRecievedDocuments: patientUsername => dispatch(getOldRecievedDocuments(patientUsername)),
 	};

@@ -95,6 +95,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 2rem;
+  height: 325px!important;
 }
 
 .sidenav .collapsible,
@@ -176,4 +177,101 @@
 
 .change-pw-form .buttons-div{
   width: 100%;
+}
+
+/*****************************************/
+.bundle{
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 20px;
+
+}
+
+.bundle:hover{
+  border: 1px solid #fafafa;
+  background: #fafafa;
+
+}
+
+Button{
+  float: right;
+  position: relative;
+  top: -16px;
+}
+
+.settingSubCreditCard{
+  padding:40px;
+  background: #fefefe;
+
+}
+.cCard-restDetail .StripeElement{
+  width: 200px;
+  margin: 10px 0 0 0 !important;
+
+
+}
+
+.cCard-restDetail .SubCardCvc{
+  width: 200px!important;
+
+}
+.cCard-number .StripeElement{
+  width: 400px;
+  margin: 10px 0 0 0 !important;
+
+}
+.settingSubCreditCard .SubCardHolderName{
+  width: 400px!important;
+  margin: 10px 0 0 0 !important;
+
+}
+.settingSubCreditCard .row {
+  height: 100px;
+}
+@media (max-width:470px){
+  .cCard-restDetail .StripeElement{
+    width: 130px;
+  
+  }
+  
+  .cCard-restDetail .SubCardCvc{
+    width: 130px!important;
+  
+  }
+  .cCard-number .StripeElement{
+    width: 260px;
+  
+  }
+  .settingSubCreditCard .SubCardHolderName{
+    width: 260px!important;
+  }
+
+}
+
+@media(max-width:411px){
+  .cCard-restDetail .StripeElement{
+    width: 138px;
+  
+  }
+  
+  .cCard-restDetail .SubCardCvc{
+    width: 138px!important;
+  
+  }
+  .cCard-number .StripeElement{
+    width: 290px;
+  
+  }
+  .settingSubCreditCard .SubCardHolderName{
+    width: 290px!important;
+  }
+}
+
+.loadingContainer{
+  content: "";
+  height: 500px;
+}
+
+.paymentSuccess{
+  padding: 75px;
 }

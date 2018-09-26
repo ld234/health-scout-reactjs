@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapsible, CollapsibleItem } from 'react-materialize';
 import UpdatePasswordForm from './UpdatePasswordForm';
+import BuyBundleForm from './BuyBundleForm';
 import '../../../style/SettingsPage.css';
 
 class SettingsPage extends React.Component {
@@ -8,11 +9,11 @@ class SettingsPage extends React.Component {
 		return (
 			<div className="setting-main-wrapper">
 				<Collapsible>
-					<CollapsibleItem header="Change password" icon="filter_drama">
+					<CollapsibleItem header="Change password" icon="vpn_key">
 						<UpdatePasswordForm />
 					</CollapsibleItem>
-					<CollapsibleItem header="Purchase connections" icon="place">
-						Lorem ipsum dolor sit amet.
+					<CollapsibleItem header="Purchase connections" icon="payment">
+						<BuyBundleForm />
 					</CollapsibleItem>
 				</Collapsible>
 			</div>
