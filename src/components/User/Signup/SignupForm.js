@@ -42,6 +42,7 @@ class SignupForm extends Component {
 		businessName: '',
 		businessAddress: '',
 		selectedImg: null,
+		imgTitle: '',
 		description: '',
 		pracType: '',
 
@@ -69,10 +70,22 @@ class SignupForm extends Component {
 	onChange = event => {
 		this.setState({ [event.target.name]: event.target.value });
 		if (event.target.name == 'selectedImg') {
-			console.log('select image onChange', event.target.files);
-			this.setState({
-				selectedImg: event.target.files[0],
-			});
+			// this.setState({
+			// 	selectedImg: event.target.files[0],
+			// });
+			if (event.target.value.match('jpg$')) {
+				let inputName = event.target.files[0].name;
+				this.setState({ [event.target.name]: event.target.files[0] });
+				this.setState({ imgTitle: inputName });
+			} else {
+				if (typeof event.target.files[0] === 'undefined') {
+					this.setState({ imgTitle: '' });
+				} else {
+					this.setState({ imgTitle: '' });
+					const newErr = _.merge(this.state.errors, { [event.target.name]: 'invalid input file' });
+					this.setState({ errors: newErr });
+				}
+			}
 		}
 	};
 
@@ -335,7 +348,7 @@ class SignupForm extends Component {
 			errors,
 		} = this.state;
 		switch (this.state.pageNo) {
-			case 0:
+			case 1:
 				currentPage = (
 					<div className="animated fadeInDown signupCard">
 						<div className="singup-Header">
@@ -373,7 +386,7 @@ class SignupForm extends Component {
 				);
 				pagination = '';
 				break;
-			case 1:
+			case 0:
 				currentPage = (
 					<div className="signupCard">
 						<div className="singup-Header">
@@ -402,6 +415,7 @@ class SignupForm extends Component {
 							onChange={this.onChange}
 							onClick={this.onInputClickHandler}
 							onBlur={this.onBlur}
+							filename={this.state.imgTitle}
 						/>
 					</div>
 				);
