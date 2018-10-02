@@ -4,7 +4,6 @@ import Aux from '../../../../hoc/ReactAux';
 class AgreementPage extends Component {
 	constructor(props) {
 		super(props);
-		this.props.setAgreement(true);
 	}
 
 	render() {

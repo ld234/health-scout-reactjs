@@ -47,7 +47,7 @@ class SignupForm extends Component {
 		pracType: '',
 
 		apiKey: 'pk_test_6ENTZj1Qk1DRjeqgLBVRyrCN',
-		agreement: null,
+		agreement: false,
 
 		registrationError: false,
 	};
@@ -254,10 +254,6 @@ class SignupForm extends Component {
 			});
 	};
 
-	initialiseAgreement = agreement => {
-		this.setState({ agreement: agreement });
-		console.log(agreement);
-	};
 	agreementToggle = () => {
 		console.log('before setState agreement', this.state.agreement);
 		this.setState((prevState, props) => {
@@ -286,6 +282,7 @@ class SignupForm extends Component {
 		}
 		const newPageNo = pageNo - 1;
 		this.setState({ pageNo: newPageNo });
+		this.setState({ agreement: false });
 	};
 
 	nextPageHandler = () => {
@@ -473,7 +470,7 @@ class SignupForm extends Component {
 						<ProgressBar step={this.state.pageNo} />
 
 						{this.renderError()}
-						<AgreementPage toggle={this.agreementToggle} setAgreement={this.initialiseAgreement} />
+						<AgreementPage toggle={this.agreementToggle} />
 					</div>
 				);
 				pagination = (
@@ -484,11 +481,19 @@ class SignupForm extends Component {
 								Prev
 							</Button>
 						</div>
-						<div className="col-sm-3">
-							<Button className="btn btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
-								Next
-							</Button>
-						</div>
+						{this.state.agreement ? (
+							<div className="col-sm-3">
+								<Button className="btn btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
+									Next
+								</Button>
+							</div>
+						) : (
+							<div className="col-sm-3">
+								<Button className="btn btn-block signupBtn" color="blue" disabled onClick={this.nextPageHandler}>
+									Next
+								</Button>
+							</div>
+						)}
 						<div className="col-sm-3" />
 					</div>
 				);
