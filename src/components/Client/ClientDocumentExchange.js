@@ -7,6 +7,7 @@ import {
 	getNewRecievedDocuments,
 	getOldRecievedDocuments,
 	setSeenExchangeDocument,
+	downloadExchangeDocument,
 } from '../../actions/documentExchange.actions';
 import '../../../style/ClientDocumentExchange.css';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -17,41 +18,21 @@ class ClientDocumentExchange extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			newRecieved: [],
-			oldRecieved: [],
 			sendDocumentToggle: false,
 			viewDocumentToggle: false,
 			selectedDoc: null,
 		};
 	}
-	download() {
-		let data = { title: 'test11', patientUsername: 'tn000' };
-		axios
-			.put('http://localhost:8080/sapi/clients/profile/exchangeDocument/seeDocument/', data, {
-				responseType: 'arraybuffer',
-				headers: {
-					'Content-Type': 'application/json',
-					'x-access-token': localStorage.getItem('localToken'),
-				},
-			})
-			.then(response => {
-				const url = window.URL.createObjectURL(new Blob([response.data]));
-				const link = document.createElement('a');
-				link.href = url;
-				link.setAttribute('download', 'file.pdf'); //or any other extension
-				document.body.appendChild(link);
-				link.click();
-			})
-			.catch(error => console.log(error));
+	download(title) {
+		let data = { title, patientUsername: this.props.clientState.currentClient.patientUsername };
+		this.props.downloadExchangeDocument(data);
 	}
 
 	componentDidMount() {
+		console.log('[DocumentExchange.js] component did mount');
 		let { patientUsername } = this.props.clientState.currentClient;
 		this.props.getNewRecievedDocuments(patientUsername);
 		this.props.getOldRecievedDocuments(patientUsername);
-		//set it to local variable
-		this.setState({ newRecieved: this.props.documentExchangeState.unseenDocuments });
-		this.setState({ oldRecieved: this.props.documentExchangeState.seenDocuments });
 	}
 
 	toggleSendDocument = () => {
@@ -60,7 +41,6 @@ class ClientDocumentExchange extends Component {
 		});
 	};
 	toggleViewDocument = filepath => {
-		// filepath = '../..'+ filepath;
 		console.log('toggle view doc:', filepath);
 		this.setState((prevState, props) => {
 			return {
@@ -92,52 +72,68 @@ class ClientDocumentExchange extends Component {
 		const { fName, lName, patientUsername } = this.props.clientState.currentClient;
 		const breadcrumbs = [`${fName + ' ' + lName}`, 'Document exchange'];
 		const tos = [`/client`, '/client/document-exchange'];
-		let recievedList = this.state.newRecieved.map((doc, idx) => {
-			return (
-				<li key={idx} className="docEx-item docEx-notseen">
-					<div
-						className="docEx-detail"
-						onClick={() => {
-							this.onReadDoc(doc.title, doc.receivedLink, patientUsername);
-						}}
-					>
-						<span className="docEx-modification">{doc.title}</span>
-						<span className=" docEx-desc">{doc.description}</span>
-					</div>
-					<div
-						className="docEx-modify"
-						onClick={() => {
-							this.download();
-						}}
-					>
-						<span>
-							<i class="fas fa-download" />
-						</span>
-					</div>
-				</li>
-			);
-		});
-		let seenDocList = this.state.oldRecieved.map((doc, idx) => {
-			return (
-				<li key={idx + recievedList.length} className="docEx-item">
-					<div
-						className="docEx-detail"
-						onClick={() => {
-							this.toggleViewDocument(doc.receivedLink);
-						}}
-					>
-						<span className="docEx-modification">{doc.title}</span>
-						<span className=" docEx-desc">{doc.description}</span>
-					</div>
-					<div className="docEx-modify">
-						<span>
-							<i class="fas fa-download" />
-						</span>
-					</div>
-				</li>
-			);
-		});
-		recievedList = recievedList.concat(seenDocList);
+		let recievedList, seenDocList;
+		let indexLength = 0;
+		if (this.props.documentExchangeState.unseenDocuments) {
+			indexLength = this.props.documentExchangeState.unseenDocuments.length;
+			recievedList = this.props.documentExchangeState.unseenDocuments.map((doc, idx) => {
+				return (
+					<li key={idx} className="docEx-item docEx-notseen">
+						<div
+							className="docEx-detail"
+							onClick={() => {
+								this.onReadDoc(doc.title, doc.receivedLink, patientUsername);
+							}}
+						>
+							<span className="docEx-modification">{doc.title}</span>
+							<span className=" docEx-desc">{doc.description}</span>
+						</div>
+						<div
+							className="docEx-modify"
+							onClick={() => {
+								this.download(doc.title);
+							}}
+						>
+							<span>
+								<i className="fas fa-download" />
+							</span>
+						</div>
+					</li>
+				);
+			});
+		}
+		if (this.props.documentExchangeState.seenDocuments) {
+			seenDocList = this.props.documentExchangeState.seenDocuments.map((doc, idx) => {
+				return (
+					<li key={idx + indexLength} className="docEx-item">
+						<div
+							className="docEx-detail"
+							onClick={() => {
+								this.toggleViewDocument(doc.receivedLink);
+							}}
+						>
+							<span className="docEx-modification">{doc.title}</span>
+							<span className=" docEx-desc">{doc.description}</span>
+						</div>
+						<div
+							className="docEx-modify"
+							onClick={() => {
+								this.download(doc.title);
+							}}
+						>
+							<span>
+								<i className="fas fa-download" />
+							</span>
+						</div>
+					</li>
+				);
+			});
+		}
+		if (seenDocList && recievedList) {
+			recievedList = recievedList.concat(seenDocList);
+		} else if (seenDocList) {
+			recievedList = seenDocList;
+		}
 
 		return (
 			<div className="allergy-history right">
@@ -238,6 +234,7 @@ const mapDispatchToProps = dispatch => {
 		setSeenExchangeDocument: data => dispatch(setSeenExchangeDocument(data)),
 		getNewRecievedDocuments: patientUsername => dispatch(getNewRecievedDocuments(patientUsername)),
 		getOldRecievedDocuments: patientUsername => dispatch(getOldRecievedDocuments(patientUsername)),
+		downloadExchangeDocument: data => dispatch(downloadExchangeDocument(data)),
 	};
 };
 

@@ -248,3 +248,55 @@ export function setSeenExchangeDocument(data) {
 			});
 	};
 }
+function downloadExchangeDocumentPending(isDownloadExchangeDocumentPending) {
+	return {
+		type: DOWNLOAD_EXCHANGEDOCUMENT_PENDING,
+		isDownloadExchangeDocumentPending: isDownloadExchangeDocumentPending,
+	};
+}
+function downloadExchangeDocumentError(isDownloadExchangeDocumentError) {
+	return {
+		type: DOWNLOAD_EXCHANGEDOCUMENT_ERROR,
+		isDownloadExchangeDocumentError: isDownloadExchangeDocumentError,
+	};
+}
+function downloadExchangeDocumentSuccess(isDownloadExchangeDocumentSuccess) {
+	return {
+		type: DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS,
+		isDownloadExchangeDocumentSuccess: isDownloadExchangeDocumentSuccess,
+	};
+}
+export function downloadExchangeDocument(data) {
+	console.log('download data:', data);
+	return dispatch => {
+		dispatch(downloadExchangeDocumentPending(true));
+		dispatch(downloadExchangeDocumentSuccess(false));
+		dispatch(downloadExchangeDocumentError(null));
+		axios
+			.put(`${ROOT_URL}/seeDocument`, data, {
+				responseType: 'arraybuffer',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-access-token': localStorage.getItem('localToken'),
+				},
+			})
+			.then(res => {
+				console.log('success! ', res);
+				dispatch(downloadExchangeDocumentPending(false));
+				dispatch(downloadExchangeDocumentError(null));
+				dispatch(downloadExchangeDocumentSuccess(true));
+				const url = window.URL.createObjectURL(new Blob([res.data]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute('download', data.title + '.pdf'); //or any other extension
+				document.body.appendChild(link);
+				link.click();
+			})
+			.catch(err => {
+				console.log('error!', err);
+				dispatch(downloadExchangeDocumentPending(false));
+				dispatch(downloadExchangeDocumentSuccess(false));
+				if (err.response && err.response.data) dispatch(downloadExchangeDocumentError(err.response.data.message));
+			});
+	};
+}

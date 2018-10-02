@@ -103,3 +103,12 @@ export function getBundlePayment(data) {
 			});
 	};
 }
+
+export function resetPayment() {
+	return dispatch => {
+		console.log('[reset payment props called]');
+		dispatch(setGetBundlePaymentPending(false));
+		dispatch(setGetBundlePaymentSuccess(false));
+		dispatch(setGetBundlePaymentError(null));
+	};
+}

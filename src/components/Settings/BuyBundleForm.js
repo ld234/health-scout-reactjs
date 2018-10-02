@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Modal, ModalHeader } from 'mdbreact';
 import PaymentModal from './PaymentModal';
 import { Elements, StripeProvider } from 'react-stripe-elements';
+import { resetPayment } from '../../actions/setting.actions';
+import { connect } from 'react-redux';
 
 class BuyBundleForm extends React.Component {
 	constructor(props) {
@@ -29,6 +31,10 @@ class BuyBundleForm extends React.Component {
 	}
 	togglePayment = bundle => {
 		console.log('toggle', this.state.paymentToggle);
+		if (this.state.paymentToggle == true) {
+			console.log('[calling resetPayment]');
+			this.props.resetPayment();
+		}
 		this.setState((prevState, props) => {
 			return {
 				paymentToggle: !prevState.paymentToggle,
@@ -78,11 +84,11 @@ class BuyBundleForm extends React.Component {
 				</div>
 				<Modal className="addition-modal" isOpen={this.state.paymentToggle} toggle={this.togglePayment} centered>
 					<ModalHeader toggle={this.togglePayment}>
-						<i class="fas fa-credit-card" /> Payment
+						<i className="fas fa-credit-card" /> Payment
 					</ModalHeader>
 					<StripeProvider apiKey={this.state.apiKey}>
 						<Elements>
-							<PaymentModal bundle={this.state.bundle} />
+							<PaymentModal bundle={this.state.bundle} toggle={this.togglePayment} />
 						</Elements>
 					</StripeProvider>
 				</Modal>
@@ -90,4 +96,12 @@ class BuyBundleForm extends React.Component {
 		);
 	}
 }
-export default BuyBundleForm;
+
+const mapDispatchToProps = {
+	resetPayment: resetPayment,
+};
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(BuyBundleForm);

@@ -35,7 +35,7 @@ class PaymentModal extends React.Component {
 				this.setState({ CardExpiryError: '' });
 				this.setState({ CardNumberError: '' });
 				let data = { stripeToken: result.token.id, bundle: this.props.bundle, pracUsername };
-				this.props.getBundlePayment(data);
+				this.props.getBundlePayment(data, this.props.toggle);
 			}
 		} else {
 			if (this.state.isEmptyCardCvc) {
@@ -89,6 +89,8 @@ class PaymentModal extends React.Component {
 	}
 	renderOutput() {
 		let { isGetBundlePaymentPending, isGetBundlePaymentSuccess } = this.props.settingState;
+		console.log(isGetBundlePaymentSuccess);
+		console.log(isGetBundlePaymentPending);
 		if (isGetBundlePaymentSuccess) {
 			return (
 				<div className="paymentSuccess">
@@ -160,7 +162,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getBundlePayment: token => dispatch(getBundlePayment(token)),
+		getBundlePayment: data => dispatch(getBundlePayment(data)),
 	};
 };
 
