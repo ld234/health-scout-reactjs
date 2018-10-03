@@ -8,7 +8,7 @@ const ConfirmationPage = () => {
 				<circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
 				<path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
 			</svg>
-			<h3>Thank you for signing up to Health scout</h3>
+			<h3>Thank you for signing up with Health scout</h3>
 
 			<p>
 				We have sent an email with an activation link to your email address. In order to complete the sign-up process,

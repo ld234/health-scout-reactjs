@@ -8,6 +8,7 @@ class LoadPdf extends Component {
 			numPages: null,
 			pageNumber: 1,
 			lastScrollY: null,
+			filepath: 'http://localhost:8080/api',
 		};
 	}
 	handlePrevious = () => {
@@ -26,9 +27,12 @@ class LoadPdf extends Component {
 
 	render() {
 		const { pageNumber, numPages } = this.state;
-		let filepath = '';
+		let filepath;
 		if (this.props.data) {
-			filepath = 'api/' + this.props.data;
+			filepath = {
+				url: 'http://localhost:8080/sapi' + this.props.data,
+				httpHeaders: { 'x-access-token': localStorage.getItem('localToken') },
+			};
 		}
 		return (
 			<div>

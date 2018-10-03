@@ -53,7 +53,7 @@ export function login(username, password, cb) {
 				dispatch(setLoginPending(false));
 				cb();
 				dispatch(setLoginSuccess(false, null));
-				if (err.response.data) dispatch(setLoginError(err.response.data.message));
+				if (err.response && err.response.data) dispatch(setLoginError(err.response.data.message));
 			});
 	};
 }

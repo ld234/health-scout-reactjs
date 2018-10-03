@@ -11,6 +11,12 @@ import {
 	SEND_EXCHANGEDOCUMENTS_PENDING,
 	SEND_EXCHANGEDOCUMENTS_ERROR,
 	SEND_EXCHANGEDOCUMENTS_SUCCESS,
+	SET_SEENEXCHANGEDOCUMENT_PENDING,
+	SET_SEENEXCHANGEDOCUMENT_ERROR,
+	SET_SEENEXCHANGEDOCUMENT_SUCCESS,
+	DOWNLOAD_EXCHANGEDOCUMENT_PENDING,
+	DOWNLOAD_EXCHANGEDOCUMENT_ERROR,
+	DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS,
 } from '../actions/documentExchange.actions';
 
 const INITIAL_STATE = {
@@ -26,6 +32,12 @@ const INITIAL_STATE = {
 	isSendExchangeDocumentsPending: false,
 	isSendExchangeDocumentsSuccess: false,
 	isSendExchangeDocumentsError: false,
+	isSetSeenExchangeDocumentSuccess: false,
+	isSetSeenExchangeDocumentError: false,
+	isSetSeenExchangeDocumentPending: false,
+	isDownloadExchangeDocumentPending: false,
+	isDownloadExchangeDocumentError: false,
+	isDownloadExchangeDocumentSuccess: false,
 	exchangeDocuments: [],
 	seenDocuments: [],
 	unseenDocuments: [],
@@ -96,6 +108,36 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isSendExchangeDocumentsSuccess: action.isSendExchangeDocumentsSuccess,
+			};
+		case SET_SEENEXCHANGEDOCUMENT_PENDING:
+			return {
+				...state,
+				isSetSeenExchangeDocumentPending: action.isSetSeenExchangeDocumentPending,
+			};
+		case SET_SEENEXCHANGEDOCUMENT_ERROR:
+			return {
+				...state,
+				isSetSeenExchangeDocumentError: action.isSetSeenExchangeDocumentError,
+			};
+		case SET_SEENEXCHANGEDOCUMENT_SUCCESS:
+			return {
+				...state,
+				isSetSeenExchangeDocumentSuccess: action.isSetSeenExchangeDocumentSuccess,
+			};
+		case DOWNLOAD_EXCHANGEDOCUMENT_PENDING:
+			return {
+				...state,
+				isDownloadExchangeDocumentPending: action.isDownloadExchangeDocumentPending,
+			};
+		case DOWNLOAD_EXCHANGEDOCUMENT_ERROR:
+			return {
+				...state,
+				isDownloadExchangeDocumentError: action.isDownloadExchangeDocumentError,
+			};
+		case DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS:
+			return {
+				...state,
+				isDownloadExchangeDocumentSuccess: action.isDownloadExchangeDocumentSuccess,
 			};
 		default:
 			return state;

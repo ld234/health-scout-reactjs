@@ -164,7 +164,7 @@ class PractitionerMyDocuments extends Component {
 							<span>
 								{moment(doc.lastModified, 'DD-MM-YYYY HH:mm:ss')
 									.add(10, 'hours')
-									.format('DD-MM-YYYY HH:MM:SS')}
+									.format('DD-MM-YYYY HH:mm:ss')}
 							</span>
 						</div>
 						<div

@@ -11,6 +11,12 @@ export const GET_OLDRECEIVEDDOCUMENTS_SUCCESS = 'GET_OLDRECEIVEDDOCUMENTS_SUCCES
 export const SEND_EXCHANGEDOCUMENTS_PENDING = 'SEND_EXCHANGEDOCUMENTS_PENDING';
 export const SEND_EXCHANGEDOCUMENTS_ERROR = 'SEND_EXCHANGEDOCUMENTS_ERROR';
 export const SEND_EXCHANGEDOCUMENTS_SUCCESS = 'SEND_EXCHANGEDOCUMENTS_SUCCESS';
+export const SET_SEENEXCHANGEDOCUMENT_PENDING = 'SET_SEENEXCHANGEDOCUMENT_PENDING';
+export const SET_SEENEXCHANGEDOCUMENT_ERROR = 'SET_SEENEXCHANGEDOCUMENT_ERROR';
+export const SET_SEENEXCHANGEDOCUMENT_SUCCESS = 'SET_SEENEXCHANGEDOCUMENT_SUCCESS';
+export const DOWNLOAD_EXCHANGEDOCUMENT_PENDING = 'DOWNLOAD_EXCHANGEDOCUMENT_PENDING';
+export const DOWNLOAD_EXCHANGEDOCUMENT_ERROR = 'DOWNLOAD_EXCHANGEDOCUMENT_ERROR';
+export const DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS = 'DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS';
 
 const ROOT_URL = 'https://localhost:8080/sapi/clients/profile/exchangeDocument';
 
@@ -195,6 +201,102 @@ export function getOldRecievedDocuments(patientUsername) {
 				dispatch(setGetOldReceivedDocumentPending(false));
 				dispatch(setGetOldReceivedDocumentSuccess(false));
 				if (err.response && err.response.data) dispatch(setGetOldReceivedDocumentError(err.response.data.message));
+			});
+	};
+}
+function setSeenExchangeDocumentPending(isSetSeenExchangeDocumentPending) {
+	return {
+		type: SET_SEENEXCHANGEDOCUMENT_PENDING,
+		isSetSeenExchangeDocumentPending: isSetSeenExchangeDocumentPending,
+	};
+}
+function setSeenExchangeDocumentError(isSetSeenExchangeDocumentError) {
+	return {
+		type: SET_SEENEXCHANGEDOCUMENT_ERROR,
+		isSetSeenExchangeDocumentError: isSetSeenExchangeDocumentError,
+	};
+}
+function setSeenExchangeDocumentSuccess(isSetSeenExchangeDocumentSuccess) {
+	return {
+		type: SET_SEENEXCHANGEDOCUMENT_SUCCESS,
+		isSetSeenExchangeDocumentSuccess: isSetSeenExchangeDocumentSuccess,
+	};
+}
+export function setSeenExchangeDocument(data) {
+	console.log('data', data);
+	return dispatch => {
+		dispatch(setSeenExchangeDocumentPending(true));
+		dispatch(setSeenExchangeDocumentSuccess(false));
+		dispatch(setSeenExchangeDocumentError(null));
+		axios
+			.put(`${ROOT_URL}/seeDocument`, data, {
+				headers: {
+					'x-access-token': localStorage.getItem('localToken'),
+				},
+			})
+			.then(res => {
+				console.log('success! ', res);
+				dispatch(setSeenExchangeDocumentPending(false));
+				dispatch(setSeenExchangeDocumentError(null));
+				dispatch(setSeenExchangeDocumentSuccess(true, res.data));
+			})
+			.catch(err => {
+				console.log('error!', err);
+				dispatch(setSeenExchangeDocumentPending(false));
+				dispatch(setSeenExchangeDocumentSuccess(false));
+				if (err.response && err.response.data) dispatch(setSeenExchangeDocumentError(err.response.data.message));
+			});
+	};
+}
+function downloadExchangeDocumentPending(isDownloadExchangeDocumentPending) {
+	return {
+		type: DOWNLOAD_EXCHANGEDOCUMENT_PENDING,
+		isDownloadExchangeDocumentPending: isDownloadExchangeDocumentPending,
+	};
+}
+function downloadExchangeDocumentError(isDownloadExchangeDocumentError) {
+	return {
+		type: DOWNLOAD_EXCHANGEDOCUMENT_ERROR,
+		isDownloadExchangeDocumentError: isDownloadExchangeDocumentError,
+	};
+}
+function downloadExchangeDocumentSuccess(isDownloadExchangeDocumentSuccess) {
+	return {
+		type: DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS,
+		isDownloadExchangeDocumentSuccess: isDownloadExchangeDocumentSuccess,
+	};
+}
+export function downloadExchangeDocument(data) {
+	console.log('download data:', data);
+	return dispatch => {
+		dispatch(downloadExchangeDocumentPending(true));
+		dispatch(downloadExchangeDocumentSuccess(false));
+		dispatch(downloadExchangeDocumentError(null));
+		axios
+			.put(`${ROOT_URL}/seeDocument`, data, {
+				responseType: 'arraybuffer',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-access-token': localStorage.getItem('localToken'),
+				},
+			})
+			.then(res => {
+				console.log('success! ', res);
+				dispatch(downloadExchangeDocumentPending(false));
+				dispatch(downloadExchangeDocumentError(null));
+				dispatch(downloadExchangeDocumentSuccess(true));
+				const url = window.URL.createObjectURL(new Blob([res.data]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute('download', data.title + '.pdf'); //or any other extension
+				document.body.appendChild(link);
+				link.click();
+			})
+			.catch(err => {
+				console.log('error!', err);
+				dispatch(downloadExchangeDocumentPending(false));
+				dispatch(downloadExchangeDocumentSuccess(false));
+				if (err.response && err.response.data) dispatch(downloadExchangeDocumentError(err.response.data.message));
 			});
 	};
 }

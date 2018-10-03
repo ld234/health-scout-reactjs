@@ -37,3 +37,15 @@
     margin-top:50px !important;
     margin-bottom: 50px !important;
 }
+
+.signup-form-Body-Container .col-md-6{
+    height: 80px;
+}
+
+.signup-form-Body-Container .col-md-12 .input{
+    height: 90px;
+}
+.signup-form-Body-Container .col-md-12 .textArea{
+    height: 250px;
+}
+

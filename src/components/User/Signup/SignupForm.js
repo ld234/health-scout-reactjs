@@ -42,11 +42,12 @@ class SignupForm extends Component {
 		businessName: '',
 		businessAddress: '',
 		selectedImg: null,
+		imgTitle: '',
 		description: '',
 		pracType: '',
 
 		apiKey: 'pk_test_6ENTZj1Qk1DRjeqgLBVRyrCN',
-		agreement: null,
+		agreement: false,
 
 		registrationError: false,
 	};
@@ -69,10 +70,22 @@ class SignupForm extends Component {
 	onChange = event => {
 		this.setState({ [event.target.name]: event.target.value });
 		if (event.target.name == 'selectedImg') {
-			console.log('select image onChange', event.target.files);
-			this.setState({
-				selectedImg: event.target.files[0],
-			});
+			// this.setState({
+			// 	selectedImg: event.target.files[0],
+			// });
+			if (event.target.value.match('jpg$')) {
+				let inputName = event.target.files[0].name;
+				this.setState({ [event.target.name]: event.target.files[0] });
+				this.setState({ imgTitle: inputName });
+			} else {
+				if (typeof event.target.files[0] === 'undefined') {
+					this.setState({ imgTitle: '' });
+				} else {
+					this.setState({ imgTitle: '' });
+					const newErr = _.merge(this.state.errors, { [event.target.name]: 'invalid input file' });
+					this.setState({ errors: newErr });
+				}
+			}
 		}
 	};
 
@@ -243,10 +256,6 @@ class SignupForm extends Component {
 			});
 	};
 
-	initialiseAgreement = agreement => {
-		this.setState({ agreement: agreement });
-		console.log(agreement);
-	};
 	agreementToggle = () => {
 		console.log('before setState agreement', this.state.agreement);
 		this.setState((prevState, props) => {
@@ -275,6 +284,7 @@ class SignupForm extends Component {
 		}
 		const newPageNo = pageNo - 1;
 		this.setState({ pageNo: newPageNo });
+		this.setState({ agreement: false });
 	};
 
 	nextPageHandler = () => {
@@ -404,6 +414,7 @@ class SignupForm extends Component {
 							onChange={this.onChange}
 							onClick={this.onInputClickHandler}
 							onBlur={this.onBlur}
+							filename={this.state.imgTitle}
 						/>
 					</div>
 				);
@@ -461,7 +472,7 @@ class SignupForm extends Component {
 						<ProgressBar step={this.state.pageNo} />
 
 						{this.renderError()}
-						<AgreementPage toggle={this.agreementToggle} setAgreement={this.initialiseAgreement} />
+						<AgreementPage toggle={this.agreementToggle} />
 					</div>
 				);
 				pagination = (
@@ -472,11 +483,19 @@ class SignupForm extends Component {
 								Prev
 							</Button>
 						</div>
-						<div className="col-sm-3">
-							<Button className="btn btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
-								Next
-							</Button>
-						</div>
+						{this.state.agreement ? (
+							<div className="col-sm-3">
+								<Button className="btn btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
+									Next
+								</Button>
+							</div>
+						) : (
+							<div className="col-sm-3">
+								<Button className="btn btn-block signupBtn" color="blue" disabled onClick={this.nextPageHandler}>
+									Next
+								</Button>
+							</div>
+						)}
 						<div className="col-sm-3" />
 					</div>
 				);

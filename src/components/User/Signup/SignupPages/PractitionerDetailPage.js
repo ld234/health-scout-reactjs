@@ -206,51 +206,56 @@ const PractitionerPage = props => {
 						<label className="errorMsg">{props.errors.businessName}</label>
 					</div>
 					<div className="col-md-12">
-						<label className="grey-text"> {label.businessAddress} </label>
-						<input
-							type="text"
-							className={props.errors.businessAddress ? inputClassNameAtt.concat(inputClassError) : inputClassNameAtt}
-							name="businessAddress"
-							value={props.businessAddress}
-							onChange={props.onChange}
-							onBlur={props.onBlur}
-							onClick={props.onClick}
-							placeholder="21 streetname etc"
-						/>
-						<label className="errorMsg">{props.errors.businessAddress}</label>
+						<div className="input">
+							<label className="grey-text"> {label.businessAddress} </label>
+							<input
+								type="text"
+								className={props.errors.businessAddress ? inputClassNameAtt.concat(inputClassError) : inputClassNameAtt}
+								name="businessAddress"
+								value={props.businessAddress}
+								onChange={props.onChange}
+								onBlur={props.onBlur}
+								onClick={props.onClick}
+								placeholder="21 streetname etc"
+							/>
+							<label className="errorMsg">{props.errors.businessAddress}</label>
+						</div>
 					</div>
 
 					<div className="col-md-12">
-						<label className="grey-text"> {label.selectedImg} </label>
-						<div className="custom-file">
-							<input
-								type="file"
-								className="custom-file-input is-invlaid"
-								name="selectedImg"
+						<div className=" input">
+							<label className="grey-text"> {label.selectedImg} </label>
+							<div className="custom-file">
+								<input
+									type="file"
+									className="custom-file-input is-invlaid"
+									name="selectedImg"
+									onClick={props.onClick}
+									onChange={props.onChange}
+									required
+								/>
+								<label className={props.errors.selectedImg ? 'custom-file-label' : 'custom-file-label is-invalid'}>
+									{props.filename != '' ? props.filename : 'Choose profile image... '}
+								</label>
+							</div>
+							<label className="errorMsg">{props.errors.selectedImg}</label>
+						</div>
+					</div>
+
+					<div className="col-md-12">
+						<div className="textArea">
+							<label className="grey-text">{label.description}</label>
+							<textarea
+								className={props.errors.description ? inputClassNameAtt.concat(inputClassError) : inputClassNameAtt}
+								rows="7"
+								name="description"
 								onClick={props.onClick}
 								onChange={props.onChange}
-								required
+								onBlur={props.onBlur}
+								placeholder="Enter description here..."
 							/>
-							<label className={props.errors.description ? 'custom-file-label' : 'custom-file-label is-invalid'}>
-								Choose profile image...
-							</label>
-							<div className="invalid-feedback">Example invalid custom file feedback</div>
+							<label className="errorMsg">{props.errors.description}</label>
 						</div>
-						<label className="errorMsg">{props.errors.selectedImg}</label>
-					</div>
-
-					<div className="col-md-12">
-						<label className="grey-text">{label.description}</label>
-						<textarea
-							className={props.errors.description ? inputClassNameAtt.concat(inputClassError) : inputClassNameAtt}
-							rows="7"
-							name="description"
-							onClick={props.onClick}
-							onChange={props.onChange}
-							onBlur={props.onBlur}
-							placeholder="Enter description here..."
-						/>
-						<label className="errorMsg">{props.errors.description}</label>
 					</div>
 				</div>
 			</div>
