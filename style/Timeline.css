@@ -403,10 +403,12 @@ h1 {
   position: relative;
   padding-top:30px !important;
   padding-right: 30px;
+  transition: all .4s;
 }
 .timeline .event:hover{
   background: rgba(100, 100, 100, 0.03);
   border-radius: 10px 10px;
+  box-shadow: 0 5px 40px 0 rgba(51, 51, 51, 0.18), 0 4px 15px 0 rgba(130, 130, 130, 0.15);
 }
 /* .timeline .event:last-of-type {
   padding-bottom: 0;

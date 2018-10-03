@@ -74,15 +74,12 @@ class PractitionerMyDocuments extends Component {
 	}
 	render() {
 		if (this.props.documentState.isGetDocumentPending) return <LoadingPage />;
-		let renderPagination = (
-			<div className="small-text">
-				<p className="text-center">
-					<i>Add your baseline assessment documents to exchange with your clients.</i>
-				</p>
-			</div>
-		);
+		let renderPagination = null;
 		if (this.props.documentState.documents && this.props.documentState.documents.length) {
-			let pages = Math.floor(this.props.documentState.documents.length / 5) + 1;
+			let pages =
+				this.props.documentState.documents.length % 5 == 0
+					? this.props.documentState.documents.length / 5
+					: Math.floor(this.props.documentState.documents.length / 5) + 1;
 			console.log('document rendered');
 			renderPagination = (
 				<Pagination className="pg-blue normal-pagination">

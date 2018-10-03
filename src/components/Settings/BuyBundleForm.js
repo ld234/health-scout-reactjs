@@ -55,7 +55,7 @@ class BuyBundleForm extends React.Component {
 							this.togglePayment('standard');
 						}}
 					>
-						Hello
+						PURCHASE
 					</Button>
 				</div>
 				<div className="bundle">
@@ -67,7 +67,7 @@ class BuyBundleForm extends React.Component {
 							this.togglePayment('premium');
 						}}
 					>
-						Hello
+						PURCHASE
 					</Button>
 				</div>
 				<div className="bundle">
@@ -79,7 +79,7 @@ class BuyBundleForm extends React.Component {
 							this.togglePayment('platinum');
 						}}
 					>
-						Hello
+						PURCHASE
 					</Button>
 				</div>
 				<Modal className="addition-modal" isOpen={this.state.paymentToggle} toggle={this.togglePayment} centered>

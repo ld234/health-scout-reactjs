@@ -74,7 +74,7 @@ li key={idx} className={classes} >{specialty}
 		if (this.props.specialtyState.specialties && this.props.specialtyState.specialties.length > 0)
 			return (
 				<div className="specialty-wrapper">
-					<ul className="rolldown-list" id="myList">
+					<ul className="rolldown-list specialty" id="myList">
 						<ReactCSSTransitionGroup
 							transitionName="specialtyFade"
 							transitionEnterTimeout={500}

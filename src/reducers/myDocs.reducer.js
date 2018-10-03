@@ -58,7 +58,7 @@ export default function documentReducer(state = INITIAL_STATE, action) {
 			return {
 				...state,
 				isAddDocumentSuccess: action.isAddDocumentSuccess,
-				documents: [...state.documents, action.documents],
+				documents: action.documents ? [...state.documents, action.documents] : state.documents,
 			};
 		case ADD_DOCUMENT_ERROR:
 			return {

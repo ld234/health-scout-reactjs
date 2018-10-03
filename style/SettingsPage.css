@@ -191,7 +191,7 @@
 .bundle:hover{
   border: 1px solid #fafafa;
   background: #fafafa;
-
+  box-shadow: 0 5px 40px 0 rgba(100, 100, 100, 0.1), 0 4px 15px 0 rgba(130, 130, 130, 0.1);
 }
 
 .bundle Button{

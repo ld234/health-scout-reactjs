@@ -6,8 +6,8 @@ export const GET_BUNDLEPAYMENT_SUCCESS = 'GET_BUNDLEPAYMENT_SUCCESS';
 export const GET_BUNDLEPAYMENT_PENDING = 'GET_BUNDLEPAYMENT_PENDING';
 export const GET_BUNDLEPAYMENT_ERROR = 'GET_BUNDLEPAYMENT_ERROR';
 
-const ROOT_PASSWORD_URL = 'http://localhost:8080/api/user/changePassword';
-const ROOT_CHARGE_URL = 'http://localhost:8080/api/charge/';
+const ROOT_PASSWORD_URL = 'https://localhost:8080/api/user/changePassword';
+const ROOT_CHARGE_URL = 'https://localhost:8080/api/charge/';
 
 function setNewPasswordPending(isSetNewPasswordPending) {
 	return {

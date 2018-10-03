@@ -4,10 +4,10 @@
     width: 100%;
 }
 
-ul.rolldown-list{
+ul.rolldown-list.specialty{
     list-style: none;
-    width: 100%;
-    margin: auto 0;
+    width: 75%;
+    margin: auto auto;
     padding: 10px;
     box-sizing: border-box;
 }
