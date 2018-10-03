@@ -5,6 +5,7 @@ import { getDocument } from '../../actions/document.action';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ViewPDF from '../Recyclable/LoadPdf';
 import LoadingPage from '../Recyclable/LoadingPage';
+import moment from 'moment';
 
 class PractitionerMyDocuments extends Component {
 	constructor(props) {
@@ -72,12 +73,19 @@ class PractitionerMyDocuments extends Component {
 		});
 	}
 	render() {
-		let renderPagination;
-		if (this.props.documentState.documents) {
-			let pages = Math.floor(this.props.documentState.documents.length / 10) + 1;
+		if (this.props.documentState.isGetDocumentPending) return <LoadingPage />;
+		let renderPagination = (
+			<div className="small-text">
+				<p className="text-center">
+					<i>Add your baseline assessment documents to exchange with your clients.</i>
+				</p>
+			</div>
+		);
+		if (this.props.documentState.documents && this.props.documentState.documents.length) {
+			let pages = Math.floor(this.props.documentState.documents.length / 5) + 1;
 			console.log('document rendered');
 			renderPagination = (
-				<Pagination className="pg-blue">
+				<Pagination className="pg-blue normal-pagination">
 					{this.state.currentPage == 1 ? (
 						<PageItem disabled onClick={() => this.prevPaginationHandler()}>
 							<PageLink className="page-link" aria-label="Previous">
@@ -96,7 +104,7 @@ class PractitionerMyDocuments extends Component {
 					{Array.apply(null, { length: pages }).map((doc, idx) => {
 						if (idx + 1 === this.state.currentPage) {
 							return (
-								<PageItem active>
+								<PageItem key={'page' + (idx + 1)} active>
 									<PageLink className="page-link">
 										{idx + 1} <span className="sr-only">(current)</span>
 									</PageLink>
@@ -104,7 +112,7 @@ class PractitionerMyDocuments extends Component {
 							);
 						} else if (idx + 1 == this.state.currentPage - 1) {
 							return (
-								<PageItem onClick={() => this.setPageHandler(idx + 1)}>
+								<PageItem key={'page' + (idx + 1)} onClick={() => this.setPageHandler(idx + 1)}>
 									<PageLink className="page-link">
 										{idx + 1} <span className="sr-only">(current)</span>
 									</PageLink>
@@ -112,7 +120,7 @@ class PractitionerMyDocuments extends Component {
 							);
 						} else if (idx + 1 == this.state.currentPage + 1) {
 							return (
-								<PageItem onClick={() => this.setPageHandler(idx + 1)}>
+								<PageItem key={'page' + (idx + 1)} onClick={() => this.setPageHandler(idx + 1)}>
 									<PageLink className="page-link">
 										{idx + 1} <span className="sr-only">(current)</span>
 									</PageLink>
@@ -137,7 +145,7 @@ class PractitionerMyDocuments extends Component {
 		console.log(this.props.documentState.documents);
 		if (this.props.documentState.documents) {
 			docList = this.props.documentState.documents.filter(
-				(doc, idx) => Math.floor(idx / 10) + 1 === this.state.currentPage
+				(doc, idx) => Math.floor(idx / 5) + 1 === this.state.currentPage
 			); //(this.state.currentPage-1*10 )&& idx < (this.state.currentPage*10) )
 			docList = docList.map((doc, idx) => {
 				return doc == null ? null : (
@@ -151,8 +159,13 @@ class PractitionerMyDocuments extends Component {
 							<span className="doc-number">
 								<i className="fas fa-file-pdf" />
 							</span>
-							<span className="doc-modification">{doc.title}</span>
-							<span className=" doc-desc">{doc.description}</span>
+							<span>{doc.title}</span>
+							<span>{doc.description}</span>
+							<span>
+								{moment(doc.lastModified, 'DD-MM-YYYY HH:mm:ss')
+									.add(10, 'hours')
+									.format('DD-MM-YYYY HH:MM:SS')}
+							</span>
 						</div>
 						<div
 							className="doc-modify"
@@ -169,6 +182,15 @@ class PractitionerMyDocuments extends Component {
 			});
 		}
 
+		let header =
+			this.props.documentState.documents && this.props.documentState.documents.length ? (
+				<div className="row doc-header">
+					<div className="col">DOCUMENT NAME</div>
+					<div className="col">DESCRIPTION</div>
+					<div className="col">LAST MODIFIED</div>
+				</div>
+			) : null;
+
 		return (
 			<div>
 				<div className="practitioner-profile-head row justify-content-between">
@@ -177,7 +199,7 @@ class PractitionerMyDocuments extends Component {
 					</div>
 					<div className="col col-md-4 profile-button">
 						<Button id="button" color="primary" className="button add-button" onClick={this.toggleAddDocument}>
-							Add documents
+							Add Documents
 						</Button>
 					</div>
 					<div className="horizontal-line">
@@ -185,13 +207,7 @@ class PractitionerMyDocuments extends Component {
 					</div>
 					<div className="col col-md-12 myDocuments">
 						<div className="mydocs-wrapper">
-							<div className="row">
-								<div className="col"> </div>
-								<div className="col col-xs-3">NAME</div>
-								<div className="col col-xs-5">DESCRIPTION</div>
-								<div className="col col-xs-2"> LAST MODIFIED</div>
-								<div className="col col-xs-1" />
-							</div>
+							{header}
 							<ul className="rolldown-list" id="myList">
 								<ReactCSSTransitionGroup
 									transitionName="specialtyFade"
@@ -199,9 +215,9 @@ class PractitionerMyDocuments extends Component {
 									transitionLeaveTimeout={500}
 								/>
 								{docList}
-								{renderPagination}
 							</ul>
 						</div>
+						{renderPagination}
 					</div>
 				</div>
 				<Modal

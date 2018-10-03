@@ -95,7 +95,7 @@ class MyClientPage extends Component {
 										<div className="avatar mx-auto col col-lg-2 client-avatar-div">
 											<div className="view overlay client-overlay">
 												<img
-													src={`http://localhost:8080/api${client.profilePic}`}
+													src={`https://localhost:8080/api${client.profilePic}`}
 													className="rounded-circle img-fluid client-avatar"
 													alt="client-avatar"
 												/>

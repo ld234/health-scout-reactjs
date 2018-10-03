@@ -114,7 +114,7 @@ class SignupForm extends Component {
 		const { pageNo, username, email, verificationErr } = this.state;
 		axios({
 			method: 'post',
-			url: 'http://localhost:8080/api/user/checkUserDetails',
+			url: 'https://localhost:8080/api/user/checkUserDetails',
 			data: {
 				username: username,
 				email: email,
@@ -148,7 +148,7 @@ class SignupForm extends Component {
 
 		axios({
 			method: 'post',
-			url: 'http://localhost:8080/api/user/checkPracDetails',
+			url: 'https://localhost:8080/api/user/checkPracDetails',
 			data: {
 				ABN: abn,
 				medicalProviderNum: medicareProNum,
@@ -228,7 +228,7 @@ class SignupForm extends Component {
 		}
 
 		axios
-			.post('http://localhost:8080/api/user/prac', formData)
+			.post('https://localhost:8080/api/user/prac', formData)
 			.then(res => {
 				console.log('works?');
 				const newPageNo = pageNo + 1;

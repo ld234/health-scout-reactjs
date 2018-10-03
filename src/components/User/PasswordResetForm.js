@@ -44,7 +44,7 @@ class PasswordResetForm extends Component {
 		if (this.validateLoginForm(password, passwordConfirm)) {
 			this.setState({ loading: true }, function() {
 				axios
-					.put('http://localhost:8080/api/auth/resetPassword', {
+					.put('https://localhost:8080/api/auth/resetPassword', {
 						newPassword: password,
 						token: parsed.id,
 					})

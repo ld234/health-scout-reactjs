@@ -8,7 +8,7 @@ export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST';
 export const VERIFY_EMAIL_ERROR = 'VERIFY_EMAIL_ERROR';
 export const LOGOUT = 'LOGOUT';
 
-const ROOT_URL = 'http://localhost:8080/api/auth';
+const ROOT_URL = 'https://localhost:8080/api/auth';
 
 function setLoginPending(isLoginPending) {
 	return {
@@ -137,7 +137,7 @@ export function verifyEmail(token) {
 			.catch(err => {
 				dispatch(setVerifyEmailPending(false));
 				dispatch(setVerifyEmailSuccess(false, null));
-				if (err.response.data) dispatch(setVerifyEmailError(err.response.data.message));
+				if (err.response && err.response.data) dispatch(setVerifyEmailError(err.response.data.message));
 			});
 	};
 }

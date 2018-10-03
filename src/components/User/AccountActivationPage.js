@@ -4,7 +4,7 @@ import { verifyEmail } from '../../actions/auth.actions';
 import SuccessCheckMark from '../Recyclable/SuccessCheckMark';
 import ErrorCrossMark from '../Recyclable/ErrorCrossMark';
 import { Link } from 'react-router-dom';
-import { Button } from '../Recyclable/Button';
+import Button from '../Recyclable/Button';
 import qs from 'query-string';
 
 class AccountActivationPage extends Component {
@@ -17,20 +17,21 @@ class AccountActivationPage extends Component {
 		if (this.props.authState.isVerifyEmailSuccess) {
 			console.log('success activation');
 			return (
-				<div className="container">
-					<div className="login-container password-reset-container">
+				<div className="container animated fadeInDown">
+					<div className="login-container password-reset-container animated fadeInUp">
 						<SuccessCheckMark />
-						<p className="success">Successfully activated account</p>
-						<Link to="/login" style={{ textDecoration: 'none' }}>
-							<Button id="login-button">Click here to login"</Button>
+						<p className="success">Your account has been activated successfully.</p>
+						<p>Please login to use our service.</p>
+						<Link to="/login">
+							<Button id="login-button">Click here to login</Button>
 						</Link>
 					</div>
 				</div>
 			);
 		} else {
 			return (
-				<div className="container">
-					<div className="login-container password-reset-container">
+				<div className="container animated fadeInDown">
+					<div className="login-container password-reset-container animated fadeInUp">
 						<ErrorCrossMark />
 						<p className="error">Invalid activation link</p>
 						<p>

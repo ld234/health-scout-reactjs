@@ -12,7 +12,7 @@ export const SEND_EXCHANGEDOCUMENTS_PENDING = 'SEND_EXCHANGEDOCUMENTS_PENDING';
 export const SEND_EXCHANGEDOCUMENTS_ERROR = 'SEND_EXCHANGEDOCUMENTS_ERROR';
 export const SEND_EXCHANGEDOCUMENTS_SUCCESS = 'SEND_EXCHANGEDOCUMENTS_SUCCESS';
 
-const ROOT_URL = 'http://localhost:8080/sapi/clients/profile/exchangeDocument';
+const ROOT_URL = 'https://localhost:8080/sapi/clients/profile/exchangeDocument';
 
 function setGetExchangeDocumentsPending(isGetExchangeDocumentsPending) {
 	return {

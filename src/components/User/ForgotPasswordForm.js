@@ -54,7 +54,7 @@ class ForgotPasswordForm extends Component {
 		this.setState({ loading: true });
 		console.log('request body', reqBody);
 		axios
-			.put('http://localhost:8080/api/auth/forgetPassword', reqBody)
+			.put('https://localhost:8080/api/auth/forgetPassword', reqBody)
 			.then(response => {
 				console.log(response);
 				this.setState({ loading: false, success: true, successMessage: response.data.message });

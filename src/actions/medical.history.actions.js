@@ -10,7 +10,7 @@ export const GET_MEDICATION_HISTORY_PENDING = 'GET_MEDICATION_HISTORY_PENDING';
 export const GET_MEDICATION_HISTORY_SUCCESS = 'GET_MEDICATION_HISTORY_SUCCESS';
 export const GET_MEDICATION_HISTORY_ERROR = 'GET_MEDICATION_HISTORY_ERROR';
 
-const ROOT_URL = 'http://localhost:8080/api/clients/profile/medicalDetails';
+const ROOT_URL = 'https://localhost:8080/api/clients/profile/medicalDetails';
 
 function setGetAllergiesPending(isGetAllergiesPending) {
 	return {

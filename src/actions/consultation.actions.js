@@ -11,7 +11,7 @@ export const EDIT_CONSULTATION_SUCCESS = 'EDIT_CONSULTATION_SUCCESS';
 export const EDIT_CONSULTATION_ERROR = 'EDIT_CONSULTATION_ERROR';
 const CHOOSE_CLIENT = 'CHOOSE_CLIENT';
 
-const ROOT_URL = 'http://localhost:8080/api/clients/profile/consultation';
+const ROOT_URL = 'https://localhost:8080/api/clients/profile/consultation';
 
 function setAddConsultationPending(isAddConsultationPending) {
 	return {

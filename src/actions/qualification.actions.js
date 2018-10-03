@@ -12,7 +12,7 @@ export const DELETE_QUALIFICATION_SUCCESS = 'DELETE_QUALIFICATION_SUCCESS';
 export const DELETE_QUALIFICATION_PENDING = 'DELETE_QUALIFICATION_PENDING';
 export const DELETE_QUALIFICATION_ERROR = 'DELETE_QUALIFICATION_ERROR';
 
-const ROOT_URL = 'http://localhost:8080/api/qualification';
+const ROOT_URL = 'https://localhost:8080/api/qualification';
 
 function setGetQualificationPending(isGetQualificationPending) {
 	return {

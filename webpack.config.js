@@ -32,6 +32,7 @@ module.exports = {
 			aggregateTimeout: 300,
 			poll: 1000,
 		},
+		https: true,
 		proxy: {
 			'/api': {
 				target: 'http://localhost:8888',

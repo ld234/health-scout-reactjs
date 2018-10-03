@@ -12,7 +12,7 @@ export const GET_PRAC_TYPE_SPECIALTY_PENDING = 'GET_PRAC_TYPE_SPECIALTY_PENDING'
 export const GET_PRAC_TYPE_SPECIALTY_SUCCESS = 'GET_PRAC_TYPE_SPECIALTY_SUCCESS';
 export const GET_PRAC_TYPE_SPECIALTY_ERROR = 'GET_PRAC_TYPE_SPECIALTY_ERROR';
 
-const ROOT_URL = 'http://localhost:8080/api/specialty';
+const ROOT_URL = 'https://localhost:8080/api/specialty';
 
 function setGetSpecialtyPending(isGetSpecialtyPending) {
 	return {

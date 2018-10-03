@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-import { MDBDataTable, Modal, ModalHeader, ModalBody, ModalFooter, Button, Table, TableBody } from 'mdbreact';
+import {
+	Pagination,
+	PageItem,
+	PageLink,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Button,
+	Table,
+	TableBody,
+} from 'mdbreact';
 import { connect } from 'react-redux';
 import ClientGeneralInfo from '../Practitioner/PractitionerSingleClientPage/ClientGeneralInfo';
 import '../../../style/ConsultationHistoryPage.css';
@@ -14,6 +25,7 @@ class ConsultationHistoryPage extends Component {
 			modal: false,
 			searchInput: '',
 			currentPage: 1,
+			currentRecordNum: this.props.consultationState.consultations.length | 0,
 			data: {
 				columns: [
 					{
@@ -128,50 +140,134 @@ class ConsultationHistoryPage extends Component {
 	renderTable = () => {
 		const labels = ['title', 'by', 'date', 'pracType'];
 		console.log('data', this.state.data.rows);
-		const filteredData = this.state.data.rows
-			.filter((row, idx) => {
-				return !labels.every(label => !row[label].match(`^.*${this.state.searchInput}.*$`));
-			})
-			.splice((this.state.currentPage - 1) * 10, 10);
-		console.log('filteredData', filteredData);
+		let filteredData = this.state.data.rows.filter((row, idx) => {
+			return !labels.every(label => !row[label].match(`^.*${this.state.searchInput}.*$`));
+		});
+		if (this.state.currentRecordNum !== filteredData.length) this.setState({ currentRecordNum: filteredData.length });
+		filteredData = filteredData.splice((this.state.currentPage - 1) * 5, 5);
+
 		return (
-			<div className="wrap-table100">
-				<div className="table">
-					<div className="table-row header client-consultation-row">
-						{this.state.data.columns.map(({ label }, idx) => {
-							return (
-								<div key={idx} className="cell">
-									{label}
-								</div>
-							);
-						})}
-					</div>
-					{filteredData
-						? filteredData.map((cons, idx) => {
+			<div className="table-wrapper">
+				<div className="wrap-table100">
+					<div className="table">
+						<div className="table-row header client-consultation-row">
+							{this.state.data.columns.map(({ label }, idx) => {
 								return (
-									<div
-										key={`med${idx}`}
-										onClick={() => this.toggle(this.props.consultationState.consultations[idx])}
-										className="table-row client-consultation-row"
-									>
-										<div className="cell" data-title="Consultation Title">
-											{cons.title}
-										</div>
-										<div className="cell" data-title="Consultation Date">
-											{cons.date}
-										</div>
-										<div className="cell" data-title="Practitioner Type">
-											{cons.pracType}
-										</div>
-										<div className="cell" data-title="Practitioner Name">
-											{cons.by}
-										</div>
+									<div key={idx} className="cell">
+										{label}
 									</div>
 								);
-						  })
-						: null}
+							})}
+						</div>
+						{filteredData
+							? filteredData.map((cons, idx) => {
+									return (
+										<div
+											key={`med${idx}`}
+											onClick={() => this.toggle(this.props.consultationState.consultations[idx])}
+											className="table-row client-consultation-row"
+										>
+											<div className="cell" data-title="Consultation Title">
+												{cons.title}
+											</div>
+											<div className="cell" data-title="Consultation Date">
+												{cons.date}
+											</div>
+											<div className="cell" data-title="Practitioner Type">
+												{cons.pracType}
+											</div>
+											<div className="cell" data-title="Practitioner Name">
+												{cons.by}
+											</div>
+										</div>
+									);
+							  })
+							: null}
+					</div>
 				</div>
 			</div>
+		);
+	};
+
+	setPageHandler = pageNum => {
+		this.setState({ currentPage: pageNum });
+	};
+
+	prevPaginationHandler() {
+		this.setState((prevState, props) => {
+			return {
+				currentPage: prevState.currentPage - 1,
+			};
+		});
+	}
+	nextPaginationHandler() {
+		this.setState((prevState, props) => {
+			return {
+				currentPage: prevState.currentPage + 1,
+			};
+		});
+	}
+
+	renderPagination = () => {
+		let pages =
+			this.state.currentRecordNum % 5 !== 0
+				? Math.floor(this.state.currentRecordNum / 5) + 1
+				: this.state.currentRecordNum / 5;
+		return (
+			<Pagination className="pg-blue normal-pagination">
+				{this.state.currentPage === 1 ? (
+					<PageItem disabled>
+						<PageLink className="page-link" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							<span className="sr-only">Previous</span>
+						</PageLink>
+					</PageItem>
+				) : (
+					<PageItem onClick={() => this.prevPaginationHandler()}>
+						<PageLink className="page-link" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							<span className="sr-only">Previous</span>
+						</PageLink>
+					</PageItem>
+				)}
+				{Array.apply(null, { length: pages }).map((doc, idx) => {
+					if (idx + 1 === this.state.currentPage) {
+						return (
+							<PageItem key={'page' + (idx + 1)} active>
+								<PageLink className="page-link">
+									{idx + 1} <span className="sr-only">(current)</span>
+								</PageLink>
+							</PageItem>
+						);
+					} else if (idx + 1 == this.state.currentPage - 1) {
+						return (
+							<PageItem key={'page' + (idx + 1)} onClick={() => this.setPageHandler(idx + 1)}>
+								<PageLink className="page-link">
+									{idx + 1} <span className="sr-only">(current)</span>
+								</PageLink>
+							</PageItem>
+						);
+					} else if (idx + 1 == this.state.currentPage + 1) {
+						return (
+							<PageItem key={'page' + (idx + 1)} onClick={() => this.setPageHandler(idx + 1)}>
+								<PageLink className="page-link">
+									{idx + 1} <span className="sr-only">(current)</span>
+								</PageLink>
+							</PageItem>
+						);
+					}
+				})}
+
+				{this.state.currentPage == pages ? (
+					<PageItem disabled onClick={() => this.nextPaginationHandler()}>
+						<PageLink className="page-link">&raquo;</PageLink>
+					</PageItem>
+				) : (
+					<PageItem onClick={() => this.nextPaginationHandler()}>
+						<PageLink className="page-link">&raquo;</PageLink>
+					</PageItem>
+				)}
+			</Pagination>
 		);
 	};
 
@@ -222,7 +318,47 @@ class ConsultationHistoryPage extends Component {
 							<hr />
 						</div>
 						{this.renderTable()}
-						<div className="table-metadata">
+						<div className="table-current-show">
+							Showing{' '}
+							{(this.state.currentPage - 1) * 5 + 1 > this.state.currentRecordNum
+								? this.state.currentRecordNum
+								: (this.state.currentPage - 1) * 5 + 1}
+							-
+							{this.state.currentPage * 5 > this.state.currentRecordNum
+								? this.state.currentRecordNum
+								: this.state.currentPage * 5}{' '}
+							of {this.state.currentRecordNum} consultations
+						</div>
+						{this.renderPagination()}
+					</div>
+					{this.renderModal()}
+				</div>
+			);
+	}
+}
+
+// {newData.rows.map((e, idx) => <div key={idx}>{e.by} {newData.rows.length}</div>)}
+const mapStateToProps = state => {
+	return {
+		clientState: state.clients,
+		consultationState: state.consultations,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		getConsultations: (patientUsername, cb) => dispatch(getConsultations(patientUsername, cb)),
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ConsultationHistoryPage);
+
+/*
+
+<div className="table-metadata">
 							<div className="table-current-show">
 								Showing{' '}
 								{(this.state.currentPage - 1) * 10 + 1 > this.props.consultationState.consultations.length
@@ -261,29 +397,4 @@ class ConsultationHistoryPage extends Component {
 									)}
 								</div>
 							</div>
-						</div>
-					</div>
-					{this.renderModal()}
-				</div>
-			);
-	}
-}
-
-// {newData.rows.map((e, idx) => <div key={idx}>{e.by} {newData.rows.length}</div>)}
-const mapStateToProps = state => {
-	return {
-		clientState: state.clients,
-		consultationState: state.consultations,
-	};
-};
-
-const mapDispatchToProps = dispatch => {
-	return {
-		getConsultations: (patientUsername, cb) => dispatch(getConsultations(patientUsername, cb)),
-	};
-};
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(ConsultationHistoryPage);
+						</div> */

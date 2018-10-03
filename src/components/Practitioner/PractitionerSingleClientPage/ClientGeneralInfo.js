@@ -11,7 +11,7 @@ class ClientGeneralInfo extends Component {
 					<div className="avatar mx-auto col col-lg-2 ">
 						<img
 							id="avatar-img"
-							src={`http://localhost:8080/api${client.profilePic}`}
+							src={`https://localhost:8080/api${client.profilePic}`}
 							className="rounded-circle img-fluid"
 							alt="practitioner avatar"
 						/>

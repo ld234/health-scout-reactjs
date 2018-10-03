@@ -2,7 +2,9 @@
     background-color: #0E72EC;
     color: #fff;
 }
-
+  .table-wrapper{
+    height: 450px;
+  }
   .wrap-table100 {
     width: 100%;
     border-radius: 10px;

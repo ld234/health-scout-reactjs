@@ -178,7 +178,6 @@ class ClientNewConsultationForm extends Component {
 					onFocus={this.onFocus}
 					value={this.state.intervention}
 				/>
-				<label className="errorMsg">{this.state.errors.intervention}</label>
 				<div className="buttons-div">
 					<Button className="button" color="primary" type="submit">
 						Add consultation

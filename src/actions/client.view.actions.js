@@ -12,7 +12,7 @@ export const ACCEPT_CLIENT_ERROR = 'ACCEPT_CLIENT_ERROR';
 export const CHOOSE_CLIENT_SUCCESS = 'CHOOSE_CLIENT';
 export const CHOOSE_CLIENT_PENDING = 'CHOOSE_CLIENT_PENDING';
 
-const ROOT_URL = 'http://localhost:8080/api/clients';
+const ROOT_URL = 'https://localhost:8080/api/clients';
 
 function setGetClientsPending(isGetClientsPending) {
 	return {

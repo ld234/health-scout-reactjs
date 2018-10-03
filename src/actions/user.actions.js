@@ -4,7 +4,7 @@ export const GET_USER_PENDING = 'GET_USER_PENDING';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_ERROR = 'GET_USER_ERROR';
 
-const ROOT_URL = 'http://localhost:8080/api/user';
+const ROOT_URL = 'https://localhost:8080/api/user';
 
 function setGetUserPending(isGetUserPending) {
 	return {

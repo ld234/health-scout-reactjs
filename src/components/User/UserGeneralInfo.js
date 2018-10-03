@@ -15,7 +15,7 @@ class UserGeneralInfo extends Component {
 						<div className="view overlay">
 							<img
 								id="avatar-img"
-								src={`http://localhost:8080/api${this.props.userState.user.profilePic}`}
+								src={`https://localhost:8080/api${this.props.userState.user.profilePic}`}
 								className="rounded-circle img-fluid"
 								alt="practitioner avatar"
 							/>
