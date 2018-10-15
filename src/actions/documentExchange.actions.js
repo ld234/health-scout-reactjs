@@ -17,6 +17,8 @@ export const SET_SEENEXCHANGEDOCUMENT_SUCCESS = 'SET_SEENEXCHANGEDOCUMENT_SUCCES
 export const DOWNLOAD_EXCHANGEDOCUMENT_PENDING = 'DOWNLOAD_EXCHANGEDOCUMENT_PENDING';
 export const DOWNLOAD_EXCHANGEDOCUMENT_ERROR = 'DOWNLOAD_EXCHANGEDOCUMENT_ERROR';
 export const DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS = 'DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS';
+export const SET_PDF_CONTENT = 'SET_PDF_CONTENT';
+export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX';
 
 const ROOT_URL = 'https://localhost:8080/sapi/clients/profile/exchangeDocument';
 
@@ -266,7 +268,25 @@ function downloadExchangeDocumentSuccess(isDownloadExchangeDocumentSuccess) {
 		isDownloadExchangeDocumentSuccess: isDownloadExchangeDocumentSuccess,
 	};
 }
-export function downloadExchangeDocument(data) {
+
+function setPDFContent(pdfUint8Array, idx) {
+	return {
+		type: SET_PDF_CONTENT,
+		pdfUint8Array: pdfUint8Array,
+		selectedIndex: idx,
+	};
+}
+
+export function setCurrentIndex(idx) {
+	return dispatch => {
+		dispatch({
+			type: SET_CURRENT_INDEX,
+			selectedIndex: idx,
+		});
+	};
+}
+
+export function downloadExchangeDocument(data, idx, cb) {
 	console.log('download data:', data);
 	return dispatch => {
 		dispatch(downloadExchangeDocumentPending(true));
@@ -281,7 +301,11 @@ export function downloadExchangeDocument(data) {
 				},
 			})
 			.then(res => {
-				console.log('success! ', res);
+				dispatch(setPDFContent(new Uint8Array(res.data), idx));
+				if (cb) {
+					cb();
+					console.log('callback to open view pdf');
+				}
 				dispatch(downloadExchangeDocumentPending(false));
 				dispatch(downloadExchangeDocumentError(null));
 				dispatch(downloadExchangeDocumentSuccess(true));

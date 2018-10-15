@@ -29,9 +29,12 @@ class LoadPdf extends Component {
 		const { pageNumber, numPages } = this.state;
 		let filepath;
 		if (this.props.data) {
+			// filepath = {
+			// 	url: 'https://localhost:8080/sapi' + this.props.data,
+			// 	httpHeaders: { 'x-access-token': localStorage.getItem('localToken') },
+			// };
 			filepath = {
-				url: 'https://localhost:8080/sapi' + this.props.data,
-				httpHeaders: { 'x-access-token': localStorage.getItem('localToken') },
+				data: this.props.data,
 			};
 		}
 		return (

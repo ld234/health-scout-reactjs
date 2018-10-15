@@ -80,7 +80,12 @@ const documentPersistConfig = {
 const documentExchangePersistConfig = {
 	key: 'documentExchange',
 	storage: storage,
-	blacklist: ['isGetExchangeDocumentsError', 'isGetNewRecievedDocumentsError', 'isGetOldRecievedDocumentsError'],
+	blacklist: [
+		'isGetExchangeDocumentsError',
+		'isGetNewRecievedDocumentsError',
+		'isGetOldRecievedDocumentsError',
+		'pdfUint8Array',
+	],
 };
 const settingExchangePersistConfig = {
 	key: 'setting',

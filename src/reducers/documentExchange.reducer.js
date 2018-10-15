@@ -17,6 +17,8 @@ import {
 	DOWNLOAD_EXCHANGEDOCUMENT_PENDING,
 	DOWNLOAD_EXCHANGEDOCUMENT_ERROR,
 	DOWNLOAD_EXCHANGEDOCUMENT_SUCCESS,
+	SET_PDF_CONTENT,
+	SET_CURRENT_INDEX,
 } from '../actions/documentExchange.actions';
 
 const INITIAL_STATE = {
@@ -41,6 +43,8 @@ const INITIAL_STATE = {
 	exchangeDocuments: [],
 	seenDocuments: [],
 	unseenDocuments: [],
+	pdfUint8Array: [],
+	selectedIndex: -1,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -138,6 +142,34 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isDownloadExchangeDocumentSuccess: action.isDownloadExchangeDocumentSuccess,
+			};
+		case SET_PDF_CONTENT:
+			const pdfUint8Array = Array.apply(null, { length: state.seenDocuments.length + state.unseenDocuments.length });
+			console.log('selected index', action.selectedIndex);
+			return {
+				...state,
+				pdfUint8Array:
+					Array.isArray(state.pdfUint8Array) && state.pdfUint8Array.length === pdfUint8Array.length
+						? state.pdfUint8Array.map((doc, idx) => {
+								if (idx === action.selectedIndex) {
+									return action.pdfUint8Array;
+								} else {
+									return doc;
+								}
+						  })
+						: pdfUint8Array.map((doc, idx) => {
+								if (idx === action.selectedIndex) {
+									return action.pdfUint8Array;
+								} else {
+									return doc;
+								}
+						  }),
+				selectedIndex: Number.isInteger(action.selectedIndex) ? action.selectedIndex : state.selectedIndex,
+			};
+		case SET_CURRENT_INDEX:
+			return {
+				...state,
+				selectedIndex: action.selectedIndex,
 			};
 		default:
 			return state;

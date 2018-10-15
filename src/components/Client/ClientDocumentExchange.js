@@ -8,6 +8,7 @@ import {
 	getOldRecievedDocuments,
 	setSeenExchangeDocument,
 	downloadExchangeDocument,
+	setCurrentIndex,
 } from '../../actions/documentExchange.actions';
 import '../../../style/ClientDocumentExchange.css';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -23,9 +24,9 @@ class ClientDocumentExchange extends Component {
 			selectedDoc: null,
 		};
 	}
-	download(title) {
+	download(title, idx, cb) {
 		let data = { title, patientUsername: this.props.clientState.currentClient.patientUsername };
-		this.props.downloadExchangeDocument(data);
+		this.props.downloadExchangeDocument(data, idx, cb);
 	}
 
 	componentDidMount() {
@@ -40,8 +41,9 @@ class ClientDocumentExchange extends Component {
 			sendDocumentToggle: !this.state.sendDocumentToggle,
 		});
 	};
-	toggleViewDocument = filepath => {
+	toggleViewDocument = (filepath, idx) => {
 		console.log('toggle view doc:', filepath);
+		if (Number.isInteger(idx)) this.props.setCurrentIndex(idx);
 		this.setState((prevState, props) => {
 			return {
 				viewDocumentToggle: !prevState.viewDocumentToggle,
@@ -82,7 +84,9 @@ class ClientDocumentExchange extends Component {
 						<div
 							className="docEx-detail"
 							onClick={() => {
-								this.onReadDoc(doc.title, doc.receivedLink, patientUsername);
+								// this.onReadDoc(doc.title, doc.receivedLink, patientUsername);
+								console.log('downloading doc title');
+								this.download(doc.title, idx);
 							}}
 						>
 							<span className="docEx-modification">{doc.title}</span>
@@ -91,7 +95,7 @@ class ClientDocumentExchange extends Component {
 						<div
 							className="docEx-modify"
 							onClick={() => {
-								this.download(doc.title);
+								this.download(doc.title, idx);
 							}}
 						>
 							<span>
@@ -109,7 +113,11 @@ class ClientDocumentExchange extends Component {
 						<div
 							className="docEx-detail"
 							onClick={() => {
-								this.toggleViewDocument(doc.receivedLink);
+								console.log('doc blob content', this.props.documentExchangeState.pdfUint8Array[idx]);
+								if (!Array.isArray(this.props.documentExchangeState.pdfUint8Array[idx])) {
+									this.props.setCurrentIndex(idx);
+									this.download(doc.title, idx, () => this.toggleViewDocument(doc.receivedLink, idx));
+								} else this.toggleViewDocument(doc.receivedLink, idx);
 							}}
 						>
 							<span className="docEx-modification">{doc.title}</span>
@@ -118,7 +126,7 @@ class ClientDocumentExchange extends Component {
 						<div
 							className="docEx-modify"
 							onClick={() => {
-								this.download(doc.title);
+								this.download(doc.title, idx);
 							}}
 						>
 							<span>
@@ -215,7 +223,14 @@ class ClientDocumentExchange extends Component {
 					centered
 				>
 					<ModalHeader toggle={this.toggleViewDocument}>View Documents</ModalHeader>
-					<ViewPDF data={this.state.selectedDoc} />
+					{/* <ViewPDF data={this.state.selectedDoc} /> */}
+					<ViewPDF
+						data={
+							this.props.documentExchangeState.pdfUint8Array
+								? this.props.documentExchangeState.pdfUint8Array[this.props.documentExchangeState.selectedIndex | 0]
+								: []
+						}
+					/>
 				</Modal>
 			</div>
 		);
@@ -234,7 +249,8 @@ const mapDispatchToProps = dispatch => {
 		setSeenExchangeDocument: data => dispatch(setSeenExchangeDocument(data)),
 		getNewRecievedDocuments: patientUsername => dispatch(getNewRecievedDocuments(patientUsername)),
 		getOldRecievedDocuments: patientUsername => dispatch(getOldRecievedDocuments(patientUsername)),
-		downloadExchangeDocument: data => dispatch(downloadExchangeDocument(data)),
+		downloadExchangeDocument: (data, idx, cb) => dispatch(downloadExchangeDocument(data, idx, cb)),
+		setCurrentIndex: idx => dispatch(setCurrentIndex(idx)),
 	};
 };
 
