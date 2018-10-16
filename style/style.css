@@ -1315,12 +1315,21 @@ div.main-wrapper h4{
   border: rgba(204, 204, 204, 0.40) 1px solid;
 }
 .SubCreditCard{
-  
+  padding-top: 10px;
   border-radius: 5px;
   padding-left: 25%;
 }
-
-.StripeElement:focus{
+@media only screen and (max-width: 1100px) {
+  .SubCreditCard{
+    padding-left:10%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .SubCreditCard{
+    padding-left:3%;
+  }
+}
+  .StripeElement:focus{
   box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px, rgba(0, 0, 0, 0.0784314) 0px 1px 3px !important;
   -webkit-transition: all 150ms ease;
   transition: all 150ms ease;
@@ -1554,36 +1563,86 @@ div.main-wrapper h4{
 }
 
 .rAccordion {
-  padding: 40px;
   color: #444;
   background: #f6f6f673;
   cursor: pointer;
+  height: 115px;
   width: 100%;
   border: rgba(204, 204, 204, 0.40) 1px solid;
   transition: 0.4s; 
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;  
 }
 
 .rATitle{
+  padding: 40px;
+  display: inline-block;
   font-size: 1.3em;
-  text-align: left;
-  font-weight: 500px;
+  font-weight: 1000;
 
 }
+
+
 .rAPrice{
+  padding-top: 40px;
+  padding-right: 40px;
   font-size: 1.4em;
   text-align: right;
+  float: right;
+
+ 
+}
+.rPlanCard{
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;  
+}
+.rPanel ul .fas{
+  font-size: 20px;
+  color: #0E72EC;
+  display: "flex";
+}
+.rPanel i{
+  padding-right: 10px;
+}
+.rPanel ul{
+  list-style: none;
+  margin:5px;
 }
 .rPlanCard{
   box-shadow: 0 14px 28px rgba(0,0,0,0.25),  0 10px 10px rgba(0,0,0,0.22);
 }
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .rActive, .rAccordion:hover {
-  background: #1B75E8;
+  border: none;
+
+  width: 100%;
+  background: rgb(9,198,249);
+  background: linear-gradient(4deg, rgba(9,198,249,1) 0%, rgba(14,114,236,1) 100%);
+  /* background: #1B75E8; */
   color:white;
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(204,204,204,0.39);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(204,204,204,0.39);
+  box-shadow: 0px 0px 20px 0px rgba(204,204,204,0.39);
+}
+
+.rAccordion:hover .rAPrice{
+  padding: 40px;
+  /* background: linear-gradient(to bottom right, #1B75E8 0%, #1B75E8 50%, #fff 50%, #fff 100%); */
+}
+.rAccordion .rActive .rATitle{
+  padding-top: 40px;
+  /* background: linear-gradient(to bottom right, #1B75E8 0%, #1B75E8 50%, #fff 50%, #fff 100%); */
+}
+.rActive .rAPrice{
+  font-size: 1.4em;
+
+  padding: 40px;
+  /* background: linear-gradient(to bottom right, #1B75E8 0%, #1B75E8 50%, #fff 50%, #fff 100%); */
 }
 
 /* Style the accordion panel. Note: hidden by default */
 .rPanel {
+  
   padding: 20px;
   display: block;
   margin: 0 auto;

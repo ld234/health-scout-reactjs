@@ -48,4 +48,23 @@
 .signup-form-Body-Container .col-md-12 .textArea{
     height: 250px;
 }
+.labelPopover{
+    float: left;
+    display: inline-flex
+}
+.popOver{
+    width: 30px;
+}
+.popOverContainer{
+    margin-left: 10px;
+    color: #ccc;
+    border: 1px solid #ececec;
+    background-color: #ececec;
+    /* padding: 5px; */
+    padding-bottom: 10px;
+    padding-left: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
 
+}

@@ -38,7 +38,7 @@ export function validateSecondPageRegister(data) {
 		errors.firstName = '*First name required';
 	}
 	if (_.isEmpty(data.lastName)) {
-		errors.lastName = '*last name required';
+		errors.lastName = '*Last name required';
 	}
 	// if(data.gender == ''){
 	//   errors.gender = 'Select gender';
@@ -46,10 +46,10 @@ export function validateSecondPageRegister(data) {
 	// }
 
 	if (_.isEmpty(data.dob)) {
-		errors.dob = '*Dob required';
+		errors.dob = '*DOB required';
 	}
 	if (moment().diff(data.dob, 'years') < 18 || moment().diff(data.dob, 'years') > 100) {
-		errors.dob = 'invalid date of birth';
+		errors.dob = '*Invalid DOB';
 	}
 	if (_.isEmpty(data.serviceProvided)) {
 		errors.serviceProvided = '*Service provided required';
@@ -57,11 +57,17 @@ export function validateSecondPageRegister(data) {
 	if (_.isEmpty(data.abn)) {
 		errors.abn = '*ABN required';
 	}
+	if (data.abn.length !== 11) {
+		errors.abn = '*Invalid ABN';
+	}
 	if (_.isEmpty(data.medicareProNum)) {
 		errors.medicareProNum = '*Medical provider number required';
 	}
-	if (data.medicareProNum.length > 8 || data.medicareProNum.length < 5) {
-		errors.medicareProNum = '*Invalid medical provider number';
+	if (data.medicareProNum.length !== 8) {
+		errors.medicareProNum = '*Invalid 1 medical provider number';
+	}
+	if (!/\d{6}[a-zA-Z]{2}/.test(data.medicareProNum)) {
+		errors.medicareProNum = '*Invalid 2 medical provider number';
 	}
 	if (_.isEmpty(data.accreditedBodies)) {
 		errors.accreditedBodies = '*Accredited required';
@@ -70,7 +76,7 @@ export function validateSecondPageRegister(data) {
 		errors.businessName = '*Business name required';
 	}
 	if (_.isEmpty(data.description)) {
-		errors.description = '*description required';
+		errors.description = '*Description required';
 	}
 	if (_.isEmpty(data.businessAddress)) {
 		errors.businessAddress = '*Business address required';

@@ -144,6 +144,8 @@ class SignupForm extends Component {
 			.catch(({ response }) => {
 				console.log('practitionerDetail error', response);
 				const errorMsg = response && response.data && response.data.message;
+				console.log(errorMsg);
+
 				this.setState({ verificationErr: errorMsg }, () => {
 					window.scrollTo(0, 0);
 				});
@@ -171,6 +173,7 @@ class SignupForm extends Component {
 			businessAddress,
 			bundle,
 			stripeToken,
+			description,
 		} = this.state;
 		if (bundle == '') {
 			console.log('only Subscription');

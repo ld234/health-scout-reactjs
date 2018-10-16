@@ -12,30 +12,78 @@ class SubscriptionPaymentPage extends Component {
 				{
 					num: 1,
 					name: 'standard',
-					title: 'Subscription + Standard bundle',
+					title: 'Standard Bundle',
 					price: 10.0,
-					desc: 'asdflhaosfha',
+					details: [
+						{
+							icon: 'fas fa-search-plus',
+							desc: 'Enables practitioner profile to be viewed by clients via Healthscout client app',
+						},
+						{
+							icon: 'fas fa-file-medical',
+							desc: 'Exchange baseline documents with patients',
+						},
+						{
+							icon: 'fas fa-user',
+							desc: 'Connect to up to 10 clients on the app',
+						},
+						{
+							icon: 'user',
+							desc: '',
+						},
+					],
 				},
 				{
 					num: 2,
 					name: 'premium',
-					title: 'Subscription + Premium bundle',
+					title: 'Premium Bundle',
 					price: 15.0,
-					desc: 'asdflhaosfha',
+					details: [
+						{
+							icon: 'fas fa-search-plus',
+							desc: 'Enables practitioner profile to be viewed by clients via Healthscout client app',
+						},
+						{
+							icon: 'fas fa-file-medical',
+							desc: 'Exchange baseline documents with patients',
+						},
+						{
+							icon: 'fas fa-user-friends',
+							desc: 'Connect to up to 20 clients on the app',
+						},
+					],
 				},
 				{
 					num: 3,
 					name: 'platinum',
-					title: 'Subscription + Platinum bundle',
+					title: 'Platinum Bundle',
 					price: 20.0,
-					desc: 'asdflhaosfha',
+					details: [
+						{
+							icon: 'fas fa-search-plus',
+							desc: 'Enables practitioner profile to be viewed by clients via Healthscout client app',
+						},
+						{
+							icon: 'fas fa-file-medical',
+							desc: 'Exchange baseline documents with patients',
+						},
+						{
+							icon: 'fas fa-users',
+							desc: 'Connect to up to 50 clients on the app',
+						},
+					],
 				},
 				{
 					num: 4,
 					name: 'subscription',
 					title: 'Subscription only',
 					price: 5.0,
-					desc: 'asdflhaosfha',
+					details: [
+						{
+							icon: 'fas fa-search-plus',
+							desc: 'Enables practitioner profile to be viewed by clients via Healthscout client app',
+						},
+					],
 				},
 			],
 			selected: 4,
@@ -172,7 +220,20 @@ class SubscriptionPaymentPage extends Component {
 						<span className="rATitle">{pkg.title}</span>
 						<span className="rAPrice">${pkg.price.toPrecision(2)}</span>
 					</div>
-					<div className="rPanel">{pkg.desc}</div>
+					<div className="rPanel">
+						<ul>
+							{pkg.details.map(detail => {
+								return (
+									<li>
+										<p className="desc">
+											<i className={detail.icon} />
+											{detail.desc}
+										</p>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
 				</div>
 			) : (
 				<div key={pkg.num}>
@@ -250,18 +311,18 @@ class SubscriptionPaymentPage extends Component {
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-md-3" />
-					<div className="col-md-3">
-						<Button className="btn btn-block signupBtn" color="blue" onClick={this.props.prev}>
+					<div className="col-sm-3" />
+					<div className="col-sm-3">
+						<Button className="btn btn-block signupBtn" color="primary" onClick={this.props.prev}>
 							Prev
 						</Button>
 					</div>
-					<div className="col-md-3">
-						<Button className="btn btn-block signupBtn" color="blue" onClick={this.handleSubmit}>
+					<div className="col-sm-3">
+						<Button className="btn btn-block signupBtn" color="primary" onClick={this.handleSubmit}>
 							Next
 						</Button>
 					</div>
-					<div className="col-md-3" />
+					<div className="col-sm-3" />
 				</div>
 			</div>
 		);
