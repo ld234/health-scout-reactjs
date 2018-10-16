@@ -46,7 +46,7 @@ class SignupForm extends Component {
 		description: '',
 		pracType: '',
 
-		apiKey: 'pk_test_6ENTZj1Qk1DRjeqgLBVRyrCN',
+		apiKey: 'pk_test_MtzOuiItf07GsAJgk1AT5KeQ',
 		agreement: false,
 
 		registrationError: false,
@@ -124,7 +124,7 @@ class SignupForm extends Component {
 	};
 
 	usernameCheck = () => {
-		const { pageNo, username, email, verificationErr } = this.state;
+		const { pageNo, username, email } = this.state;
 		axios({
 			method: 'post',
 			url: 'https://localhost:8080/api/user/checkUserDetails',
@@ -178,7 +178,13 @@ class SignupForm extends Component {
 					this.setState({ pageNo: newPageNo });
 					this.setState({ verificationErr: null });
 				} else {
-					const errorMsg = resArray[0];
+					var errorMsg = resArray[0];
+					if (errorMsg === 'ABN') {
+						errorMsg = 'Invalid ABN number';
+					}
+					if (errorMsg == 'medicalProviderNum') {
+						errorMsg = 'Medical provider number already registered ';
+					}
 					this.setState({ verificationErr: errorMsg });
 				}
 			})
@@ -213,10 +219,12 @@ class SignupForm extends Component {
 			businessAddress,
 			bundle,
 			stripeToken,
+			description,
 		} = this.state;
 
 		console.log('bundle', bundle);
 		console.log('token', stripeToken);
+		console.log('username', username);
 
 		formData.append('title', title);
 		formData.append('password', newPassword);
@@ -234,16 +242,23 @@ class SignupForm extends Component {
 		formData.append('accBody', accreditedBodies);
 		formData.append('businessName', businessName);
 		formData.append('businessAddress', businessAddress);
+		formData.append('description', description);
 
 		if (bundle !== 'subscription') {
 			formData.append('bundle', bundle);
 			formData.append('stripeToken', stripeToken);
 		}
+		// console.log("[SignupForm]", formData.values);
+
+		console.log('Form Data');
+
+		for (var value of formData.values()) {
+			console.log(value);
+		}
 
 		axios
 			.post('https://localhost:8080/api/user/prac', formData)
 			.then(res => {
-				console.log('works?');
 				const newPageNo = pageNo + 1;
 				this.setState({ pageNo: newPageNo });
 				this.setState({ verificationErr: null });
@@ -376,7 +391,11 @@ class SignupForm extends Component {
 						<div className="row formNav animated fadeInUp">
 							<div className="col-sm-6 animated fadeInUp" />
 							<div className="col-sm-3 animated fadeInUp">
-								<Button className="btn-block animated fadeInUp signupBtn" color="blue" onClick={this.nextPageHandler}>
+								<Button
+									className="btn-block animated fadeInUp signupBtn"
+									color="primary"
+									onClick={this.nextPageHandler}
+								>
 									Next
 								</Button>
 							</div>
@@ -422,12 +441,12 @@ class SignupForm extends Component {
 					<div className="row">
 						<div className="col-sm-3" />
 						<div className="col-sm-3">
-							<Button className="btn btn-block signupBtn" color="blue" onClick={this.previousPageHandler}>
+							<Button className="btn btn-block signupBtn" color="primary" onClick={this.previousPageHandler}>
 								Prev
 							</Button>
 						</div>
 						<div className="col-sm-3">
-							<Button className="btn  btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
+							<Button className="btn  btn-block signupBtn" color="primary" onClick={this.nextPageHandler}>
 								Next
 							</Button>
 						</div>
@@ -479,19 +498,19 @@ class SignupForm extends Component {
 					<div className="row">
 						<div className="col-sm-3" />
 						<div className="col-sm-3">
-							<Button className="btn btn-block signupBtn" color="blue" onClick={this.previousPageHandler}>
+							<Button className="btn btn-block signupBtn" color="primary" onClick={this.previousPageHandler}>
 								Prev
 							</Button>
 						</div>
 						{this.state.agreement ? (
 							<div className="col-sm-3">
-								<Button className="btn btn-block signupBtn" color="blue" onClick={this.nextPageHandler}>
+								<Button className="btn btn-block signupBtn" color="primary" onClick={this.nextPageHandler}>
 									Next
 								</Button>
 							</div>
 						) : (
 							<div className="col-sm-3">
-								<Button className="btn btn-block signupBtn" color="blue" disabled onClick={this.nextPageHandler}>
+								<Button className="btn btn-block signupBtn" color="primary" disabled onClick={this.nextPageHandler}>
 									Next
 								</Button>
 							</div>

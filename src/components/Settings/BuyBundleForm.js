@@ -12,7 +12,7 @@ class BuyBundleForm extends React.Component {
 			bundle: '',
 			price: 0,
 			paymentToggle: false,
-			apiKey: 'pk_test_OUqtPerqAmIdMxbK8PagM3Ng',
+			apiKey: 'pk_test_MtzOuiItf07GsAJgk1AT5KeQ',
 		};
 	}
 
@@ -40,14 +40,24 @@ class BuyBundleForm extends React.Component {
 				paymentToggle: !prevState.paymentToggle,
 			};
 		});
+		if (bundle == 'premium') {
+			this.setState({ price: 24.99 });
+		}
+		if (bundle == 'platinum') {
+			this.setState({ price: 49.99 });
+		}
+		if (bundle == 'standard') {
+			this.setState({ price: 19.99 });
+		}
 		this.setState({ bundle: bundle });
 	};
 	render() {
+		const selectedPrice = this.state.price;
 		return (
 			<div className="sPaymentContainer">
 				<h6>Connection Left:</h6>
 				<div className="bundle">
-					Package one
+					Standard Bundle
 					<Button
 						className="button"
 						color="primary"
@@ -55,11 +65,11 @@ class BuyBundleForm extends React.Component {
 							this.togglePayment('standard');
 						}}
 					>
-						PURCHASE
+						$19.99
 					</Button>
 				</div>
 				<div className="bundle">
-					Package two
+					Premium Bundle
 					<Button
 						className="button"
 						color="primary"
@@ -67,11 +77,11 @@ class BuyBundleForm extends React.Component {
 							this.togglePayment('premium');
 						}}
 					>
-						PURCHASE
+						$24.99
 					</Button>
 				</div>
 				<div className="bundle">
-					Package three
+					Platinum Bundle
 					<Button
 						className="button"
 						color="primary"
@@ -79,12 +89,12 @@ class BuyBundleForm extends React.Component {
 							this.togglePayment('platinum');
 						}}
 					>
-						PURCHASE
+						$49.99
 					</Button>
 				</div>
 				<Modal className="addition-modal" isOpen={this.state.paymentToggle} toggle={this.togglePayment} centered>
 					<ModalHeader toggle={this.togglePayment}>
-						<i className="fas fa-credit-card" /> Payment
+						<i className="fas fa-credit-card" /> Payment {selectedPrice ? `$` + selectedPrice : null}
 					</ModalHeader>
 					<StripeProvider apiKey={this.state.apiKey}>
 						<Elements>

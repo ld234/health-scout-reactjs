@@ -1,5 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { Popover, PopoverHeader, PopoverBody } from 'mdbreact';
+
 const PractitionerPage = props => {
 	let inputClassNameAtt = 'form-control has-warning';
 	let inputClassError = ' is-invalid';
@@ -162,7 +164,23 @@ const PractitionerPage = props => {
 					</div>
 
 					<div className="col-md-6">
-						<label className="grey-text">{label.medicareProNum} </label>
+						<label className="grey-text labelPopover">
+							{label.medicareProNum}
+							<Popover
+								className="popOver"
+								placement="left"
+								popoverBody={
+									<div className="popOverContainer">
+										<i className="fas fa-question" />
+									</div>
+								}
+							>
+								<PopoverBody>
+									a 6 digit number that identifies you, such as 123456. 2 other characters that identify your practice
+									location, such as 1A
+								</PopoverBody>
+							</Popover>
+						</label>
 						<input
 							type="text"
 							className={props.errors.medicareProNum ? inputClassNameAtt.concat(inputClassError) : inputClassNameAtt}
@@ -171,13 +189,29 @@ const PractitionerPage = props => {
 							onChange={props.onChange}
 							onBlur={props.onBlur}
 							onClick={props.onClick}
-							placeholder="XXXXXXXX"
+							placeholder="XXXXXXAB"
 						/>
 						<label className="errorMsg">{props.errors.medicareProNum}</label>
 					</div>
 
 					<div className="col-md-6">
-						<label className="grey-text">{label.abn} </label>
+						<label className="grey-text labelPopover">
+							{label.abn}
+							<Popover
+								className="popOver"
+								placement="right"
+								popoverBody={
+									<div className="popOverContainer">
+										<i className="fas fa-question" />
+									</div>
+								}
+							>
+								<PopoverBody>
+									{' '}
+									unique 11 digit number that identifies your business or organisation to the government and community
+								</PopoverBody>
+							</Popover>
+						</label>
 						<input
 							type="text"
 							className={props.errors.abn ? inputClassNameAtt.concat(inputClassError) : inputClassNameAtt}
