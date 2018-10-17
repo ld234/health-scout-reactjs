@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Route which forces redirection if user is not authenticated
+ * Created: 22 Jul 2018
+ * Last modified: 29 Jul 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';

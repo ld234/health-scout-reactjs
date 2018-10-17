@@ -1,22 +1,22 @@
-import React, {Component} from 'react';
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: InputGroup for short forms
+ * Created: 13 Jul 2018
+ * Last modified: 15 Jul 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-export default class InputGroup extends React.Component {
-  constructor(props) {
-    super(props);
-    //this.handleChange = this.handleChange.bind(this);
-  }
+import React, { Component } from 'react';
 
-  /*handleChange = (event) => {
-	console.log('text',text);
-    const text = event.target.value;
-    this.props.onChange(this.props.name, text);
-  }*/
+export default class InputGroup extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-  render() {
-    return (
-      <div className="input-group">
-        <input {...this.props} />
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="input-group">
+				<input {...this.props} />
+			</div>
+		);
+	}
 }

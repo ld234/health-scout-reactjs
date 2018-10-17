@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component displaying a form to edit uploaded document details
+ * Created: 23 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, { Component } from 'react';
 import { ModalBody, ModalFooter, Button } from 'mdbreact';
 import AlertBar from '../Recyclable/AlertBar';
@@ -22,7 +29,7 @@ class PractitionerEditDocumentForm extends Component {
 	onInputChange = e => {
 		this.setState({ error: null, [e.target.name]: e.target.value });
 		if (e.target.name == 'chooseFile') {
-			if (e.target.value.match('pdf$')) {
+			if (e.target.value.toLowerCase().match('pdf$')) {
 				let inputName = e.target.files[0].name;
 				inputName = inputName.substring(0, Math.min(inputName.length, 30));
 				this.setState({ fileName: inputName });
@@ -55,7 +62,6 @@ class PractitionerEditDocumentForm extends Component {
 	};
 	onSubmit = () => {
 		let { chooseFile, description, title, oldTitle } = this.state;
-		console.log('[choose file]', chooseFile);
 		let formData = new FormData();
 		formData.append('oldTitle', oldTitle);
 		formData.append('newTitle', title);
@@ -90,7 +96,6 @@ class PractitionerEditDocumentForm extends Component {
 					<label htmlFor="title" className="grey-text">
 						Title
 					</label>
-					{/* <input name="title" type="text" id="doc-title" className="form-control is-invalid"  */}
 					<input
 						name="title"
 						type="text"

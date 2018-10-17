@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component displaying a form with dropdown suggestions to add new specialty
+ * Created: 24 Aug 2018
+ * Last modified: 1 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { connect } from 'react-redux';
 import escapeRegexCharacters from '../Utilities/EscapeRegexCharacters';
@@ -5,12 +11,8 @@ import Autosuggest from 'react-autosuggest';
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import '../../../style/PractitionerAddSpecialtyForm.css';
-// import AlertBar from '../Recyclable/AlertBar'
-// import Button from '../Recyclable/Button';
 import { ModalBody, ModalFooter, Button, AlertBar } from 'mdbreact';
 import { addSpecialty, deleteSpecialty } from '../../actions/specialty.actions';
-
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 
 function getSuggestions(value, specialties) {
 	const escapedValue = escapeRegexCharacters(value.trim());

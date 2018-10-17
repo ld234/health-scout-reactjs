@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Actions setting current client's specialty state
+ * Created: 10 Aug 2018
+ * Last modified: 23 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import axios from 'axios';
 export const GET_SPECIALTY_SUCCESS = 'GET_SPECIALTY_SUCCESS';
 export const GET_SPECIALTY_PENDING = 'GET_SPECIALTY_PENDING';
@@ -49,7 +56,6 @@ export function getSpecialties() {
 				},
 			})
 			.then(res => {
-				console.log('data', res.data);
 				dispatch(setGetSpecialtyPending(false));
 				dispatch(setGetSpecialtySuccess(true, res.data));
 			})
@@ -84,7 +90,6 @@ function setAddSpecialtyError(addSpecialtyError) {
 }
 
 export function addSpecialty(newSpecialty, successCb) {
-	console.log('new specialty', newSpecialty);
 	return dispatch => {
 		dispatch(setAddSpecialtyPending(true));
 		dispatch(setAddSpecialtySuccess(false));
@@ -101,7 +106,6 @@ export function addSpecialty(newSpecialty, successCb) {
 				}
 			)
 			.then(res => {
-				console.log('new specialty data', res.data);
 				dispatch(setAddSpecialtyPending(false));
 				dispatch(setAddSpecialtySuccess(true, res.data));
 				successCb();
@@ -138,7 +142,6 @@ function setDeleteSpecialtyError(deleteSpecialtyError) {
 }
 
 export function deleteSpecialty(deletedSpecialty, position) {
-	console.log('specialty to be deleted', deletedSpecialty);
 	return dispatch => {
 		dispatch(setDeleteSpecialtyPending(true));
 		dispatch(setDeleteSpecialtySuccess(false));
@@ -198,7 +201,6 @@ export function getPracTypeSpecialties(pracType) {
 				},
 			})
 			.then(res => {
-				console.log('data', res.data);
 				dispatch(setGetPracTypeSpecialtyPending(false));
 				dispatch(setGetPracTypeSpecialtySuccess(true, res.data));
 			})

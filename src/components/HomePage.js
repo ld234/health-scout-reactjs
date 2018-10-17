@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Homepage
+ * Created: 29 Jul 2018
+ * Last modified: 28 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 
 class HomePage extends React.Component {

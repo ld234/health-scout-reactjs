@@ -2,16 +2,6 @@
   padding-top: 0;
 }
 
-/* #practitioner-single-client-page .breadcrumbs{
-  position:absolute;
-  top: 200px;
-} */
-
-/* #practitioner-single-client-page .horizontal-line{
-  position:absolute;
-  top: 200px;
-} */
-
 @media only screen and (max-width: 529px) {
 .userInfo h3{
   font-size: .9em;
@@ -29,32 +19,6 @@
   background-size: 40%!important;
 }
 }
-
-/* @media only screen and (min-width: 530px) {
-  .medical-history-menu {
-    grid-template-columns: 1fr 1fr;
-    width: 55%;
-    column-gap: 80px;
-  }
-} */
-
-/* @media only screen and (min-width: 800px) {
-  .medical-history-menu {
-    grid-template-columns: 1fr 1fr;
-    width: 55%;
-    column-gap: 80px;
-  }
-
-  
-} */
-
-/* @media only screen and (min-width: 1200px) {
-  .medical-history-menu {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 1fr;
-    width: 45%;
-  }
-} */
 
 
 .menu-card {
@@ -108,9 +72,7 @@ ul.medical-history-menu li:nth-child(1) .thumb{
 ul.medical-history-menu li:nth-child(2) .thumb{
   background-image: url('./img/icon/mediccation\ history.png');
 }
-/* ul.medical-history-menu li:nth-child(3) .thumb{
-  background-image: url('./img/icon/health\ goals.png');
-} */
+
 ul.medical-history-menu li:nth-child(3) .thumb{
   background-image: url('./img/icon/family\ history.png');
 }

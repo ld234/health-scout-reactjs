@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: modifies practitioner's qualifcation state
+ * Created: 4 Aug 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import {
 	GET_QUALIFICATION_PENDING,
 	GET_QUALIFICATION_SUCCESS,
@@ -78,8 +84,7 @@ export default function qualificationReducer(state = INITIAL_STATE, action) {
 			};
 		case EDIT_QUALIFICATION_SUCCESS:
 			let newQualificationList = state.qualifications.slice();
-			if (action.newQualification)
-				newQualificationList[action.newQualification.position] = action.newQualification.qualification;
+			if (action.newQualification) newQualificationList[action.editPosition] = action.newQualification.qualification;
 			return {
 				...state,
 				isEditQualificationSuccess: action.isEditQualificationSuccess,
@@ -88,7 +93,7 @@ export default function qualificationReducer(state = INITIAL_STATE, action) {
 							return b.graduateYear - a.graduateYear;
 					  })
 					: state.qualifications,
-				justEditIndex: action.newQualification ? action.newQualification.position : state.justEditIndex,
+				justEditIndex: action.newQualification ? action.editPosition : state.justEditIndex,
 			};
 		case EDIT_QUALIFICATION_ERROR:
 			return {

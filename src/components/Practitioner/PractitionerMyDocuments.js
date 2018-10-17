@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Component displaying a form to add new qualification
+ * Created: 13 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, Pagination, PageItem, PageLink } from 'mdbreact';
@@ -18,18 +24,15 @@ class PractitionerMyDocuments extends Component {
 			hoveredItem: null,
 			pos: null,
 			selectedDoc: null,
-			// pages: 2,
 			docNum: null,
 			currentPage: 1,
 		};
 	}
 	componentDidMount() {
-		console.log('inside component did mount', this.props.documentState.editDocumentError);
 		this.props.getDocument();
 	}
 
 	toggleAddDocument = () => {
-		console.log('toggle', this.state.addDocumentToggle);
 		this.setState((prevState, props) => {
 			return {
 				addDocumentToggle: !prevState.addDocumentToggle,
@@ -37,7 +40,6 @@ class PractitionerMyDocuments extends Component {
 		});
 	};
 	toggleViewDocument = filepath => {
-		console.log('toggle view doc:', filepath);
 		this.setState((prevState, props) => {
 			return {
 				viewDocumentToggle: !prevState.viewDocumentToggle,
@@ -80,7 +82,6 @@ class PractitionerMyDocuments extends Component {
 				this.props.documentState.documents.length % 5 == 0
 					? this.props.documentState.documents.length / 5
 					: Math.floor(this.props.documentState.documents.length / 5) + 1;
-			console.log('document rendered');
 			renderPagination = (
 				<Pagination className="pg-blue normal-pagination">
 					{this.state.currentPage == 1 ? (
@@ -139,11 +140,10 @@ class PractitionerMyDocuments extends Component {
 			);
 		}
 		let docList;
-		console.log(this.props.documentState.documents);
 		if (this.props.documentState.documents) {
 			docList = this.props.documentState.documents.filter(
 				(doc, idx) => Math.floor(idx / 5) + 1 === this.state.currentPage
-			); //(this.state.currentPage-1*10 )&& idx < (this.state.currentPage*10) )
+			);
 			docList = docList.map((doc, idx) => {
 				return doc == null ? null : (
 					<li key={idx} className="doc-item">
@@ -233,7 +233,7 @@ class PractitionerMyDocuments extends Component {
 					centered
 				>
 					<ModalHeader toggle={this.toggleViewDocument}>View Documents</ModalHeader>
-					<ViewPDF data={this.state.selectedDoc} />
+					<ViewPDF url={this.state.selectedDoc} />
 				</Modal>
 				<Modal
 					className="addition-modal"
@@ -245,7 +245,7 @@ class PractitionerMyDocuments extends Component {
 					{React.createElement(this.props.editComponent, {
 						toggle: this.toggleEditDocument,
 						data: this.state.hoveredItem,
-						pos: this.state.pos,
+						pos: this.state.pos + 5 * (this.state.currentPage - 1),
 					})}
 				</Modal>
 			</div>

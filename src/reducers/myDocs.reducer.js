@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Document info, adding, editting, and delete states
+ * Created: 4 Sep 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import {
 	GET_DOCUMENT_PENDING,
 	GET_DOCUMENT_SUCCESS,
@@ -54,7 +60,6 @@ export default function documentReducer(state = INITIAL_STATE, action) {
 				isAddDocumentPending: action.isAddDocumentPending,
 			};
 		case ADD_DOCUMENT_SUCCESS:
-			console.log('in reducer action.documents', action.documents);
 			return {
 				...state,
 				isAddDocumentSuccess: action.isAddDocumentSuccess,
@@ -71,16 +76,16 @@ export default function documentReducer(state = INITIAL_STATE, action) {
 				isEditDocumentPending: action.isAddDocumentPending,
 			};
 		case EDIT_DOCUMENT_SUCCESS:
-			let newDocumentList = [...state.documents];
+			let newDocumentList = [...state.documents]; // Get a copy of documents
 			if (action.newDocument)
 				newDocumentList[action.position] = {
+					//Set the editted doc
 					...newDocumentList[action.position],
 					title: action.newDocument.newTitle,
 					description: action.newDocument.description,
 					file: action.newDocument.file,
+					lastModified: action.newDocument.lastModified,
 				};
-
-			console.log('[list reducer]', newDocumentList);
 
 			return {
 				...state,

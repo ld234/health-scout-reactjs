@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Error Cross Symbol
+ * Created: 13 Aug 2018
+ * Last modified: 13 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 
 export default function(props) {

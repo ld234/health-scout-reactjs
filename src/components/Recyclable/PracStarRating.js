@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: StarRating component
+ * Created: 24 Jul 2018
+ * Last modified: 29 Jul 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import ReactStars from 'react-stars';
 
@@ -11,7 +17,6 @@ class PracStarRating extends Component {
 	}
 
 	render() {
-		console.log('this.state.rating', this.state.rating);
 		return (
 			<div className="star-rating">
 				<ReactStars

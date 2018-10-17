@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Actions setting current client's document sending and receiving state
+ * Created: 13 August 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import axios from 'axios';
 export const GET_EXCHANGEDOCUMENTS_PENDING = 'GET_EXCHANGEDOCUMENTS_PENDING';
 export const GET_EXCHANGEDOCUMENTS_ERROR = 'GET_EXCHANGEDOCUMENTS_ERROR';
@@ -29,7 +36,6 @@ function setGetExchangeDocumentsPending(isGetExchangeDocumentsPending) {
 	};
 }
 function setGetExchangeDocumentsSuccess(isGetExchangeDocumentsSuccess, d) {
-	console.log('[action success]:', d);
 	return {
 		type: GET_EXCHANGEDOCUMENTS_SUCCESS,
 		isGetExchangeDocumentsSuccess: isGetExchangeDocumentsSuccess,
@@ -42,6 +48,8 @@ function setGetExchangeDocumentsError(isGetExchangeDocumentsError) {
 		isGetExchangeDocumentsError: isGetExchangeDocumentsError,
 	};
 }
+
+// Get all documents uploaded by practitioner
 export function getDocuments(username) {
 	return dispatch => {
 		dispatch(setGetExchangeDocumentsPending(true));
@@ -55,12 +63,10 @@ export function getDocuments(username) {
 				},
 			})
 			.then(res => {
-				console.log('success!', res);
 				dispatch(setGetExchangeDocumentsPending(false));
 				dispatch(setGetExchangeDocumentsSuccess(true, res.data));
 			})
 			.catch(err => {
-				console.log('error!', err);
 				dispatch(setGetExchangeDocumentsPending(false));
 				dispatch(setGetExchangeDocumentsSuccess(false, null));
 				if (err.response && err.response.data) dispatch(setGetExchangeDocumentsError(err.response.data.message));
@@ -87,8 +93,8 @@ function setSendExchangeDocumentsError(isSendExchangeDocumentsError) {
 	};
 }
 
+// Send documents to patient to fill out
 export function sendDocuments(arrForms, successCb) {
-	console.log('[Action.js]:', arrForms);
 	return dispatch => {
 		dispatch(setSendExchangeDocumentsPending(true));
 		dispatch(setSendExchangeDocumentsSuccess(false));
@@ -102,14 +108,12 @@ export function sendDocuments(arrForms, successCb) {
 		});
 		Promise.all(promises)
 			.then(res => {
-				console.log('success!', res);
 				dispatch(setSendExchangeDocumentsPending(false));
 				dispatch(setSendExchangeDocumentsSuccess(true));
 				dispatch(setSendExchangeDocumentsError(null));
 				successCb();
 			})
 			.catch(err => {
-				console.log('error!', err);
 				dispatch(setSendExchangeDocumentsPending(false));
 				dispatch(setSendExchangeDocumentsSuccess(false));
 				if (err.response && err.response.data) dispatch(setSendExchangeDocumentsError(err.response.data.message));
@@ -123,6 +127,7 @@ function setGetNewReceivedDocumentPending(isGetNewReceivedDocumentPending) {
 		isGetNewReceivedDocumentPending: isGetNewReceivedDocumentPending,
 	};
 }
+
 function setGetNewReceivedDocumentSuccess(isGetNewReceivedDocumentSuccess, d) {
 	return {
 		type: GET_NEWRECEIVEDDOCUMENTS_SUCCESS,
@@ -130,12 +135,15 @@ function setGetNewReceivedDocumentSuccess(isGetNewReceivedDocumentSuccess, d) {
 		unseenDocuments: d,
 	};
 }
+
 function setGetNewReceivedDocumentError(isGetNewReceivedDocumentError) {
 	return {
 		type: GET_NEWRECEIVEDDOCUMENTS_ERROR,
 		isGetNewReceivedDocumentError: isGetNewReceivedDocumentError,
 	};
 }
+
+// Get all documents that have been sent back by patients which practitioner has not seen
 export function getNewRecievedDocuments(patientUsername) {
 	return dispatch => {
 		dispatch(setGetNewReceivedDocumentPending(true));
@@ -148,13 +156,11 @@ export function getNewRecievedDocuments(patientUsername) {
 				},
 			})
 			.then(res => {
-				console.log('[NEW RECEIVED DOC] success! ', res);
 				dispatch(setGetNewReceivedDocumentPending(false));
 				dispatch(setGetNewReceivedDocumentError(null));
 				dispatch(setGetNewReceivedDocumentSuccess(true, res.data));
 			})
 			.catch(err => {
-				console.log('error!', err);
 				dispatch(setGetNewReceivedDocumentPending(false));
 				dispatch(setGetNewReceivedDocumentSuccess(false));
 				if (err.response && err.response.data) dispatch(setGetNewReceivedDocumentError(err.response.data.message));
@@ -168,6 +174,7 @@ function setGetOldReceivedDocumentPending(isGetOldReceivedDocumentPending) {
 		isGetOldReceivedDocumentPending: isGetOldReceivedDocumentPending,
 	};
 }
+
 function setGetOldReceivedDocumentSuccess(isGetOldReceivedDocumentSuccess, d) {
 	return {
 		type: GET_OLDRECEIVEDDOCUMENTS_SUCCESS,
@@ -175,12 +182,15 @@ function setGetOldReceivedDocumentSuccess(isGetOldReceivedDocumentSuccess, d) {
 		seenDocuments: d,
 	};
 }
+
 function setGetOldReceivedDocumentError(isGetOldReceivedDocumentError) {
 	return {
 		type: GET_OLDRECEIVEDDOCUMENTS_ERROR,
 		isGetOldReceivedDocumentError: isGetOldReceivedDocumentError,
 	};
 }
+
+// Get all documents that have been sent back by patients which practitioner has seen
 export function getOldRecievedDocuments(patientUsername) {
 	return dispatch => {
 		dispatch(setGetOldReceivedDocumentPending(true));
@@ -193,19 +203,18 @@ export function getOldRecievedDocuments(patientUsername) {
 				},
 			})
 			.then(res => {
-				console.log('[OLD RECIEVED DOC] success! ', res);
 				dispatch(setGetOldReceivedDocumentPending(false));
 				dispatch(setGetOldReceivedDocumentError(null));
 				dispatch(setGetOldReceivedDocumentSuccess(true, res.data));
 			})
 			.catch(err => {
-				console.log('error!', err);
 				dispatch(setGetOldReceivedDocumentPending(false));
 				dispatch(setGetOldReceivedDocumentSuccess(false));
 				if (err.response && err.response.data) dispatch(setGetOldReceivedDocumentError(err.response.data.message));
 			});
 	};
 }
+
 function setSeenExchangeDocumentPending(isSetSeenExchangeDocumentPending) {
 	return {
 		type: SET_SEENEXCHANGEDOCUMENT_PENDING,
@@ -218,44 +227,47 @@ function setSeenExchangeDocumentError(isSetSeenExchangeDocumentError) {
 		isSetSeenExchangeDocumentError: isSetSeenExchangeDocumentError,
 	};
 }
-function setSeenExchangeDocumentSuccess(isSetSeenExchangeDocumentSuccess) {
+function setSeenExchangeDocumentSuccess(isSetSeenExchangeDocumentSuccess, seenDoc) {
 	return {
 		type: SET_SEENEXCHANGEDOCUMENT_SUCCESS,
 		isSetSeenExchangeDocumentSuccess: isSetSeenExchangeDocumentSuccess,
+		seenDocument: seenDoc,
 	};
 }
+
+// Set the status of a received doc to seen
 export function setSeenExchangeDocument(data) {
-	console.log('data', data);
 	return dispatch => {
 		dispatch(setSeenExchangeDocumentPending(true));
 		dispatch(setSeenExchangeDocumentSuccess(false));
 		dispatch(setSeenExchangeDocumentError(null));
 		axios
-			.put(`${ROOT_URL}/seeDocument`, data, {
+			.get(`${ROOT_URL}/seeDocument`, {
 				headers: {
 					'x-access-token': localStorage.getItem('localToken'),
 				},
+				params: data,
 			})
 			.then(res => {
-				console.log('success! ', res);
 				dispatch(setSeenExchangeDocumentPending(false));
 				dispatch(setSeenExchangeDocumentError(null));
-				dispatch(setSeenExchangeDocumentSuccess(true, res.data));
+				dispatch(setSeenExchangeDocumentSuccess(true, data));
 			})
 			.catch(err => {
-				console.log('error!', err);
 				dispatch(setSeenExchangeDocumentPending(false));
 				dispatch(setSeenExchangeDocumentSuccess(false));
 				if (err.response && err.response.data) dispatch(setSeenExchangeDocumentError(err.response.data.message));
 			});
 	};
 }
+
 function downloadExchangeDocumentPending(isDownloadExchangeDocumentPending) {
 	return {
 		type: DOWNLOAD_EXCHANGEDOCUMENT_PENDING,
 		isDownloadExchangeDocumentPending: isDownloadExchangeDocumentPending,
 	};
 }
+
 function downloadExchangeDocumentError(isDownloadExchangeDocumentError) {
 	return {
 		type: DOWNLOAD_EXCHANGEDOCUMENT_ERROR,
@@ -286,26 +298,55 @@ export function setCurrentIndex(idx) {
 	};
 }
 
+// Download and open view modal on the web application
 export function downloadExchangeDocument(data, idx, cb) {
-	console.log('download data:', data);
 	return dispatch => {
 		dispatch(downloadExchangeDocumentPending(true));
 		dispatch(downloadExchangeDocumentSuccess(false));
 		dispatch(downloadExchangeDocumentError(null));
 		axios
-			.put(`${ROOT_URL}/seeDocument`, data, {
+			.get(`${ROOT_URL}/seeDocument`, {
 				responseType: 'arraybuffer',
 				headers: {
 					'Content-Type': 'application/json',
 					'x-access-token': localStorage.getItem('localToken'),
 				},
+				params: data,
 			})
 			.then(res => {
 				dispatch(setPDFContent(new Uint8Array(res.data), idx));
+				dispatch(downloadExchangeDocumentPending(false));
+				dispatch(downloadExchangeDocumentError(null));
+				dispatch(downloadExchangeDocumentSuccess(true));
 				if (cb) {
-					cb();
-					console.log('callback to open view pdf');
+					setTimeout(() => cb(), 500);
 				}
+			})
+			.catch(err => {
+				dispatch(downloadExchangeDocumentPending(false));
+				dispatch(downloadExchangeDocumentSuccess(false));
+				if (err.response && err.response.data) dispatch(downloadExchangeDocumentError(err.response.data.message));
+			});
+	};
+}
+
+// Open download dialog when practitioner wants to download to the machine
+export function downloadToComputer(data, idx) {
+	return dispatch => {
+		dispatch(downloadExchangeDocumentPending(true));
+		dispatch(downloadExchangeDocumentSuccess(false));
+		dispatch(downloadExchangeDocumentError(null));
+		axios
+			.get(`${ROOT_URL}/seeDocument`, {
+				responseType: 'arraybuffer',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-access-token': localStorage.getItem('localToken'),
+				},
+				params: data,
+			})
+			.then(res => {
+				// dispatch(setPDFContent(new Uint8Array(res.data), idx));
 				dispatch(downloadExchangeDocumentPending(false));
 				dispatch(downloadExchangeDocumentError(null));
 				dispatch(downloadExchangeDocumentSuccess(true));
@@ -317,7 +358,6 @@ export function downloadExchangeDocument(data, idx, cb) {
 				link.click();
 			})
 			.catch(err => {
-				console.log('error!', err);
 				dispatch(downloadExchangeDocumentPending(false));
 				dispatch(downloadExchangeDocumentSuccess(false));
 				if (err.response && err.response.data) dispatch(downloadExchangeDocumentError(err.response.data.message));

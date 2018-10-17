@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Actions setting practitioner's document state
+ * Created: 29 August 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import axios from 'axios';
 export const GET_DOCUMENT_SUCCESS = 'GET_DOCUMENT_SUCCESS';
 export const GET_DOCUMENT_PENDING = 'GET_DOCUMENT_PENDING';
@@ -27,14 +34,11 @@ export function addDocument(newDocument, successCb) {
 				},
 			})
 			.then(res => {
-				console.log('new document data', res.data);
 				dispatch(setAddDocumentPending(false));
 				dispatch(setAddDocumentSuccess(true, res.data));
 				successCb();
 			})
 			.catch(err => {
-				console.log('failed to new document data', err);
-
 				dispatch(setAddDocumentPending(false));
 				dispatch(setAddDocumentSuccess(false, null));
 				dispatch(setAddDocumentError(err.response));
@@ -77,13 +81,10 @@ export function getDocument() {
 				},
 			})
 			.then(res => {
-				console.log('data', res.data.documents);
 				dispatch(setGetDocumentPending(false));
 				dispatch(setGetDocumentSuccess(true, res.data.documents));
 			})
 			.catch(err => {
-				console.log('error', err);
-
 				dispatch(setGetDocumentPending(false));
 				dispatch(setGetDocumentSuccess(false, null));
 				dispatch(setGetDocumentError(err.response));
@@ -137,12 +138,10 @@ function setDeleteDocumentError(deleteDocumentError) {
 }
 
 export function deleteDocument(deleteDocumentTitle, position, successCb) {
-	console.log('Document title to be deleted', deleteDocumentTitle);
 	return dispatch => {
 		dispatch(setDeleteDocumentPending(true));
 		dispatch(setDeleteDocumentSuccess(false));
 		dispatch(setDeleteDocumentError(null));
-		console.log('fired once');
 		axios
 			.delete(`${ROOT_URL}` + '?title=' + deleteDocumentTitle, {
 				headers: {
@@ -150,13 +149,11 @@ export function deleteDocument(deleteDocumentTitle, position, successCb) {
 				},
 			})
 			.then(res => {
-				console.log('data from res', res.data);
 				dispatch(setDeleteDocumentPending(false));
 				dispatch(setDeleteDocumentSuccess(true, deleteDocumentTitle, position));
 				successCb();
 			})
 			.catch(err => {
-				console.log('err', err);
 				dispatch(setDeleteDocumentPending(false));
 				dispatch(setDeleteDocumentSuccess(false, null));
 				if (err.response && err.response.data.message) dispatch(setDeleteDocumentError(err.response.data.message));
@@ -188,7 +185,6 @@ function setEditDocumentError(editDocumentError) {
 }
 
 export function editDocument(newDocument, pos, successCb) {
-	console.log('new document', newDocument);
 	return dispatch => {
 		dispatch(setEditDocumentPending(true));
 		dispatch(setEditDocumentSuccess(false));
@@ -201,13 +197,11 @@ export function editDocument(newDocument, pos, successCb) {
 				},
 			})
 			.then(res => {
-				console.log('new document data', res.data);
 				dispatch(setEditDocumentPending(false));
 				dispatch(setEditDocumentSuccess(true, res.data, pos));
 				successCb();
 			})
 			.catch(err => {
-				console.log('error action document');
 				dispatch(setEditDocumentPending(false));
 				dispatch(setEditDocumentSuccess(false, null));
 				dispatch(setEditDocumentError(err.response.data.message));

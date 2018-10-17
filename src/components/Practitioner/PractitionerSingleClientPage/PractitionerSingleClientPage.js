@@ -1,12 +1,16 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Page showing the menu option for practitioner to perform for a patient
+ * Created: 16 Aug 2018
+ * Last modified: 29 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ClientGeneralInfo from './ClientGeneralInfo';
-import { Modal, ModalBody, ModalHeader, ModalFooter, Tooltip } from 'mdbreact';
 import '../../../../style/MyClientPage.css';
 import { getClients } from '../../../actions/client.view.actions';
 import '../../../../style/PractitionerSingleClientPage.css';
 import { Link } from 'react-router-dom';
-import AnimatedWrapper from '../../Utilities/AnimatedWrapper';
 
 class PractitionerSingleClientPage extends Component {
 	constructor(props) {

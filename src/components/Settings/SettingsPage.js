@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Container for settings components
+ * Created: 29 Aug 2018
+ * Last modified: 15 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { Collapsible, CollapsibleItem } from 'react-materialize';
 import UpdatePasswordForm from './UpdatePasswordForm';

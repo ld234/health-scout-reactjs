@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component containing pieces of practitioner's profile (qualification, specialty)
+ * allowing viewing, editing, and deleting
+ * Created: 13 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Input } from 'mdbreact';
 import Timeline from '../Recyclable/Timeline';

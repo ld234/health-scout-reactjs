@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Component displaying form to upload new baseline documents
+ * Created: 20 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { ModalBody, ModalFooter, Button } from 'mdbreact';
 import AlertBar from '../Recyclable/AlertBar';
@@ -20,8 +26,7 @@ class PractitionerAddDocumentForm extends Component {
 	onInputChange = e => {
 		this.setState({ error: null, [e.target.name]: [e.target.value] });
 		if (e.target.name == 'chooseFile') {
-			if (e.target.value.match('pdf$')) {
-				console.log(e.target.value);
+			if (e.target.value.toLowerCase().match('pdf$')) {
 				let inputName = e.target.files[0].name;
 				inputName = inputName.substring(0, Math.min(inputName.length, 30));
 				this.setState({ [e.target.name]: e.target.files[0] });
@@ -80,7 +85,6 @@ class PractitionerAddDocumentForm extends Component {
 					<label htmlFor="title" className="grey-text">
 						Title
 					</label>
-					{/* <input name="title" type="text" id="doc-title" className="form-control is-invalid"  */}
 					<input
 						name="title"
 						type="text"

@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Payment Modal for prac to enter card details
+ * Created: 15 Aug 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { injectStripe, CardNumberElement, CardExpiryElement, CardCVCElement } from 'react-stripe-elements';
 import { Button } from 'mdbreact';
@@ -64,7 +70,6 @@ class PaymentModal extends React.Component {
 
 	onChangeCNameHandler = changes => {
 		if (changes.target.value == '') {
-			console.log('Empty');
 			this.setState({ CardNamerror: '*Card holder name required' });
 		} else {
 			this.setState({ CardNamerror: '' });
@@ -87,10 +92,10 @@ class PaymentModal extends React.Component {
 			);
 		return null;
 	}
+
+	// Renders result
 	renderOutput() {
 		let { isGetBundlePaymentPending, isGetBundlePaymentSuccess } = this.props.settingState;
-		console.log(isGetBundlePaymentSuccess);
-		console.log(isGetBundlePaymentPending);
 		if (isGetBundlePaymentSuccess) {
 			return (
 				<div className="paymentSuccess">

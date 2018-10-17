@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Wrapper of all the registration components
+ * Created: 25 Jul 2018
+ * Last modified: 21 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, { Component } from 'react';
 import { validateRegister } from '../../Utilities/Validator';
 import _ from 'lodash';
@@ -70,10 +77,7 @@ class SignupForm extends Component {
 	onChange = event => {
 		this.setState({ [event.target.name]: event.target.value });
 		if (event.target.name == 'selectedImg') {
-			// this.setState({
-			// 	selectedImg: event.target.files[0],
-			// });
-			if (event.target.value.match('jpg$')) {
+			if (event.target.value.toLowerCase().match('jpg$')) {
 				let inputName = event.target.files[0].name;
 				this.setState({ [event.target.name]: event.target.files[0] });
 				this.setState({ imgTitle: inputName });
@@ -109,20 +113,18 @@ class SignupForm extends Component {
 		const { errors, isValid } = validateRegister(this.state, this.state.pageNo);
 		if (!isValid) {
 			this.setState({ errors });
-			console.log(errors);
 		}
 		return isValid;
 	};
 
 	setToken = token => {
-		console.log('token', token);
 		this.setState({ stripeToken: token });
 	};
 	setBundle = bundle => {
-		console.log('bundle selected in SignupForm:', bundle);
 		this.setState({ bundle: bundle });
 	};
 
+	// Check account details for duplicate before letting user proceed
 	usernameCheck = () => {
 		const { pageNo, username, email } = this.state;
 		axios({
@@ -136,18 +138,15 @@ class SignupForm extends Component {
 			.then(res => {
 				const resArray = res && res.data;
 				if (resArray.length == 0) {
-					console.log('username res', res);
 					const newPageNo = pageNo + 1;
 					this.setState({ pageNo: newPageNo });
 					this.setState({ verificationErr: null });
 				} else {
 					const errorMsg = resArray[0];
 					this.setState({ verificationErr: errorMsg + ' already registered' });
-					console.log('error res', res);
 				}
 			})
 			.catch(({ response }) => {
-				console.log('username error', response);
 				const errorMsg = response && response.data && response.data.message;
 				this.setState({ verificationErr: errorMsg }, () => {
 					window.scrollTo(0, 0);
@@ -155,9 +154,9 @@ class SignupForm extends Component {
 			});
 	};
 
+	// Checks medicare provider number, business abn
 	practitionerDetailCheck = () => {
 		const { pageNo, verificationErr, businessAddress, businessName, abn, medicareProNum } = this.state;
-		console.log(abn);
 
 		axios({
 			method: 'post',
@@ -170,8 +169,6 @@ class SignupForm extends Component {
 			},
 		})
 			.then(res => {
-				console.log('practitionerDetail error', res);
-
 				const resArray = res && res.data;
 				if (resArray.length == 0) {
 					const newPageNo = pageNo + 1;
@@ -189,7 +186,6 @@ class SignupForm extends Component {
 				}
 			})
 			.catch(({ response }) => {
-				console.log('practitionerDetail error', response);
 				const errorMsg = response && response.data && response.data.message;
 				this.setState({ verificationErr: errorMsg }, () => {
 					window.scrollTo(0, 0);
@@ -199,7 +195,6 @@ class SignupForm extends Component {
 
 	registerHandler = () => {
 		let formData = new FormData();
-		console.log('token', this.state.stripeToken);
 		const {
 			pageNo,
 			username,
@@ -222,10 +217,7 @@ class SignupForm extends Component {
 			description,
 		} = this.state;
 
-		console.log('bundle', bundle);
-		console.log('token', stripeToken);
-		console.log('username', username);
-
+		// Append data to form data
 		formData.append('title', title);
 		formData.append('password', newPassword);
 		formData.append('fName', firstName);
@@ -248,13 +240,6 @@ class SignupForm extends Component {
 			formData.append('bundle', bundle);
 			formData.append('stripeToken', stripeToken);
 		}
-		// console.log("[SignupForm]", formData.values);
-
-		console.log('Form Data');
-
-		for (var value of formData.values()) {
-			console.log(value);
-		}
 
 		axios
 			.post('https://localhost:8080/api/user/prac', formData)
@@ -272,13 +257,11 @@ class SignupForm extends Component {
 	};
 
 	agreementToggle = () => {
-		console.log('before setState agreement', this.state.agreement);
 		this.setState((prevState, props) => {
 			return {
 				agreement: !prevState.agreement,
 			};
 		});
-		console.log('agrement', this.state.agreement);
 	};
 
 	renderError = () => {
@@ -303,7 +286,6 @@ class SignupForm extends Component {
 	};
 
 	nextPageHandler = () => {
-		console.log('Checking sub', this.state.pageNo);
 		if (this.isValidCheck()) {
 			const { pageNo, verificationErr } = this.state;
 			if (pageNo >= 4) {
@@ -319,7 +301,6 @@ class SignupForm extends Component {
 						break;
 					case 2:
 						{
-							console.log('next page? subscription');
 							const newPageNo = pageNo + 1;
 							this.setState({ pageNo: newPageNo });
 							this.setState({ verificationErr: null });
@@ -329,7 +310,6 @@ class SignupForm extends Component {
 						this.registerHandler();
 						break;
 					default:
-						console.log('Error: ');
 				}
 			}
 		}

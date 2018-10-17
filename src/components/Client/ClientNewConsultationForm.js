@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Form for adding new consultation with a client
+ * Created: 24 Aug 2018
+ * Last modified: 28 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DatePicker from '../Recyclable/SingleDatePicker';
@@ -30,6 +36,7 @@ class ClientNewConsultationForm extends Component {
 		this.setState({ consultDate: date });
 	};
 
+	// Check if the required fields are there
 	validateForm = e => {
 		e.preventDefault();
 		const { title, consultDate, summary, intervention } = this.state;

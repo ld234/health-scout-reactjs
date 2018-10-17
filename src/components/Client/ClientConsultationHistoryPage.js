@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component displaying the client's all consultation history and allow search
+ * Created: 28 Aug 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, { Component } from 'react';
 import {
 	Pagination,
@@ -60,7 +67,6 @@ class ConsultationHistoryPage extends Component {
 	}
 
 	componentDidMount() {
-		console.log('component did mount', this.props.clientState.currentClient.fName);
 		this.props.getConsultations(this.props.clientState.currentClient.patientUsername, () => this.getTableData());
 	}
 
@@ -139,9 +145,8 @@ class ConsultationHistoryPage extends Component {
 
 	renderTable = () => {
 		const labels = ['title', 'by', 'date', 'pracType'];
-		console.log('data', this.state.data.rows);
 		let filteredData = this.state.data.rows.filter((row, idx) => {
-			return !labels.every(label => !row[label].match(`^.*${this.state.searchInput}.*$`));
+			return !labels.every(label => !row[label].toLowerCase().match(`^.*${this.state.searchInput.toLowerCase()}.*$`));
 		});
 		if (this.state.currentRecordNum !== filteredData.length) this.setState({ currentRecordNum: filteredData.length });
 		filteredData = filteredData.splice((this.state.currentPage - 1) * 5, 5);
@@ -164,7 +169,7 @@ class ConsultationHistoryPage extends Component {
 									return (
 										<div
 											key={`med${idx}`}
-											onClick={() => this.toggle(this.props.consultationState.consultations[idx])}
+											onClick={() => this.toggle(filteredData[idx])}
 											className="table-row client-consultation-row"
 										>
 											<div className="cell" data-title="Consultation Title">
@@ -272,7 +277,6 @@ class ConsultationHistoryPage extends Component {
 	};
 
 	render() {
-		console.log('rendering consultation history page');
 		const { fName, lName } = this.props.clientState.currentClient;
 		const breadcrumbs = [`${fName + ' ' + lName}`, 'Medical History', 'Consultation History'];
 		const tos = [`/client`, '/client/medical-history', '/client/medical-history/new-consultation'];
@@ -337,7 +341,6 @@ class ConsultationHistoryPage extends Component {
 	}
 }
 
-// {newData.rows.map((e, idx) => <div key={idx}>{e.by} {newData.rows.length}</div>)}
 const mapStateToProps = state => {
 	return {
 		clientState: state.clients,
@@ -355,46 +358,3 @@ export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(ConsultationHistoryPage);
-
-/*
-
-<div className="table-metadata">
-							<div className="table-current-show">
-								Showing{' '}
-								{(this.state.currentPage - 1) * 10 + 1 > this.props.consultationState.consultations.length
-									? this.props.consultationState.consultations.length
-									: (this.state.currentPage - 1) * 10 + 1}
-								-
-								{this.state.currentPage * 10 > this.props.consultationState.consultations.length
-									? this.props.consultationState.consultations.length
-									: this.state.currentPage * 10}{' '}
-								of {this.props.consultationState.consultations.length} consultations
-							</div>
-							<div className="page-numbers-group">
-								<div className="page-numbers-float-wrapper">
-									{Array.apply(null, { length: Math.ceil(this.props.consultationState.consultations.length / 10) }).map(
-										(number, idx) => {
-											if (this.state.currentPage === idx + 1)
-												return (
-													<button
-														key={'page' + idx}
-														onClick={() => this.setState({ currentPage: idx + 1 })}
-														className="page-number page-number-clicked"
-													>
-														{idx + 1}
-													</button>
-												);
-											return (
-												<button
-													key={'page' + idx}
-													onClick={() => this.setState({ currentPage: idx + 1 })}
-													className="page-number"
-												>
-													{idx + 1}
-												</button>
-											);
-										}
-									)}
-								</div>
-							</div>
-						</div> */

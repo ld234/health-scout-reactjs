@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component login form
+ * Created: 13 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import Button from '../Recyclable/Button';
 import AlertBar from '../Recyclable/AlertBar';
@@ -6,8 +12,6 @@ import LoadingPage from '../Recyclable/LoadingPage';
 import { Redirect, Link } from 'react-router-dom';
 import { login } from '../../actions/auth.actions';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class LoginForm extends Component {
 	constructor(props) {
@@ -35,7 +39,6 @@ class LoginForm extends Component {
 	onSubmit = event => {
 		event.preventDefault();
 		let { username, password } = this.state;
-		console.log(username, password);
 		if (this.validateLoginForm(username, password)) {
 			setTimeout(() => this.props.login(username, password, () => this.setState({ submitting: false })), 1000);
 			this.setState({ submitting: true });

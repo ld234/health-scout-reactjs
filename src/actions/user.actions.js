@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Actions setting the current practitioner general profile details
+ * Created: 2 August 2018
+ * Last modified: 10 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import axios from 'axios';
 import { logout } from './auth.actions';
 export const GET_USER_PENDING = 'GET_USER_PENDING';
@@ -43,7 +50,7 @@ export function getUserDetails(cb) {
 			.then(res => {
 				dispatch(setGetUserPending(false));
 				dispatch(setGetUserSuccess(true, res.data));
-				if (cb) cb(res.data.pracType);
+				if (cb) cb(res.data.pracType); // Getting practitioner specialties
 			})
 			.catch(err => {
 				dispatch(setGetUserPending(false));

@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Confirmation of Success Registration
+ * Created: 15 Aug 2018
+ * Last modified: 15 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { Button } from 'mdbreact';
 import './confirmationPage.css';

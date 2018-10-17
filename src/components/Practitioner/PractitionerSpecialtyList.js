@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: List of specialties
+ * Created: 13 Aug 2018
+ * Last modified: 28 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { connect } from 'react-redux';
 import { deleteSpecialty, resetDeleteSuccess } from '../../actions/specialty.actions';
@@ -21,14 +27,11 @@ class PractitionerSpecialtyList extends React.Component {
 	};
 
 	renderListItems = () => {
-		if (this.props.specialtyState.isDeleteSpecialtyPending)
-			console.log('bool', this.props.specialtyState.isDeleteSpecialtyPending);
 		const specialties = this.props.specialtyState.specialties ? this.props.specialtyState.specialties : [];
 		return specialties.map(({ specialty }, idx) => {
 			let classes = '';
 			if (this.state.justDelete === idx) {
 				classes = 'animated fadeOut';
-				console.log('new classes', this.state.justDelete);
 			}
 			return (
 				<li
@@ -53,24 +56,8 @@ class PractitionerSpecialtyList extends React.Component {
 			);
 		});
 	};
-	/*
-li key={idx} className={classes} >{specialty}
-    <span className="name"></span>
-    <div className="specialty-delete" 
-        onClick={() => {
-            this.setState({justDelete: idx}, () => {
-                setTimeout(() => this.setState({justDelete:null}),1000)
-                console.log(this.state)
-            })
-            setTimeout(() => this.props.deleteSpecialty(this.props.specialtyState.specialties[idx],idx),1000)
-        }}
-    >
-        x
-    </div>
-</li>
-*/
+
 	render() {
-		console.log('clicked this', this.state.justClicked);
 		if (this.props.specialtyState.specialties && this.props.specialtyState.specialties.length > 0)
 			return (
 				<div className="specialty-wrapper">
@@ -100,7 +87,6 @@ li key={idx} className={classes} >{specialty}
 									onClick={() => {
 										this.setState({ justDelete: this.state.justClicked, justClicked: null }, () => {
 											setTimeout(() => this.setState({ justDelete: null }), 1000);
-											console.log(this.state);
 										});
 										this.props.deleteSpecialty(
 											this.props.specialtyState.specialties[this.state.justClicked],

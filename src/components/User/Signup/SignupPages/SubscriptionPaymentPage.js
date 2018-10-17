@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Component displaying bundle selection and payment details form
+ * Created: 31 Jul 2018
+ * Last modified: 16 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { Button } from 'mdbreact';
 import pageCss from './SubscriptionPaymentPage.css';
@@ -109,17 +115,14 @@ class SubscriptionPaymentPage extends Component {
 			const result = await this.props.stripe.createToken();
 
 			if (!result.token) {
-				console.log('card error');
 			} else {
 				this.setState({ CardCvcError: '' });
 				this.setState({ CardExpiryError: '' });
 				this.setState({ CardNumberError: '' });
 				this.props.setToken(result.token.id);
-				console.log(result.token.id);
 				this.props.next();
 			}
 		} else if (this.state.selected == 4) {
-			console.log('next sub');
 			this.props.next();
 		} else {
 			if (this.state.isEmptyCardCvc) {
@@ -135,7 +138,6 @@ class SubscriptionPaymentPage extends Component {
 	}
 
 	onChangeCNumHandler = changes => {
-		console.log(changes);
 		this.setState({ validCardNumber: changes.complete });
 		this.setState({ isEmptyCardNumber: changes.empty });
 	};
@@ -153,7 +155,6 @@ class SubscriptionPaymentPage extends Component {
 	onSelectHandler = selected => {
 		this.setState({ selected });
 		this.props.setBundle(this.state.selectedPackage[selected - 1].name);
-		console.log('sending bundle:', this.state.selectedPackage[selected - 1].name);
 	};
 
 	render() {

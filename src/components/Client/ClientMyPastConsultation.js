@@ -1,16 +1,12 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Displaying only the currently logged in practitioner's
+ * consultations with the current client, allowing them to edit their own consultation's details
+ * Created: 28 Aug 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
-import {
-	Pagination,
-	PageItem,
-	PageLink,
-	Modal,
-	ModalHeader,
-	ModalBody,
-	ModalFooter,
-	Button,
-	Table,
-	TableBody,
-} from 'mdbreact';
+import { Pagination, PageItem, PageLink, Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'mdbreact';
 import { connect } from 'react-redux';
 import ClientGeneralInfo from '../Practitioner/PractitionerSingleClientPage/ClientGeneralInfo';
 import '../../../style/ConsultationHistoryPage.css';
@@ -132,7 +128,6 @@ class ClientMyPastConsultationPage extends Component {
 	};
 
 	renderModal() {
-		console.log('selected consultation', this.state.selectedConsultation);
 		return (
 			<Modal isOpen={this.state.modal} toggle={this.toggle} className="consultation-details animated fadeInUp" centered>
 				<ModalHeader toggle={this.toggle}>Consultation Details</ModalHeader>
@@ -285,7 +280,9 @@ class ClientMyPastConsultationPage extends Component {
 									return (
 										<div
 											key={`med${idx}`}
-											onClick={() => this.toggle(this.props.consultationState.consultations[idx], idx)}
+											onClick={() => {
+												this.toggle(filteredData[idx], idx);
+											}}
 											className="table-row client-consultation-row"
 										>
 											<div className="cell" data-title="Consultation Title">
@@ -395,7 +392,6 @@ class ClientMyPastConsultationPage extends Component {
 	};
 
 	render() {
-		console.log('rendering consultation history page');
 		const { fName, lName } = this.props.clientState.currentClient;
 		const breadcrumbs = [`${fName + ' ' + lName}`, 'My Past Consultations'];
 		const tos = [`/client`, '/client/my-past-consultations'];
@@ -460,7 +456,6 @@ class ClientMyPastConsultationPage extends Component {
 	}
 }
 
-// {newData.rows.map((e, idx) => <div key={idx}>{e.by} {newData.rows.length}</div>)}
 const mapStateToProps = state => {
 	return {
 		clientState: state.clients,

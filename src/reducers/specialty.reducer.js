@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: modifies practitioner's specialty state
+ * Created: 18 Aug 2018
+ * Last modified: 17 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import {
 	GET_SPECIALTY_PENDING,
 	GET_SPECIALTY_SUCCESS,

@@ -1,8 +1,13 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: App Date Picker
+ * Created: 13 Jul 2018
+ * Last modified: 15 Jul 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import 'react-dates/initialize';
 import React, { Component } from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
-import isBeforeDay from 'react-dates/lib/utils/isBeforeDay';
 import isAfterDay from 'react-dates/lib/utils/isAfterDay';
 import 'react-dates/lib/css/_datepicker.css';
 
@@ -17,7 +22,6 @@ export default class App extends React.Component {
 			this.state = {
 				date: this.props.date,
 			};
-			console.log(typeof this.props.date);
 		}
 		this.props.onChange(this.state.date);
 	}

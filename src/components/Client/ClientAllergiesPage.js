@@ -1,5 +1,11 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component displaying the client's allergy history
+ * Created: 28 Aug 2018
+ * Last modified: 2 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, { Component } from 'react';
-import { Table, TableHead, TableBody } from 'mdbreact';
 import { connect } from 'react-redux';
 import ClientGeneralInfo from '../Practitioner/PractitionerSingleClientPage/ClientGeneralInfo';
 import { Link } from 'react-router-dom';

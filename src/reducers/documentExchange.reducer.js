@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Returning new document exchange state
+ * Created: 28 Aug 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import {
 	GET_EXCHANGEDOCUMENTS_PENDING,
 	GET_EXCHANGEDOCUMENTS_ERROR,
@@ -48,7 +54,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-	console.log('[reducer]:', state);
 	switch (action.type) {
 		case GET_EXCHANGEDOCUMENTS_PENDING:
 			return {
@@ -127,6 +132,15 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isSetSeenExchangeDocumentSuccess: action.isSetSeenExchangeDocumentSuccess,
+				seenDocuments: action.seenDocument
+					? [
+							...state.seenDocuments,
+							{ title: action.seenDocument.title, patientUsername: action.seenDocument.patientUsername }, // Append the doc to seenDocuments
+					  ]
+					: state.seenDocuments,
+				unseenDocuments: action.seenDocument
+					? state.unseenDocuments.filter(doc => doc.title !== action.seenDocument.title) // Remove the doc from unseenDocuments
+					: state.unseenDocuments,
 			};
 		case DOWNLOAD_EXCHANGEDOCUMENT_PENDING:
 			return {
@@ -144,8 +158,8 @@ export default (state = INITIAL_STATE, action) => {
 				isDownloadExchangeDocumentSuccess: action.isDownloadExchangeDocumentSuccess,
 			};
 		case SET_PDF_CONTENT:
+			// Set the content of the currently selected pdf for fast retrieval
 			const pdfUint8Array = Array.apply(null, { length: state.seenDocuments.length + state.unseenDocuments.length });
-			console.log('selected index', action.selectedIndex);
 			return {
 				...state,
 				pdfUint8Array:

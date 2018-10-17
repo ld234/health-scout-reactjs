@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: A component wrapping HealthScout Logo
+ * Created: 10 Jul 2018
+ * Last modified: 15 Jul 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { Link } from 'react-router-dom';
 

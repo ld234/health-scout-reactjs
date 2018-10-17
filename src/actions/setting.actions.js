@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Actions responsible for the settings of practitioner's account
+ * Created: 3 August 2018
+ * Last modified: 23 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import axios from 'axios';
 export const SET_NEWPASSWORD_PENDING = 'SET_NEWPASSWORD_PENDING';
 export const SET_NEWPASSWORD_ERROR = 'SET_NEWPASSWORD_ERROR';
@@ -43,12 +50,11 @@ export function setNewPassword(data) {
 				},
 			})
 			.then(res => {
-				console.log('data', res.data);
 				dispatch(setNewPasswordPending(false));
 				dispatch(setNewPasswordSuccess(true));
+				setTimeout(() => dispatch(setNewPasswordSuccess(false)), 2000);
 			})
 			.catch(err => {
-				console.log('error', err.response.data.message);
 				dispatch(setNewPasswordPending(false));
 				dispatch(setNewPasswordSuccess(false, null));
 				if (err.response && err.response.data) dispatch(setNewPasswordError(err.response.data.message));
@@ -78,7 +84,6 @@ function setGetBundlePaymentSuccess(isGetBundlePaymentSuccess) {
 }
 
 export function getBundlePayment(data) {
-	console.log(data);
 	return dispatch => {
 		dispatch(setGetBundlePaymentPending(true));
 		dispatch(setGetBundlePaymentSuccess(false));
@@ -91,12 +96,10 @@ export function getBundlePayment(data) {
 				},
 			})
 			.then(res => {
-				console.log('data', res.data);
 				dispatch(setGetBundlePaymentPending(false));
 				dispatch(setGetBundlePaymentSuccess(true));
 			})
 			.catch(err => {
-				console.log('error', err.response.data.message);
 				dispatch(setGetBundlePaymentPending(false));
 				dispatch(setGetBundlePaymentSuccess(false, null));
 				if (err.response && err.response.data) dispatch(setGetBundlePaymentError(err.response.data.message));
@@ -106,7 +109,6 @@ export function getBundlePayment(data) {
 
 export function resetPayment() {
 	return dispatch => {
-		console.log('[reset payment props called]');
 		dispatch(setGetBundlePaymentPending(false));
 		dispatch(setGetBundlePaymentSuccess(false));
 		dispatch(setGetBundlePaymentError(null));

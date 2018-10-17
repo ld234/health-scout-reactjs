@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Getting medical history info
+ * Created: 28 Aug 2018
+ * Last modified: 23 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import {
 	GET_ALLERGIES_PENDING,
 	GET_ALLERGIES_SUCCESS,

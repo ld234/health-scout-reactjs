@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Actions setting current client's consultation state
+ * Created: 9 Sep 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * */
+
 import axios from 'axios';
 
 export const ADD_CONSULTATION_PENDING = 'ADD_CONSULTATION_PENDING';
@@ -9,10 +16,10 @@ export const GET_CONSULTATIONS_ERROR = 'GET_CONSULTATIONS_ERROR';
 export const EDIT_CONSULTATION_PENDING = 'EDIT_CONSULTATION_PENDING';
 export const EDIT_CONSULTATION_SUCCESS = 'EDIT_CONSULTATION_SUCCESS';
 export const EDIT_CONSULTATION_ERROR = 'EDIT_CONSULTATION_ERROR';
-const CHOOSE_CLIENT = 'CHOOSE_CLIENT';
 
 const ROOT_URL = 'https://localhost:8080/api/clients/profile/consultation';
 
+// @Dan: Add consultation actions
 function setAddConsultationPending(isAddConsultationPending) {
 	return {
 		type: ADD_CONSULTATION_PENDING,
@@ -47,13 +54,11 @@ export function addConsultation(newConsultation, cb) {
 				},
 			})
 			.then(res => {
-				console.log('res', res);
 				dispatch(setAddConsultationPending(false));
 				dispatch(setAddConsultationSuccess(true));
 				cb();
 			})
 			.catch(err => {
-				console.log('client err', err);
 				dispatch(setAddConsultationPending(false));
 				dispatch(setAddConsultationSuccess(false));
 				if (err.response && err.response.data) dispatch(setAddConsultationError(err.response.data.message));
@@ -61,6 +66,7 @@ export function addConsultation(newConsultation, cb) {
 	};
 }
 
+// @Dan: Get list of consultations for a client
 function setGetConsultationsPending(isGetConsultationsPending) {
 	return {
 		type: GET_CONSULTATIONS_PENDING,
@@ -88,7 +94,6 @@ export function getConsultations(patientUsername, cb) {
 		dispatch(setGetConsultationsPending(true));
 		dispatch(setGetConsultationsSuccess(false, null));
 		dispatch(setGetConsultationsError(null));
-		console.log(cb.toString());
 		axios
 			.get(`${ROOT_URL}`, {
 				headers: {
@@ -104,7 +109,6 @@ export function getConsultations(patientUsername, cb) {
 				if (cb) cb();
 			})
 			.catch(err => {
-				console.log('consultation fail');
 				dispatch(setGetConsultationsPending(false));
 				dispatch(setGetConsultationsSuccess(false, null));
 				if (err.response && err.response.data) dispatch(setGetConsultationsError(err.response.data.message));
@@ -112,6 +116,7 @@ export function getConsultations(patientUsername, cb) {
 	};
 }
 
+// @Dan: Edit consultation actions
 function setEditConsultationPending(isEditConsultationPending) {
 	return {
 		type: EDIT_CONSULTATION_PENDING,
@@ -119,12 +124,13 @@ function setEditConsultationPending(isEditConsultationPending) {
 	};
 }
 
-function setEditConsultationSuccess(isEditConsultationSuccess, newConsultation, idx) {
+function setEditConsultationSuccess(isEditConsultationSuccess, newConsultation, idx, oldConsultation) {
 	return {
 		type: EDIT_CONSULTATION_SUCCESS,
 		newConsultation,
 		isEditConsultationSuccess: isEditConsultationSuccess,
 		idx,
+		oldConsultation,
 	};
 }
 
@@ -137,7 +143,6 @@ export function setEditConsultationError(editConsultationError) {
 
 export function editConsultation(newConsultation, idx, cb) {
 	return dispatch => {
-		console.log('axios', idx);
 		dispatch(setEditConsultationPending(true));
 		dispatch(setEditConsultationSuccess(false, null));
 		dispatch(setEditConsultationError(null));
@@ -149,29 +154,14 @@ export function editConsultation(newConsultation, idx, cb) {
 				},
 			})
 			.then(res => {
-				console.log(res);
 				dispatch(setEditConsultationPending(false));
-				dispatch(setEditConsultationSuccess(true, res.data.consultation, idx));
+				dispatch(setEditConsultationSuccess(true, res.data.consultation, idx, newConsultation));
 				cb();
 			})
 			.catch(err => {
-				console.log('err', err);
 				dispatch(setEditConsultationPending(false));
 				dispatch(setEditConsultationSuccess(false, null));
 				if (err.response.data) dispatch(setEditConsultationError(err.response.data.message));
 			});
-	};
-}
-
-function setCurrentClient(idx) {
-	return {
-		type: CHOOSE_CLIENT,
-		currentClientIndex: idx,
-	};
-}
-
-function chooseClient(idx) {
-	return dispatch => {
-		dispatch(setCurrentClient(idx));
 	};
 }

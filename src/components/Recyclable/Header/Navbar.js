@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Navbar component for the home page
+ * Created: 13 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../../actions/auth.actions';
@@ -50,7 +56,7 @@ class Navbar extends Component {
 			);
 		}
 	};
-	//https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg
+
 	render() {
 		return (
 			<nav id="navigation" className="animated fadeInDown navbar navbar-expand-lg">

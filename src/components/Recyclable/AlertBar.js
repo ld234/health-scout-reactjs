@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Alert Bar component
+ * Created: 19 Aug 2018
+ * Last modified: 17 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { PureComponent } from 'react';
 
 export default class AlertBar extends PureComponent {

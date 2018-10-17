@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Actions setting the current client view
+ * Created: 19 Aug 2018
+ * Last modified: 3 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * */
+
 import axios from 'axios';
 
 export const GET_CLIENTS_PENDING = 'GET_CLIENTS_PENDING';
@@ -36,6 +43,7 @@ function setGetClientsError(getClientsError) {
 	};
 }
 
+// @Dan: Get list of connected patients
 export function getClients() {
 	return dispatch => {
 		dispatch(setGetClientsPending(true));
@@ -49,12 +57,10 @@ export function getClients() {
 				},
 			})
 			.then(res => {
-				console.log('res', res);
 				dispatch(setGetClientsPending(false));
 				dispatch(setGetClientsSuccess(true, res.data));
 			})
 			.catch(err => {
-				console.log('client err', err);
 				dispatch(setGetClientsPending(false));
 				dispatch(setGetClientsSuccess(false, null));
 				if (err.response.data) dispatch(setGetClientsError(err.response.data.message));
@@ -84,6 +90,7 @@ function setGetNewClientsError(getNewClientsError) {
 	};
 }
 
+// @Dan: Get list of new clients requesting to connect
 export function getNewClients() {
 	return dispatch => {
 		dispatch(setGetNewClientsPending(true));
@@ -130,6 +137,7 @@ function setAcceptClientError(getClientsError) {
 	};
 }
 
+// @Dan: Accept a new connection if there are enough connection on the account
 export function acceptConnection(newPatient, idx, cb) {
 	return dispatch => {
 		dispatch(setAcceptClientPending(true));
@@ -155,7 +163,6 @@ export function acceptConnection(newPatient, idx, cb) {
 				cb();
 			})
 			.catch(err => {
-				console.log('err', err);
 				dispatch(setAcceptClientPending(false));
 				dispatch(setAcceptClientSuccess(false, null));
 				if (err.response.data) dispatch(setAcceptClientError(err.response.data.message));
@@ -177,6 +184,7 @@ function setCurrentClient(idx) {
 	};
 }
 
+// @Dan: Save the chosen client to the state
 export function chooseClient(idx) {
 	return dispatch => {
 		dispatch(setChooseClientPending(true));

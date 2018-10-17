@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Practitioner's details form (business name, medicare provider number etc.)
+ * Created: 13 Jul 2018
+ * Last modified: 29 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Popover, PopoverHeader, PopoverBody } from 'mdbreact';

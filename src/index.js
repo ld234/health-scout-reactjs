@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Root component
+ * Created: 4 Sep 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -9,17 +15,11 @@ import HttpsRedirect from 'react-https-redirect';
 import reduxThunk from 'redux-thunk';
 import reduxLogger from 'redux-logger';
 import persistedReducer from './reducers';
-//import routes from './routes';
 
 import App from './components/app';
 
-//import 'font-awesome/css/font-awesome.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/mdbreact/dist/css/mdb.css';
-// import '../node_modules/popper.js/dist/popper.min';
-// import '../node_modules/tether/dist/js/tether';
-// import '../node_modules/jquery/dist/jquery.slim.min';
-// import '../node_modules/bootstrap/dist/js/bootstrap.min';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, reduxLogger)(createStore);
 const store = createStoreWithMiddleware(persistedReducer);

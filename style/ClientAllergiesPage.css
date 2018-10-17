@@ -116,11 +116,6 @@
   .table, .table-row {
     width: 100% !important;
   }
-
-  /* .table-row.header:hover *{
-    color: #0E72EC!important;
-    cursor: pointer;
-  } */
   
   .table-row:not(.header):hover{
     background-color: #f9f9f9;

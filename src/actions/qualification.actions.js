@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Actions setting current client's qualification state
+ * Created: 3 August 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import axios from 'axios';
 export const GET_QUALIFICATION_SUCCESS = 'GET_QUALIFICATION_SUCCESS';
 export const GET_QUALIFICATION_PENDING = 'GET_QUALIFICATION_PENDING';
@@ -49,7 +56,6 @@ export function getQualifications() {
 				},
 			})
 			.then(res => {
-				console.log('data', res.data);
 				dispatch(setGetQualificationPending(false));
 				dispatch(setGetQualificationSuccess(true, res.data));
 			})
@@ -84,7 +90,6 @@ function setAddQualificationError(addQualificationError) {
 }
 
 export function addQualification(newQualification, successCb) {
-	console.log('new qualification', newQualification);
 	return dispatch => {
 		dispatch(setAddQualificationPending(true));
 		dispatch(setAddQualificationSuccess(false));
@@ -97,10 +102,9 @@ export function addQualification(newQualification, successCb) {
 				},
 			})
 			.then(res => {
-				console.log('new qualification data', res.data);
 				dispatch(setAddQualificationPending(false));
 				dispatch(setAddQualificationSuccess(true, res.data));
-				successCb();
+				successCb(); // Closing the modal
 			})
 			.catch(err => {
 				dispatch(setAddQualificationPending(false));
@@ -117,11 +121,12 @@ function setEditQualificationPending(isEditQualificationPending) {
 	};
 }
 
-function setEditQualificationSuccess(isEditQualificationSuccess, newQualification) {
+function setEditQualificationSuccess(isEditQualificationSuccess, newQualification, editPosition) {
 	return {
 		type: EDIT_QUALIFICATION_SUCCESS,
 		isEditQualificationSuccess: isEditQualificationSuccess,
 		newQualification: newQualification,
+		editPosition,
 	};
 }
 
@@ -132,8 +137,7 @@ function setEditQualificationError(editQualificationError) {
 	};
 }
 
-export function editQualification(oldQualification, newQualification, successCb) {
-	console.log('new qualification', newQualification);
+export function editQualification(oldQualification, newQualification, successCb, position) {
 	return dispatch => {
 		dispatch(setEditQualificationPending(true));
 		dispatch(setEditQualificationSuccess(false));
@@ -150,10 +154,9 @@ export function editQualification(oldQualification, newQualification, successCb)
 				}
 			)
 			.then(res => {
-				console.log('new qualification data', res.data);
 				dispatch(setEditQualificationPending(false));
-				dispatch(setEditQualificationSuccess(true, res.data));
-				successCb();
+				dispatch(setEditQualificationSuccess(true, res.data, position));
+				successCb(); // Closing modal
 			})
 			.catch(err => {
 				dispatch(setEditQualificationPending(false));
@@ -187,13 +190,11 @@ function setDeleteQualificationError(deleteQualificationError) {
 }
 
 export function deleteQualification(deletedQualification, position, successCb) {
-	console.log('qualification to be deleted', deletedQualification);
 	return dispatch => {
 		dispatch(setDeleteQualificationPending(true));
 		dispatch(setDeleteQualificationSuccess(false));
 		dispatch(setDeleteQualificationError(null));
 		let { degree, institution, graduateYear } = deletedQualification;
-		console.log('fired once');
 		axios
 			.delete(`${ROOT_URL}`, {
 				params: { degree, institution, graduateYear },
@@ -202,13 +203,11 @@ export function deleteQualification(deletedQualification, position, successCb) {
 				},
 			})
 			.then(res => {
-				console.log('data from res', res.data);
 				dispatch(setDeleteQualificationPending(false));
 				dispatch(setDeleteQualificationSuccess(true, res.data, position));
-				successCb();
+				successCb(); // Closing modal
 			})
 			.catch(err => {
-				console.log('err', err);
 				dispatch(setDeleteQualificationPending(false));
 				dispatch(setDeleteQualificationSuccess(false, null));
 				if (err.response && err.response.data.message) dispatch(setDeleteQualificationError(err.response.data.message));

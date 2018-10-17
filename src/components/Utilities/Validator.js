@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Helper to validate registration form data
+ * Created: 18 Jul 2018
+ * Last modified: 12 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import Validator from 'validator';
 import _ from 'lodash';
 import moment from 'moment';
@@ -40,10 +46,6 @@ export function validateSecondPageRegister(data) {
 	if (_.isEmpty(data.lastName)) {
 		errors.lastName = '*Last name required';
 	}
-	// if(data.gender == ''){
-	//   errors.gender = 'Select gender';
-	//   console.log('gender error set');
-	// }
 
 	if (_.isEmpty(data.dob)) {
 		errors.dob = '*DOB required';

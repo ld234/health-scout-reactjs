@@ -1,8 +1,13 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Determines which navigation component to render
+ * Created: 13 Aug 2018
+ * Last modified: 28 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Navbar from './Header/Navbar';
 import SideNavbar from '../Practitioner/SideNavbar';
-import HamburgerButton from './HamburgerButton';
 
 class Navigation extends Component {
 	constructor(props) {
@@ -11,10 +16,6 @@ class Navigation extends Component {
 			width: window.innerWidth,
 		};
 	}
-
-	handleWindowSizeChange = () => {
-		this.setState({ width: window.innerWidth });
-	};
 
 	render() {
 		const { pathname } = this.props.location;
@@ -27,8 +28,7 @@ class Navigation extends Component {
 			pathname.match('^/verify.*$')
 		) {
 			return <Navbar />;
-		} /*if (this.state.width > 768) */ else return <SideNavbar path={pathname} id="side-nav" />;
-		// else return (<HamburgerButton />);
+		} else return <SideNavbar path={pathname} id="side-nav" />;
 	}
 }
 

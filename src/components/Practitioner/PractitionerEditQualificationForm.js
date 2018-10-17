@@ -1,5 +1,11 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component displaying a form to edit current qualification.
+ * Created: 13 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Input } from 'mdbreact';
+import { ModalBody, ModalFooter, Button } from 'mdbreact';
 import { editQualification, deleteQualification } from '../../actions/qualification.actions';
 import { connect } from 'react-redux';
 
@@ -60,32 +66,8 @@ class PractitionerEditQualificationForm extends Component {
 			position: this.props.hoveredItem,
 		};
 		let oldQ = { oldDegree, oldInstitution, oldGraduateYear };
-		console.log(oldQ, newQ);
-		this.props.editQualification(oldQ, newQ, this.props.toggle);
+		this.props.editQualification(oldQ, newQ, this.props.toggle, this.props.hoveredItem);
 	};
-
-	componentWillUpdate(nextProps, nextState) {
-		/*const nextQ = nextProps.qualificationState.qualifications[nextProps.hoveredItem];
-		console.log('idx',nextProps.hoveredItem);
-		console.log('nextProps qualifications', nextQ);
-		console.log('nextState', nextState);
-		console.log('thisState', this.state);
-		if (nextQ && nextQ.degree !== this.state.oldDegree && 
-		nextQ.institution !== this.state.oldInstitution && 
-		nextQ.graduateYear !== this.state.oldGraduateYear) {
-			this.setState({
-				oldDegree: nextQ[nextProps.hoveredItem].degree,
-				oldInstitution: nextQ[nextProps.hoveredItem].institution,
-				oldDescription: nextQ[nextProps.hoveredItem].description,
-				oldGraduateYear:  nextQ[nextProps.hoveredItem].graduateYear,
-				oldDescription:nextQ[nextProps.hoveredItem].description,
-				degree: nextQ[nextProps.hoveredItem].degree,
-				institution: nextQ[nextProps.hoveredItem].institution,
-				description: nextQ[nextProps.hoveredItem].description,
-				graduateYear:  nextQ[nextProps.hoveredItem].graduateYear,
-			})
-		}*/
-	}
 
 	renderError = () => {
 		let { editQualificationError } = this.props.qualificationState;
@@ -109,7 +91,6 @@ class PractitionerEditQualificationForm extends Component {
 		ev.stopPropagation();
 		ev.nativeEvent.stopImmediatePropagation();
 		let { degree, institution, graduateYear } = this.state;
-		console.log('deleting qualification');
 		this.props.deleteQualification({ degree, institution, graduateYear }, this.props.hoveredItem, this.props.toggle);
 	};
 
@@ -190,7 +171,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		editQualification: (oldQ, newQ, cb) => dispatch(editQualification(oldQ, newQ, cb)),
+		editQualification: (oldQ, newQ, cb, pos) => dispatch(editQualification(oldQ, newQ, cb, pos)),
 		deleteQualification: (oldQ, position, cb) => dispatch(deleteQualification(oldQ, position, cb)),
 	};
 };

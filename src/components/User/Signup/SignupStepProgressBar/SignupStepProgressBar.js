@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Progress bar component for registration
+ * Created: 15 Jul 2018
+ * Last modified: 9 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import './SignupStepProgressBar.css';
 const SignupStepProgressBar = props => {

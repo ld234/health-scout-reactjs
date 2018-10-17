@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Page showing the result of an activation link
+ * Created: 22 Aug 2018
+ * Last modified: 23 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { verifyEmail } from '../../actions/auth.actions';
@@ -15,7 +21,6 @@ class AccountActivationPage extends Component {
 
 	render() {
 		if (this.props.authState.isVerifyEmailSuccess) {
-			console.log('success activation');
 			return (
 				<div className="container animated fadeInDown">
 					<div className="login-container password-reset-container animated fadeInUp">

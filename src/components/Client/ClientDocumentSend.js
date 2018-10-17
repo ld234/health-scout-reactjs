@@ -1,3 +1,11 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Modal displaying documents not sent and allowing practitioner to
+ * send them to the current client
+ * Created: 13 Aug 2018
+ * Last modified: 2 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, { Component } from 'react';
 import { ModalBody, ModalFooter, Button } from 'mdbreact';
 import { getDocuments } from '../../actions/documentExchange.actions';
@@ -14,14 +22,10 @@ class ClientDocumentSend extends Component {
 	}
 
 	componentDidMount() {
-		console.log('getting documents');
 		let { patientUsername } = this.props.clientState.currentClient;
-		console.log(patientUsername);
 		this.props.getDocuments(patientUsername);
 	}
-	componentDidUpdate() {
-		console.log(this.state.sendList);
-	}
+
 	validateForm = e => {
 		e.preventDefault();
 		let { patientUsername } = this.props.clientState.currentClient;
@@ -92,10 +96,6 @@ class ClientDocumentSend extends Component {
 						<input id={docSendlist.length + idx} name={docSendlist.length + idx} type="checkbox" disabled />
 						<label for={docSendlist.length + idx}>{doc.title}</label>
 					</div>
-
-					// <Input label="Filled-in unchecked" type="checkbox" checked disabled id={docSendlist.length+idx}>
-					// 	{doc.title}
-					// </Input>
 				);
 			});
 			docList = docList.concat(docListAppend);

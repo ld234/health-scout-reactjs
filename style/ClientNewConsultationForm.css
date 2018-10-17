@@ -46,9 +46,10 @@ label.grey-text{
 .new-consultation-main-wrapper .alert.alert-success{
     position: absolute!important;
     width: 60%;
-    top: 30%;
+    top: 33%;
     margin: 0 auto;
-    background: #19cc19;
+    /* background: #19cc19; */
+    background: #63cd42!important;
     color: #fff;
 }
 

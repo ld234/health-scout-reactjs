@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Update Password Form
+ * Created: 15 Aug 2018
+ * Last modified: 28 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'mdbreact';
@@ -30,22 +36,18 @@ class UpdatePasswordForm extends React.Component {
 		if (_.isEmpty(newPassword)) {
 			const newErr = _.merge(this.state.errors, { newPassword: '*New password required' });
 			this.setState({ errors: newErr });
-			console.log('empty:', newErr);
 			returnVal = false;
 		} else if (newPassword.length < 8) {
 			const newErr = _.merge(this.state.errors, { newPassword: '*Password needs to have at least 8 characters' });
 			this.setState({ errors: newErr });
-			console.log('length:', this.state.errors);
 			returnVal = false;
 		} else if (!/\d/.test(newPassword)) {
 			const newErr = _.merge(this.state.errors, { newPassword: '*Password needs to contain at least 1 digit' });
 			this.setState({ errors: newErr });
-			console.log('digit:', this.state.errors);
 			returnVal = false;
 		} else if (newPassword != newPasswordConfirm) {
 			const newErr = _.merge(this.state.errors, { newPasswordConfirm: '*Password does not match' });
 			this.setState({ errors: newErr });
-			console.log('match:', this.state.errors);
 			returnVal = false;
 		}
 

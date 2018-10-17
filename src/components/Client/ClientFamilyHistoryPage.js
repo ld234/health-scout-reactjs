@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component displaying the client's family history
+ * Created: 28 Aug 2018
+ * Last modified: 5 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ClientGeneralInfo from '../Practitioner/PractitionerSingleClientPage/ClientGeneralInfo';
@@ -26,6 +33,7 @@ class ClientFamilyHistoryPage extends Component {
 					<ClientGeneralInfo />
 					<div className="main-wrapper">
 						<div className="breadcrumbs animated fadeIn">
+							{/* rendering breadcrumbs */}
 							{breadcrumbs.map((crumb, idx) => {
 								if (idx === breadcrumbs.length - 1)
 									return (
@@ -80,28 +88,6 @@ class ClientFamilyHistoryPage extends Component {
 			);
 	}
 }
-
-/*
-<Table hover bordered responsive>
-						<TableHead>
-							<tr>
-								<th>Relationship</th>
-								<th>Medical Condition</th>
-							</tr>
-						</TableHead>
-						<TableBody>
-							{this.props.medicalHistoryState.familyHistory
-								? this.props.medicalHistoryState.familyHistory.map((fam, idx) => {
-										return (
-											<tr key={`fam${idx}`}>
-												<td>{fam.familyRelation}</td>
-												<td>{fam.familyCondition}</td>
-											</tr>
-										);
-								  })
-								: null}
-						</TableBody>
-					</Table>*/
 
 const mapStateToProps = state => {
 	return {

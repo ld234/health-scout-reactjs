@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Actions setting the authentication redux state
+ * Created: 10 Jul 2018
+ * Last modified: 12 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * */
 import axios from 'axios';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -10,6 +16,7 @@ export const LOGOUT = 'LOGOUT';
 
 const ROOT_URL = 'https://localhost:8080/api/auth';
 
+// @Dan: Login actionss
 function setLoginPending(isLoginPending) {
 	return {
 		type: LOGIN_REQUEST,
@@ -44,7 +51,7 @@ export function login(username, password, cb) {
 				password,
 			})
 			.then(res => {
-				console.log('data', res.data.user);
+				// Add token to local storage
 				window.localStorage.localToken = res.data.token;
 				dispatch(setLoginPending(false));
 				dispatch(setLoginSuccess(true, res.data.user));
@@ -58,9 +65,9 @@ export function login(username, password, cb) {
 	};
 }
 
+// @Dan: Remove token, reset login states
 export function logout() {
 	return dispatch => {
-		console.log('Logging out');
 		localStorage.removeItem('localToken');
 		dispatch(setLoginPending(false));
 		dispatch(setLoginSuccess(false, null));
@@ -68,8 +75,8 @@ export function logout() {
 	};
 }
 
+// @Dan: Check if a user is authorised for each Route
 export function checkAuth() {
-	console.log('checkAuth');
 	return dispatch => {
 		axios
 			.post(
@@ -85,7 +92,6 @@ export function checkAuth() {
 				dispatch(setLoginSuccess(true));
 			})
 			.catch(() => {
-				console.log('Auth fail');
 				dispatch(setLoginPending(false));
 				dispatch(setLoginSuccess(false, null));
 				dispatch(setLoginError(null));
@@ -93,6 +99,7 @@ export function checkAuth() {
 	};
 }
 
+// @Dan: Email verification actions
 function setVerifyEmailPending(isVerifyEmailPending) {
 	return {
 		type: VERIFY_EMAIL_REQUEST,

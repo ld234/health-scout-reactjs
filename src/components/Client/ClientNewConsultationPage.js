@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Page containing the form to add new consultation
+ * Created: 24 Aug 2018
+ * Last modified: 29 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ClientGeneralInfo from '../Practitioner/PractitionerSingleClientPage/ClientGeneralInfo';
@@ -23,20 +30,8 @@ class ClientNewConsultationPage extends Component {
 		};
 	}
 
-	validateForm = e => {
-		e.preventDefaut();
-		const message = '*field required';
-		let newState = {};
-		console.log();
-		if (!this.state.title || this.state.title === '') newState.errors.title = message;
-		if (!this.state.consultDate) newState.errors.consultDate = message;
-		if (!this.state.summary) newState.errors.summary = message;
-		if (!this.state.intervention) newState.errors.intervention = message;
-		this.setState(newState);
-	};
-
+	// Redirect after 2 seconds to client's menu
 	update = () => {
-		console.log('updating');
 		setTimeout(() => {
 			this.setState({ redirect: true }, () => {
 				setTimeout(() => this.setState({ stopLoading: true }), 2000);

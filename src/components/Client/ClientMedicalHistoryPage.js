@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Menu page for medical history
+ * Created: 28 Aug 2018
+ * Last modified: 2 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ClientGeneralInfo from '../Practitioner/PractitionerSingleClientPage/ClientGeneralInfo';
@@ -96,35 +102,7 @@ class PractitionerSingleClientPage extends Component {
 		);
 	}
 }
-/*
-<div className="breadcrumbs animated fadeIn">
-					{breadcrumbs.map((crumb, idx) => {
-						if (idx === breadcrumbs.length - 1)
-							return (
-								<span key={'crumb' + idx}>
-									{' '}
-									&gt; <span>{crumb}</span>
-								</span>
-							);
-						else if (idx !== 0)
-							return (
-								<span key={'crumb' + idx}>
-									{' '}
-									&gt; <Link to={tos2[idx]}>{crumb}</Link>
-								</span>
-							);
-						else
-							return (
-								<span key={'crumb' + idx}>
-									{' '}
-									<Link to={tos2[idx]}>{crumb}</Link>
-								</span>
-							);
-					})}
-				</div>
-				<div className="horizontal-line">
-					<hr />
-				</div>*/
+
 const mapStateToProps = state => {
 	return {
 		authenticationState: state.authentication,

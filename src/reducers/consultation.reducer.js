@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Returning consultation state
+ * Created: 12 Aug 2018
+ * Last modified: 7 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import {
 	ADD_CONSULTATION_PENDING,
 	ADD_CONSULTATION_SUCCESS,
@@ -32,7 +38,6 @@ export default (state = INITIAL_STATE, action) => {
 				isAddConsultationPending: action.isAddConsultationPending,
 			};
 		case ADD_CONSULTATION_SUCCESS:
-			console.log('action', action.isAddConsultationSuccess);
 			return {
 				...state,
 				isAddConsultationSuccess: action.isAddConsultationSuccess,
@@ -64,29 +69,39 @@ export default (state = INITIAL_STATE, action) => {
 				isEditConsultationPending: action.isEditConsultationPending,
 			};
 		case EDIT_CONSULTATION_SUCCESS:
-			let newConsList = state.consultations.slice();
+			let newConsList = state.consultations.slice(); // Get new consultation list object
 			let newCons = {};
-			console.log('new cons', action.newConsultation);
-			if (action.newConsultation)
+			let index = -1;
+			if (action.newConsultation) {
+				// Find index of the editted consultation in the current list of consultation
+				index = newConsList.findIndex(
+					cons =>
+						cons.date === action.oldConsultation.oldConsultDate &&
+						cons.pracUsername === action.newConsultation.pracUsername
+				);
+				// Set new consultation based on the editted content
 				newCons = {
-					...state.consultations[action.idx],
-					summary: action.newConsultation.summary
-						? action.newConsultation.summary
-						: state.consultations[action.idx].summary,
-					date: action.newConsultation.consultDate,
+					...state.consultations[index],
+					summary: action.newConsultation.summary ? action.newConsultation.summary : state.consultations[index].summary,
+					date: action.newConsultation.consultDate
+						? action.newConsultation.consultDate
+						: state.consultations[index].date,
 					intervention: action.newConsultation.intervention
 						? action.newConsultation.intervention
-						: state.consultations[action.idx].intervention,
-					title: action.newConsultation.title ? action.newConsultation.title : state.consultations[action.idx].title,
+						: state.consultations[index].intervention,
+					title: action.newConsultation.title ? action.newConsultation.title : state.consultations[index].title,
+					pracUsername: action.newConsultation.pracUsername
+						? action.newConsultation.pracUsername
+						: state.consultations[index].pracUsername,
 				};
-			if (action.newConsultation) newConsList[action.idx] = newCons;
-			console.log('newConsList', newConsList);
+				newConsList[index] = newCons;
+			}
 			return {
 				...state,
 				isEditConsultationSuccess: action.isEditConsultationSuccess,
 				consultations: action.newConsultation
 					? newConsList.sort((a, b) => {
-							return b.date.localeCompare(a.date);
+							return b.date.localeCompare(a.date); // Sort by date desc
 					  })
 					: state.consultations,
 				justEditIndex: action.newConsultation ? action.idx : state.justEditIndex,

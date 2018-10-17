@@ -1,13 +1,16 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Form to request password reset
+ * Created: 13 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import Button from '../Recyclable/Button';
 import AlertBar from '../Recyclable/AlertBar';
 import InputGroup from '../Recyclable/InputGroup';
 import LoadingPage from '../Recyclable/LoadingPage';
 import SuccessCheckMark from '../Recyclable/SuccessCheckMark';
-import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
-import qs from 'query-string';
-import $ from 'jquery';
 
 class ForgotPasswordForm extends Component {
 	constructor(props) {
@@ -28,7 +31,6 @@ class ForgotPasswordForm extends Component {
 		const emailRegex = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$';
 		const usernameRegex = '^[a-zA-Z0-9]{6,}$';
 		if (this.state.resetMeans.match(emailRegex)) {
-			console.log('matched email');
 			this.setState({ isEmail: true }, function() {
 				this.onSubmit();
 			});
@@ -47,20 +49,16 @@ class ForgotPasswordForm extends Component {
 		let { resetMeans } = this.state;
 		if (this.state.isEmail) {
 			reqBody = { email: resetMeans };
-			console.log('in isEmail');
 		} else {
 			reqBody = { username: resetMeans };
 		}
 		this.setState({ loading: true });
-		console.log('request body', reqBody);
 		axios
 			.put('https://localhost:8080/api/auth/forgetPassword', reqBody)
 			.then(response => {
-				console.log(response);
 				this.setState({ loading: false, success: true, successMessage: response.data.message });
 			})
 			.catch(err => {
-				console.log(err.response);
 				setTimeout(() => this.setState({ loading: false, error: err.response.data.message }), 200);
 			});
 

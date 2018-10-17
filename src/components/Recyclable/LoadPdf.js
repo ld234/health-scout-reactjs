@@ -1,3 +1,10 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component to display pdf as an image
+ * Created: 27 Aug 2018
+ * Last modified: 29 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, { Component } from 'react';
 import { Document, Page } from 'react-pdf/dist/entry.webpack';
 
@@ -35,6 +42,11 @@ class LoadPdf extends Component {
 			// };
 			filepath = {
 				data: this.props.data,
+			};
+		} else if (this.props.url) {
+			filepath = {
+				url: 'https://localhost:8080/sapi' + this.props.url,
+				httpHeaders: { 'x-access-token': localStorage.getItem('localToken') },
 			};
 		}
 		return (

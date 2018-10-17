@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Modifying client list state
+ * Created: 18 Aug 2018
+ * Last modified: 11 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import {
 	GET_CLIENTS_PENDING,
 	GET_CLIENTS_SUCCESS,
@@ -64,7 +70,7 @@ export default (state = INITIAL_STATE, action) => {
 				...state,
 				isAcceptClientPending: action.isAcceptClientPending,
 			};
-		case ACCEPT_CLIENT_SUCCESS:
+		case ACCEPT_CLIENT_SUCCESS: // Remove the client from new client list
 			return {
 				...state,
 				isAcceptClientSuccess: action.isAcceptClientSuccess,

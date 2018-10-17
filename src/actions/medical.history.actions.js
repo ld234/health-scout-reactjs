@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Actions setting the medical history redux state
+ * Created: 31 Aug 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * */
 import axios from 'axios';
 
 export const GET_ALLERGIES_PENDING = 'GET_ALLERGIES_PENDING';

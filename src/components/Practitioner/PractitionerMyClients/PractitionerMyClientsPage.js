@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Page showing all the patient connected to or requesting to connect to the practitioner
+ * Created: 13 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserGeneralInfo from '../../User/UserGeneralInfo';
@@ -21,12 +27,14 @@ class MyClientPage extends Component {
 		};
 	}
 
+	// Toggle the no connection left modal
 	toggle = () => {
 		this.setState({
 			errorModal: !this.state.errorModal,
 		});
 	};
 
+	// Toggles the confirm modal
 	toggle2 = () => {
 		this.setState({
 			modal: !this.state.modal,
@@ -59,7 +67,6 @@ class MyClientPage extends Component {
 	}
 
 	renderCardList = (clients, buttonText, newC) => {
-		console.log('c', clients);
 		if (!clients) clients = [];
 		return (
 			<div id="movie-card-list">
@@ -79,7 +86,6 @@ class MyClientPage extends Component {
 									newC
 										? () => {
 												this.setState({ justClicked: selected }, () => {
-													console.log('justClicked my client', this.state.justClicked, selected);
 													parseInt(this.props.userState.user.availableConnections) > 0
 														? this.toggle2(selected)
 														: this.toggle();

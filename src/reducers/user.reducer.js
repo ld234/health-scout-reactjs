@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Returns general user info
+ * Created: 14 Jul 2018
+ * Last modified: 29 Jul 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import { GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR } from '../actions/user.actions';
 const INITIAL_STATE = {
 	isGetUserPending: false,

@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Header part showing the profile image and general profile info of patient
+ * Created: 20 Jul 2018
+ * Last modified: 12 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoadingPage from '../../Recyclable/LoadingPage';
@@ -41,7 +47,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(ClientGeneralInfo);
-
-/*<div id="main-hr" className="horizontal-line"> 
-                        <hr />
-                    </div>*/

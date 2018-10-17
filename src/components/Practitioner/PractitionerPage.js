@@ -1,10 +1,15 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Page showing all profile details (qualifications, specialties)
+ * Created: 11 Aug 2018
+ * Last modified: 1 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PractitionerProfile from './PractitionerProfile';
 import UserGeneralInfo from '../User/UserGeneralInfo';
 import PractionerAddQualificationForm from './PractitionerAddQualificationForm';
 import PractitionerEditQualificationForm from './PractitionerEditQualificationForm';
-import PractitionerAddExperienceForm from './PractitionerAddExperienceForm';
 import PractitionerSpecialtyList from './PractitionerSpecialtyList';
 import PractitionerAddSpecialtyForm from './PractitionerAddSpecialtyForm';
 import { getUserDetails } from '../../actions/user.actions';
@@ -13,27 +18,12 @@ import LoadingPage from '../Recyclable/LoadingPage';
 import { getQualifications } from '../../actions/qualification.actions';
 import { getPracTypeSpecialties, getSpecialties } from '../../actions/specialty.actions';
 
-/*
-
-<PractitionerProfile
-							section="Professional Experience"
-							buttonID="add-experience"
-							for="experience"
-							flag="degree"
-							timeWrapper="graduateYear"
-							desc="description"
-							editComponent={PractitionerEditQualificationForm}
-							addComponent={PractionerAddQualificationForm}
-						/>
-*/
-
 class PractitionerPage extends Component {
 	constructor(props) {
 		super(props);
 	}
 
 	componentDidMount() {
-		console.log('comp did mount');
 		this.props.getUserDetails(this.props.getPracTypeSpecialties);
 		this.props.getQualifications();
 		this.props.getSpecialties();
@@ -41,14 +31,7 @@ class PractitionerPage extends Component {
 
 	render() {
 		let qualifications = this.props.qualificationState.qualifications;
-		// if (typeof qualifications != "undefined"
-		//     && qualifications != null
-		//     && qualifications.length != null
-		//     && qualifications.length > 0){
-		//     qualifications = [...this.props.qualificationState.qualifications];
-		//     qualifications.sort( (a, b) => { return b.graduateYear.localeCompare(a.graduateYear)}) ;
 
-		// }
 		if (this.props.userState.isGetUserSuccess)
 			return (
 				<div id="practitioner-page" className="right animated fadeIn">
@@ -87,18 +70,6 @@ class PractitionerPage extends Component {
 		} else return null;
 	}
 }
-/*
-
-<div className="specialty-wrapper">
-							<div className="practitioner-profile-head" className="row justify-content-between">
-								<div className="col col-md-8 profile-title">
-									<h4>Specialties</h4>
-								</div>
-
-								<div className="horizontal-line"><hr/></div>
-							</div>
-							<PractitionerAddSpecialtyForm />
-						</div>*/
 
 const mapStateToProps = state => {
 	return {
@@ -123,8 +94,3 @@ export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(PractitionerPage);
-
-/*
-<Input label="Institution" />
-                    <Input label="Year" />
-                    <TextArea label="Description" />*/

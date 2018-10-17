@@ -80,9 +80,6 @@
     visibility: hidden;
   }
 
-  /* .DocExCheckBox:nth-child(even) label:before{
-    background-color: rgba(27, 116, 232, 0.5);
-  } */
   *,
   *::before,
   *::after {
@@ -188,10 +185,6 @@
   ul.rolldown-list li.docEx-item:hover{
     color: #333;
     cursor: pointer;
-    /* transform: translateY(-3px); */
-  
-    /* border:1px solid #1B75E8; */
-    /* background-color: rgba(14, 114, 236, 0.05); */
     box-shadow: 0 5px 40px 0 rgba(51, 51, 51, 0.18), 0 4px 15px 0 rgba(130, 130, 130, 0.15);
   }
   

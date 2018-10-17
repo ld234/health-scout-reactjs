@@ -1,7 +1,11 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Component displaying a form to add new qualification
+ * Created: 1 Aug 2018
+ * Last modified: 1 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Input } from 'mdbreact';
-// import SingleDatePickerWrapper from '../Recyclable/SingleDatePicker';
-import AlertBar from '../Recyclable/AlertBar';
 import { addQualification } from '../../actions/qualification.actions';
 import escapeRegexCharacters from '../Utilities/EscapeRegexCharacters';
 import { connect } from 'react-redux';
@@ -28,6 +32,7 @@ class PractitionerAddQualificationForm extends Component {
 		this.setState({ date: date });
 	};
 
+	// Check the required fields
 	validateForm = e => {
 		e.preventDefault();
 		let { degree, institution, description, graduateYear } = this.state;
@@ -48,7 +53,6 @@ class PractitionerAddQualificationForm extends Component {
 			description: description.trim(),
 			graduateYear: graduateYear.trim(),
 		};
-		console.log(x);
 
 		this.props.addQualification(x, this.props.toggle);
 	};
@@ -65,12 +69,14 @@ class PractitionerAddQualificationForm extends Component {
 
 	renderError = () => {
 		let { addQualificationError } = this.props.qualificationState;
+		// Error from the backend
 		if (addQualificationError)
 			return (
 				<div className="alert alert-danger alert-dismissible fade show animated fadeInUp" role="alert">
 					{addQualificationError.data.message}
 				</div>
 			);
+		// Validation error
 		else if (this.state.error)
 			return (
 				<div className="alert alert-danger alert-dismissible fade show animated fadeInUp" role="alert">

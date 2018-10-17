@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Tenzin
+ * Description: Options to buy a new connection bundle, using Stripe to get card token
+ * Created: 24 Sep 2018
+ * Last modified: 17 Oct 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React from 'react';
 import { Button, Modal, ModalHeader } from 'mdbreact';
 import PaymentModal from './PaymentModal';
@@ -21,8 +27,6 @@ class BuyBundleForm extends React.Component {
 		stripeJs.src = 'https://js.stripe.com/v3/';
 		stripeJs.async = true;
 		stripeJs.onload = () => {
-			// The setTimeout lets us pretend that Stripe.js took a long time to load
-			// Take it out of your production code!
 			this.setState({
 				stripe: window.Stripe(this.state.apiKey),
 			});
@@ -30,9 +34,7 @@ class BuyBundleForm extends React.Component {
 		document.body && document.body.appendChild(stripeJs);
 	}
 	togglePayment = bundle => {
-		console.log('toggle', this.state.paymentToggle);
 		if (this.state.paymentToggle == true) {
-			console.log('[calling resetPayment]');
 			this.props.resetPayment();
 		}
 		this.setState((prevState, props) => {
@@ -51,11 +53,12 @@ class BuyBundleForm extends React.Component {
 		}
 		this.setState({ bundle: bundle });
 	};
+
 	render() {
 		const selectedPrice = this.state.price;
 		return (
 			<div className="sPaymentContainer">
-				<h6>Connection Left:</h6>
+				<h6>Connection Left: {this.props.userState.user.availableConnections}</h6>
 				<div className="bundle">
 					Standard Bundle
 					<Button
@@ -106,12 +109,16 @@ class BuyBundleForm extends React.Component {
 		);
 	}
 }
-
+const mapStateToProps = state => {
+	return {
+		userState: state.userDetails,
+	};
+};
 const mapDispatchToProps = {
 	resetPayment: resetPayment,
 };
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(BuyBundleForm);

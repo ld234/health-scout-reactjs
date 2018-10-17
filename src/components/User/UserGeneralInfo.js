@@ -1,9 +1,13 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Displaying general details of practitioner
+ * Created: 13 Aug 2018
+ * Last modified: 12 Sep 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StarRating from '../Recyclable/PracStarRating';
 import LoadingPage from '../Recyclable/LoadingPage';
-
-//https://mdbootstrap.com/img/Photos/Avatars/img (10).jpg
 
 class UserGeneralInfo extends Component {
 	render() {
@@ -24,7 +28,7 @@ class UserGeneralInfo extends Component {
 							</div>
 						</div>
 					</div>
-					<div className="userDetails col col-lg-10">
+					<div className="userDetails col col-lg-9">
 						<h3>
 							{user.title} {user.fName} {user.lName}
 						</h3>
@@ -46,7 +50,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(UserGeneralInfo);
-
-/*<div id="main-hr" className="horizontal-line"> 
-                        <hr />
-                    </div>*/

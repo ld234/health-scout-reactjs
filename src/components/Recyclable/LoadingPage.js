@@ -1,4 +1,9 @@
-import React from 'react';
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Loading component
+ * Created: 13 Jul 2018
+ * Last modified: 15 Jul 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */ import React from 'react';
 
 export default function() {
 	return (

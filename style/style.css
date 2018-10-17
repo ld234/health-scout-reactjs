@@ -217,7 +217,7 @@ html,body{
 }
 
 #output.alert-success{
-    background: rgb(25, 204, 25);
+    background: #63cd42;
 }
 
 #output.alert-danger{
@@ -1652,16 +1652,6 @@ div.main-wrapper h4{
 .comfirmation h3{
   text-align: center;
   padding: 30px;
-}
-
-/*** AnimatedWrapper ***/
-
-.animated-page-wrapper {
-  position: absolute;
-  top: 62px;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 
 /* Error cross mark */

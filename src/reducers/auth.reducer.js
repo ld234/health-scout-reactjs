@@ -1,3 +1,9 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Returning new authentication state
+ * Created: 12 Jul 2018
+ * Last modified: 6 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import {
 	LOGIN_REQUEST,
 	LOGIN_SUCCESS,

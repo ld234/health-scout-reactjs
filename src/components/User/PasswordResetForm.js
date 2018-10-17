@@ -1,11 +1,16 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * @Dan
+ * Description: Password Reset Form to enter new password
+ * Created: 29 Jul 2018
+ * Last modified: 28 Aug 2018
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 import React, { Component } from 'react';
 import Button from '../Recyclable/Button';
 import AlertBar from '../Recyclable/AlertBar';
 import InputGroup from '../Recyclable/InputGroup';
 import LoadingPage from '../Recyclable/LoadingPage';
 import SuccessCheckMark from '../Recyclable/SuccessCheckMark';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'query-string';
 
@@ -23,7 +28,6 @@ class PasswordResetForm extends Component {
 	}
 
 	validateLoginForm = (newPassword, newPasswordConfirm) => {
-		console.log(newPassword, newPasswordConfirm);
 		if (newPassword.localeCompare(newPasswordConfirm) !== 0) {
 			this.setState({ error: 'Passwords do not match.' });
 			return false;
@@ -39,7 +43,7 @@ class PasswordResetForm extends Component {
 
 	onSubmit = event => {
 		event.preventDefault();
-		const parsed = qs.parse(this.props.location.search);
+		const parsed = qs.parse(this.props.location.search); // Get token
 		let { password, passwordConfirm, token } = this.state;
 		if (this.validateLoginForm(password, passwordConfirm)) {
 			this.setState({ loading: true }, function() {
