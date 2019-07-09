@@ -1,4 +1,4 @@
-# HealthScout Fronend
+# HealthScout Frontend
 
 This repo stores the source code for the frontend of HealthScout project
 
