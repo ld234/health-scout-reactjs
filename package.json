@@ -42,7 +42,7 @@
   "dependencies": {
     "autoprefixer": "^8.6.5",
     "autosuggest-highlight": "^3.1.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-preset-stage-1": "^6.1.18",
     "babel-runtime": "^6.26.0",
     "bootstrap": "^4.0.0-beta",
